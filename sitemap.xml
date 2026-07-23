@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://foamiesclub.com/</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/"/>
@@ -12,7 +12,7 @@
   </url>
   <url>
     <loc>https://foamiesclub.com/fr/</loc>
-    <lastmod>2026-07-04</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/"/>
@@ -20,27 +20,35 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://foamiesclub.com/"/>
   </url>
   <url>
-    <loc>https://foamiesclub.com/Privacy.dc.html</loc>
-    <lastmod>2026-07-04</lastmod>
+    <loc>https://foamiesclub.com/privacy</loc>
+    <lastmod>2026-07-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/privacy"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/privacy"/>
   </url>
   <url>
-    <loc>https://foamiesclub.com/Terms.dc.html</loc>
-    <lastmod>2026-07-04</lastmod>
+    <loc>https://foamiesclub.com/terms</loc>
+    <lastmod>2026-07-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/terms"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/terms"/>
   </url>
   <url>
-    <loc>https://foamiesclub.com/fr/Privacy.dc.html</loc>
-    <lastmod>2026-07-04</lastmod>
+    <loc>https://foamiesclub.com/fr/privacy</loc>
+    <lastmod>2026-07-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/privacy"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/privacy"/>
   </url>
   <url>
-    <loc>https://foamiesclub.com/fr/Terms.dc.html</loc>
-    <lastmod>2026-07-04</lastmod>
+    <loc>https://foamiesclub.com/fr/terms</loc>
+    <lastmod>2026-07-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/terms"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/terms"/>
   </url>
 </urlset>
