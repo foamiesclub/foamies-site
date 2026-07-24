@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Foamies</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0D3D47">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0D3D47; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 24px; min-height: 100%;
+    }
+    .card { max-width: 380px; }
+    .logo { font-weight: 800; font-size: 34px; letter-spacing: .5px; margin-bottom: 8px; }
+    h1 { font-size: 20px; font-weight: 700; margin: 18px 0 8px; }
+    p { color: rgba(255,255,255,.85); font-size: 15px; line-height: 1.5; margin-bottom: 8px; }
+    .btn {
+      display: inline-block; margin-top: 18px; background: #E8450A; color: #fff;
+      text-decoration: none; font-weight: 700; font-size: 16px;
+      padding: 14px 26px; border-radius: 22px;
+    }
+    .muted { color: rgba(255,255,255,.6); font-size: 13px; margin-top: 22px; }
+    .muted a { color: #A8E6F1; }
+    #fallback { display: none; }
+    .spinner {
+      width: 26px; height: 26px; margin: 8px auto 0; border-radius: 50%;
+      border: 3px solid rgba(255,255,255,.25); border-top-color: #A8E6F1;
+      animation: spin .8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">🏄 Foamies</div>
+
+    <div id="loading">
+      <p id="opening">Opening in the Foamies app…</p>
+      <div class="spinner"></div>
+    </div>
+
+    <div id="fallback">
+      <h1 id="ftitle">Open this profile in Foamies</h1>
+      <p id="fbody">Tap below to open it in the app.</p>
+      <a class="btn" id="openBtn" href="#">Open in Foamies</a>
+      <p class="muted" id="fmore">
+        Don't have the app yet? Foamies launches in September —
+        <a href="/">join here</a>.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var fr = (navigator.language || 'en').toLowerCase().indexOf('fr') === 0;
+      var T = fr ? {
+        opening: 'Ouverture dans l’app Foamies…',
+        title: 'Ouvre ce profil dans Foamies',
+        body: 'Appuie ci-dessous pour l’ouvrir dans l’app.',
+        btn: 'Ouvrir dans Foamies',
+        more: 'Pas encore l’app ? Foamies sort en septembre — <a href="/fr/">inscris-toi ici</a>.'
+      } : {
+        opening: 'Opening in the Foamies app…',
+        title: 'Open this profile in Foamies',
+        body: 'Tap below to open it in the app.',
+        btn: 'Open in Foamies',
+        more: 'Don’t have the app yet? Foamies launches in September — <a href="/">join here</a>.'
+      };
+      document.getElementById('opening').textContent = T.opening;
+      document.getElementById('ftitle').textContent = T.title;
+      document.getElementById('fbody').textContent = T.body;
+      document.getElementById('openBtn').textContent = T.btn;
+      document.getElementById('fmore').innerHTML = T.more;
+
+      // Only /user/<id> is a deep link; anything else goes home.
+      var m = location.pathname.match(/^\/user\/([^\/?#]+)/);
+      if (!m) { location.replace('/'); return; }
+
+      var appUrl = 'foamiesapp://user/' + encodeURIComponent(m[1]);
+      document.getElementById('openBtn').setAttribute('href', appUrl);
+
+      // Try to open the app immediately.
+      window.location.href = appUrl;
+
+      // If we're still here after a moment, show the manual fallback.
+      setTimeout(function () {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('fallback').style.display = 'block';
+      }, 1200);
+    })();
+  </script>
+</body>
+</html>
