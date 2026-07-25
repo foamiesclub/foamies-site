@@ -51,4 +51,20 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/terms"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/terms"/>
   </url>
+  <url>
+    <loc>https://foamiesclub.com/delete-account</loc>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/delete-account"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/delete-account"/>
+  </url>
+  <url>
+    <loc>https://foamiesclub.com/fr/delete-account</loc>
+    <lastmod>2026-07-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/delete-account"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/delete-account"/>
+  </url>
 </urlset>
