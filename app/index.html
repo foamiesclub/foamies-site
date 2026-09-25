@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Get Foamies</title>
+  <link rel="icon" href="../assets/favicon.png">
+  <!-- Une page de passage : rien à indexer, et surtout rien qui doive
+       apparaître dans les résultats de recherche à la place de l'accueil. -->
+  <meta name="robots" content="noindex">
+
+  <!-- La redirection est ICI, dans le <head>, avant tout rendu : sur un
+       téléphone la page ne doit jamais s'afficher, juste rebondir. Ce qui suit
+       n'est vu que par les ordinateurs et les cas non reconnus. -->
+  <script>
+    (function () {
+      var STORES = {
+        ios: 'https://apps.apple.com/fr/app/foamiesapp/id6788300215',
+        android: 'https://play.google.com/store/apps/details?id=com.foamiesclub.dev'
+      };
+
+      var ua = navigator.userAgent || '';
+      // iPadOS 13+ se présente comme un Mac : seul le tactile le trahit.
+      var isIOS = /iPad|iPhone|iPod/.test(ua) ||
+                  (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+      var isAndroid = /Android/.test(ua);
+
+      // ?s=… permet de distinguer les supports sans changer le QR code :
+      // foamiesclub.com/app?s=planche. Le QR, lui, n'encode que l'adresse
+      // courte — c'est tout l'intérêt d'être passé par le site.
+      var source = (location.search.match(/[?&]s=([\w-]{1,40})/) || [])[1];
+
+      if (isAndroid) {
+        var url = STORES.android +
+          '&utm_source=qr&utm_medium=sticker' +
+          (source ? '&utm_content=' + source : '');
+        location.replace(url);
+      } else if (isIOS) {
+        // L'App Store ignore les utm_* : le suivi par campagne passerait par
+        // pt/ct, qui demandent le jeton fournisseur d'App Store Connect.
+        location.replace(STORES.ios);
+      }
+      // Sinon : on laisse la page s'afficher, avec les deux liens.
+    })();
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Quicksand:wght@500;600;700&display=swap');
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font:500 17px/1.6 'Quicksand',sans-serif; color:#d8eef3; background:#0D3D47;
+      min-height:100vh; display:grid; place-items:center; padding:32px 24px; text-align:center;
+    }
+    .wrap { max-width:420px; }
+    .logo { width:96px; height:auto; margin:0 auto 20px; display:block; }
+    h1 { font:400 34px/1.15 'Fjalla One',sans-serif; color:#fff; margin-bottom:10px; }
+    p { color:#a8c8d1; margin-bottom:30px; }
+    .stores { display:flex; flex-direction:column; gap:14px; align-items:center; }
+    .stores a { display:block; }
+    .stores img { height:52px; width:auto; display:block; }
+    .home { display:inline-block; margin-top:32px; font:600 14px 'Quicksand'; color:#A8E6F1; text-decoration:none; }
+    .home:hover { text-decoration:underline; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <img class="logo" src="../assets/favicon.png" alt="Foamies">
+    <h1 data-fr="Foamies sur ton téléphone">Foamies on your phone</h1>
+    <p data-fr="Ouvre cette page depuis ton téléphone et tu seras redirigé·e automatiquement. Sinon, choisis ton store.">Open this page on your phone and you will be sent to the right store. Otherwise, pick yours.</p>
+
+    <div class="stores">
+      <a id="ios" href="https://apps.apple.com/fr/app/foamiesapp/id6788300215">
+        <img id="ios-badge" src="../assets/appstore-en-us.svg" alt="Download on the App Store">
+      </a>
+      <a id="android" href="https://play.google.com/store/apps/details?id=com.foamiesclub.dev&utm_source=qr&utm_medium=sticker">
+        <img id="android-badge" src="../assets/googleplay-en-us.png" alt="Get it on Google Play">
+      </a>
+    </div>
+
+    <a class="home" href="../" data-fr="Découvrir Foamies">What is Foamies?</a>
+  </div>
+
+  <script>
+    // Le français pour qui a un navigateur en français — badges compris. Fait
+    // ici plutôt que par deux pages : une seule adresse à imprimer.
+    if ((navigator.language || '').toLowerCase().indexOf('fr') === 0) {
+      document.documentElement.lang = 'fr';
+      document.querySelectorAll('[data-fr]').forEach(function (el) {
+        el.textContent = el.getAttribute('data-fr');
+      });
+      document.getElementById('ios-badge').src = '../assets/appstore-fr-fr.svg';
+      document.getElementById('android-badge').src = '../assets/googleplay-fr-fr.png';
+    }
+  </script>
+</body>
+</html>
