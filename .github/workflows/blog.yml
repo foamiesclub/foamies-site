@@ -31,9 +31,9 @@ jobs:
       BLOG_SUPABASE_URL: https://mcqifvsdnfwaxapnlibg.supabase.co
       BLOG_SUPABASE_KEY: sb_publishable_N04wIKwFDs-c3O29sVR9og_PZMSdA56
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
