@@ -1,0 +1,12 @@
+{
+  "name": "foamies-site",
+  "private": true,
+  "type": "module",
+  "description": "foamiesclub.com — static site. scripts/blog.mjs builds the blog from Supabase.",
+  "scripts": {
+    "blog": "node scripts/blog.mjs"
+  },
+  "dependencies": {
+    "marked": "^14.1.4"
+  }
+}

@@ -1,0 +1,66 @@
+# Rebuilds the blog from the articles published in the Foamies dashboard.
+#
+# - every morning, so an article scheduled for a date goes live that day;
+# - by hand: Actions › Blog › Run workflow;
+# - on demand from outside (repository_dispatch "blog"), for a future
+#   "Publish now" button in the dashboard.
+#
+# The key below is Supabase's PUBLIC key — the one shipped inside the app.
+# It only returns published articles whose date has come, never drafts.
+name: Blog
+
+on:
+  schedule:
+    - cron: "0 5 * * *"   # 05:00 UTC = 7:00 in Paris in summer, 6:00 in winter
+  workflow_dispatch:
+  repository_dispatch:
+    types: [blog]
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: blog
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      BLOG_SUPABASE_URL: https://mcqifvsdnfwaxapnlibg.supabase.co
+      BLOG_SUPABASE_KEY: sb_publishable_N04wIKwFDs-c3O29sVR9og_PZMSdA56
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: node scripts/blog.mjs
+
+      - name: Commit if the blog changed
+        id: commit
+        run: |
+          git add blog fr/blog sitemap.xml
+          if git diff --cached --quiet; then
+            echo "Nothing changed."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git config user.name "Foamies blog"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Blog: update from the dashboard"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # A push made by this workflow's own token may not start a Pages build
+      # on its own: ask for one explicitly.
+      - name: Rebuild GitHub Pages
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds"
