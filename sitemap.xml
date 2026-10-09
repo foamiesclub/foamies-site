@@ -68,5 +68,35 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/delete-account"/>
   </url>
   <!-- blog:start -->
+  <url>
+    <loc>https://foamiesclub.com/blog/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/blog/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/blog/"/>
+  </url>
+  <url>
+    <loc>https://foamiesclub.com/fr/blog/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/blog/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/blog/"/>
+  </url>
+  <url>
+    <loc>https://foamiesclub.com/blog/winter-surfing-europe-november-march/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/blog/winter-surfing-europe-november-march/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/blog/surf-hiver-europe-novembre-mars/"/>
+  </url>
+  <url>
+    <loc>https://foamiesclub.com/fr/blog/surf-hiver-europe-novembre-mars/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/blog/winter-surfing-europe-november-march/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/blog/surf-hiver-europe-novembre-mars/"/>
+  </url>
   <!-- blog:end -->
 </urlset>
