@@ -62,7 +62,7 @@ const T = {
     eyebrow: "Blog", read: "Lire", empty: "Les premiers articles arrivent bientôt.",
     by: "Par", other: "Read in English", allPosts: "← Tous les articles",
     ctaTitle: "Trouve des partenaires de surf près de chez toi",
-    ctaText: "Foamies est l'appli gratuite pour rencontrer des surfeurs autour de toi, noter tes sessions et découvrir des spots.",
+    ctaText: "Foamies est l'appli gratuite pour trouver avec qui surfer, enregistrer ou planifier tes sessions et découvrir des spots.",
     ctaButton: "Télécharger Foamies", terms: "Conditions d'utilisation", homeLink: "Accueil", rss: "RSS",
   },
 };
