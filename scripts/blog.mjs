@@ -61,7 +61,7 @@ const T = {
     blogIntro: "Spots de surf, conseils pour débuter et histoires de la communauté Foamies.",
     eyebrow: "Blog", read: "Lire", empty: "Les premiers articles arrivent bientôt.",
     by: "Par", other: "Read in English", allPosts: "← Tous les articles",
-    ctaTitle: "Trouve des partenaires de surf près de chez toi",
+    ctaTitle: "Trouve avec qui surfer près de chez toi",
     ctaText: "Foamies est l'appli gratuite pour trouver avec qui surfer, enregistrer ou planifier tes sessions et découvrir des spots.",
     ctaButton: "Télécharger Foamies", terms: "Conditions d'utilisation", homeLink: "Accueil", rss: "RSS",
   },
