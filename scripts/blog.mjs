@@ -3,6 +3,7 @@
 // (the dashboard's Blog page, admin/phase67 in the app repo).
 //
 //   node scripts/blog.mjs [--out <dir>]
+//   node scripts/blog.mjs --preview <posts.json> --out <dir>
 //
 // Writes, in English and French:
 //   blog/index.html             fr/blog/index.html            the lists
@@ -15,6 +16,11 @@
 // Reads BLOG_SUPABASE_URL and BLOG_SUPABASE_KEY (the PUBLIC key: Supabase only
 // returns published articles whose date has come — never drafts).
 // Plain static HTML, no JavaScript: what Google reads is what people read.
+//
+// --preview builds the same pages from a local JSON array of articles (drafts
+// included), never asks Supabase and never touches the real site: links stay
+// on the local server, every page is noindex and the sitemap is left alone.
+// Serve <dir> with the site's assets/ next to it to see the real look.
 
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
@@ -24,10 +30,15 @@ import { marked } from "marked";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const args = process.argv.slice(2);
 const OUT = resolve(args.includes("--out") ? args[args.indexOf("--out") + 1] : ROOT);
-const SITE = "https://foamiesclub.com";
+const PREVIEW = args.includes("--preview") ? resolve(args[args.indexOf("--preview") + 1]) : null;
+if (PREVIEW && OUT === ROOT) {
+  console.error("--preview needs --out <dir>: a preview never goes into the site itself.");
+  process.exit(1);
+}
+const SITE = PREVIEW ? "" : "https://foamiesclub.com";
 const URL_ = process.env.BLOG_SUPABASE_URL;
 const KEY = process.env.BLOG_SUPABASE_KEY;
-if (!URL_ || !KEY) {
+if (!PREVIEW && (!URL_ || !KEY)) {
   console.error("BLOG_SUPABASE_URL and BLOG_SUPABASE_KEY are required.");
   process.exit(1);
 }
@@ -96,12 +107,12 @@ main{max-width:820px;margin:0 auto;padding:56px 24px 80px}
 .eyebrow{font:700 13px 'Quicksand';color:#E8450A;letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px}
 h1{font:700 40px/1.15 'Fjalla One','Fredoka',sans-serif;color:#0D3D47;margin-bottom:12px}
 .meta{font:500 14px 'Quicksand';color:#8a9aa0;margin-bottom:28px}
-.lead{font-size:19px;color:#0D3D47;margin-bottom:28px;max-width:70ch}
+.lead{font-size:19px;color:#0D3D47;margin-bottom:28px}
 .cover{width:100%;aspect-ratio:1200/630;object-fit:cover;border-radius:18px;margin:0 0 32px;display:block}
 article h2{font:700 26px/1.25 'Fjalla One','Fredoka',sans-serif;color:#0D3D47;margin:40px 0 12px}
 article h3{font:700 19px 'Quicksand';color:#0D3D47;margin:28px 0 8px}
-article p{margin:0 0 16px;max-width:70ch}
-article ul,article ol{margin:0 0 16px 24px;max-width:70ch}article li{margin-bottom:8px}
+article p{margin:0 0 16px}
+article ul,article ol{margin:0 0 16px 24px}article li{margin-bottom:8px}
 article img{max-width:100%;border-radius:12px;margin:12px 0}
 article blockquote{border-left:4px solid #A8E6F1;padding:4px 0 4px 18px;margin:18px 0;color:#0D3D47;font-style:italic}
 article strong{color:#0D3D47}
@@ -139,7 +150,7 @@ function page({ lang, title, description, canonical, alternates, ogImage, ogType
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(description)}">
-  ${noindex ? '<meta name="robots" content="noindex">' : ""}
+  ${noindex || PREVIEW ? '<meta name="robots" content="noindex">' : ""}
   <link rel="canonical" href="${canonical}">
   ${alt}
   <link rel="icon" href="/assets/favicon.png">
@@ -293,15 +304,26 @@ function sitemapBlock(posts) {
 }
 
 // ---- run --------------------------------------------------------------------
-const res = await fetch(
-  `${URL_}/rest/v1/blog_posts?select=*&status=eq.published&order=published_at.desc`,
-  { headers: { apikey: KEY, Authorization: `Bearer ${KEY}` } },
-);
-if (!res.ok) {
-  console.error(`Supabase answered ${res.status}: ${await res.text()}`);
-  process.exit(1);
+async function fetchPosts() {
+  if (PREVIEW) {
+    // Drafts have no publication date yet: show them as published today.
+    const now = new Date().toISOString();
+    return JSON.parse(readFileSync(PREVIEW, "utf8")).map((p) => ({
+      author: "L'équipe Foamies", ...p, published_at: p.published_at ?? now, updated_at: p.updated_at ?? now,
+    }));
+  }
+  const res = await fetch(
+    `${URL_}/rest/v1/blog_posts?select=*&status=eq.published&order=published_at.desc`,
+    { headers: { apikey: KEY, Authorization: `Bearer ${KEY}` } },
+  );
+  if (!res.ok) {
+    console.error(`Supabase answered ${res.status}: ${await res.text()}`);
+    process.exit(1);
+  }
+  return res.json();
 }
-const posts = (await res.json())
+
+const posts = (await fetchPosts())
   // Belt and braces: Supabase already hides what isn't due; a post missing a
   // language would make a broken page, and the database refuses those anyway.
   .filter((p) => new Date(when(p)) <= new Date())
@@ -317,6 +339,10 @@ for (const lang of ["en", "fr"]) {
 }
 
 // The blog's part of the sitemap, between markers, so the rest is untouched.
+if (PREVIEW) {
+  console.log(`blog preview: ${posts.length} article(s) → ${OUT}`);
+  process.exit(0);
+}
 const smPath = join(OUT, "sitemap.xml");
 const START = "  <!-- blog:start -->";
 const END = "  <!-- blog:end -->";
