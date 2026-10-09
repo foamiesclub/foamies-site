@@ -130,6 +130,9 @@ article th,article td{text-align:left;padding:10px 12px;border-bottom:1px solid 
 .item img,.item .ph{width:220px;aspect-ratio:1200/630;object-fit:cover;border-radius:12px;background:#D4F4FB;display:block}
 .item h2{font:700 22px/1.25 'Fjalla One','Fredoka',sans-serif;color:#0D3D47;margin:0 0 6px}
 .item p{margin:0;font-size:15px}.item .meta{margin:0 0 6px}
+/* Justified, as asked: both edges straight. Hyphenation (the page carries
+   its lang) keeps the gaps between words small on a phone. */
+.lead,article p,article li,.item p{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
 footer{background:#0D3D47;color:#8fb3bb}
 .foot{max-width:820px;margin:0 auto;padding:28px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font:500 13px 'Quicksand'}
 footer a{color:#bfe0e6}
