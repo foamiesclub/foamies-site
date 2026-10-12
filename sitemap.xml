@@ -83,6 +83,22 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/blog/"/>
   </url>
   <url>
+    <loc>https://foamiesclub.com/blog/wetsuit-thickness-water-temperature-guide/</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/blog/wetsuit-thickness-water-temperature-guide/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/blog/combinaison-surf-temperature-eau/"/>
+  </url>
+  <url>
+    <loc>https://foamiesclub.com/fr/blog/combinaison-surf-temperature-eau/</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/blog/wetsuit-thickness-water-temperature-guide/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/blog/combinaison-surf-temperature-eau/"/>
+  </url>
+  <url>
     <loc>https://foamiesclub.com/blog/winter-surfing-europe-november-march/</loc>
     <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
