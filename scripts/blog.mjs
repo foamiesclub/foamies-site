@@ -168,6 +168,7 @@ function page({ lang, title, description, canonical, alternates, ogImage, ogType
   <meta name="twitter:card" content="summary_large_image">
   ${jsonLd ? `<script type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, "\\u003c")}</script>` : ""}
   <style>${CSS}</style>
+  <script src="/assets/consent.js" defer></script>
 </head>
 <body>
   <header>
