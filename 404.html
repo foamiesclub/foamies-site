@@ -27,6 +27,8 @@
     }
     .muted { color: rgba(255,255,255,.6); font-size: 13px; margin-top: 22px; }
     .muted a { color: #A8E6F1; }
+    .stores { display: flex; justify-content: center; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+    .stores img { height: 44px; width: auto; display: block; }
     #fallback { display: none; }
     .spinner {
       width: 26px; height: 26px; margin: 8px auto 0; border-radius: 50%;
@@ -50,40 +52,55 @@
       <h1 id="ftitle">Open this profile in Foamies</h1>
       <p id="fbody">Tap below to open it in the app.</p>
       <a class="btn" id="openBtn" href="#">Open in Foamies</a>
-      <p class="muted" id="fmore">
-        Don't have the app yet? Foamies launches in September —
-        <a href="/">join here</a>.
-      </p>
+      <p class="muted" id="fmore">Don't have the app yet? It's free:</p>
+      <div class="stores">
+        <a href="https://apps.apple.com/fr/app/foamiesapp/id6788300215">
+          <img id="iosBadge" src="/assets/appstore-en-us.svg" alt="Download on the App Store">
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=com.foamiesclub.dev&utm_source=site&utm_medium=deeplink">
+          <img id="androidBadge" src="/assets/googleplay-en-us.png" alt="Get it on Google Play">
+        </a>
+      </div>
     </div>
   </div>
 
   <script>
     (function () {
       var fr = (navigator.language || 'en').toLowerCase().indexOf('fr') === 0;
+      // With the app installed, the phone opens these links in it directly
+      // (.well-known on this site + the domain declared in the app). This page
+      // is what shows otherwise: no app, or an in-app browser like Instagram's
+      // that keeps links to itself.
+      var m = location.pathname.match(/^\/(user|session)\/([^\/?#]+)/);
+      // Anything else is a real 404: go home.
+      if (!m) { location.replace(fr ? '/fr/' : '/'); return; }
+      var kind = m[1];
+
       var T = fr ? {
         opening: 'Ouverture dans l’app Foamies…',
-        title: 'Ouvre ce profil dans Foamies',
+        title: kind === 'user' ? 'Ouvre ce profil dans Foamies' : 'Ouvre cette session dans Foamies',
         body: 'Appuie ci-dessous pour l’ouvrir dans l’app.',
         btn: 'Ouvrir dans Foamies',
-        more: 'Pas encore l’app ? Foamies sort en septembre — <a href="/fr/">inscris-toi ici</a>.'
+        more: 'Pas encore l’app ? Elle est gratuite :'
       } : {
         opening: 'Opening in the Foamies app…',
-        title: 'Open this profile in Foamies',
+        title: kind === 'user' ? 'Open this profile in Foamies' : 'Open this session in Foamies',
         body: 'Tap below to open it in the app.',
         btn: 'Open in Foamies',
-        more: 'Don’t have the app yet? Foamies launches in September — <a href="/">join here</a>.'
+        more: 'Don’t have the app yet? It’s free:'
       };
       document.getElementById('opening').textContent = T.opening;
       document.getElementById('ftitle').textContent = T.title;
       document.getElementById('fbody').textContent = T.body;
       document.getElementById('openBtn').textContent = T.btn;
-      document.getElementById('fmore').innerHTML = T.more;
+      document.getElementById('fmore').textContent = T.more;
+      if (fr) {
+        document.documentElement.lang = 'fr';
+        document.getElementById('iosBadge').src = '/assets/appstore-fr-fr.svg';
+        document.getElementById('androidBadge').src = '/assets/googleplay-fr-fr.png';
+      }
 
-      // Only /user/<id> is a deep link; anything else goes home.
-      var m = location.pathname.match(/^\/user\/([^\/?#]+)/);
-      if (!m) { location.replace('/'); return; }
-
-      var appUrl = 'foamiesapp://user/' + encodeURIComponent(m[1]);
+      var appUrl = 'foamiesapp://' + kind + '/' + encodeURIComponent(m[2]);
       document.getElementById('openBtn').setAttribute('href', appUrl);
 
       // Try to open the app immediately.
