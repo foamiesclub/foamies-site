@@ -26,6 +26,14 @@ a "Get Foamies" box: do not add your own call to action at the end.
 - **English: written directly in English** for an English-speaking surfer, with
   the words they would search for. Not a translation of the French: same
   substance, its own phrasing and examples where natural.
+- **Explain surf jargon and anglicisms the first time they appear**, in a few
+  words, in the same sentence or in parentheses: "un point break (une vague qui
+  casse toujours au même endroit, sur une pointe de roche ou de récif)", "le
+  line-up (la zone où les surfeurs attendent les vagues)", "un shortboard
+  (planche courte)". Many readers are beginners: never assume they know swell,
+  take-off, reef break, offshore, etc. Once explained, use the word freely.
+  Same rule in English for genuinely technical terms (point break, period,
+  offshore wind), in plain English.
 - Short paragraphs (2 to 4 sentences). Concrete numbers, examples, situations.
 - No fluff ("Dans cet article, nous allons voir..."), no grand intro about the
   ocean, no conclusion that repeats everything.
@@ -56,6 +64,17 @@ a "Get Foamies" box: do not add your own call to action at the end.
 - Address (slug): lowercase, words separated by "-", no accents, no stop words
   where avoidable, 3 to 7 words. French slug from the French title, English slug
   from the English title.
+
+## Internal links (important)
+
+Link to as many other Foamies articles as genuinely help the reader: aim for
+**4 to 8 internal links per language**, spread through the text (not all at the
+end), with natural anchor text that describes the target ("notre guide pour
+lire une prévision de surf"), never "cliquez ici". Always link the main article
+of the pillar the post belongs to. French text links to French URLs
+(`https://foamiesclub.com/fr/blog/<slug_fr>/`), English text to English URLs
+(`https://foamiesclub.com/blog/<slug_en>/`). Use only slugs from the list you
+are given; never invent one. In `notes`, list the links you added.
 
 ## Truth and safety
 
