@@ -1,8 +1,19 @@
 {
   "applinks": {
-    "apps": [],
     "details": [
-      { "appID": "H5X8X7T54X.com.foamiesclub.dev", "paths": ["/user/*"] }
+      {
+        "appIDs": [
+          "H5X8X7T54X.com.foamiesclub.dev",
+          "H5X8X7T54X.com.foamiesclub.dev.preview",
+          "H5X8X7T54X.com.foamiesclub.dev.debug"
+        ],
+        "components": [
+          { "/": "/user/*" },
+          { "/": "/session/*" },
+          { "/": "/app" },
+          { "/": "/app/" }
+        ]
+      }
     ]
   }
 }
