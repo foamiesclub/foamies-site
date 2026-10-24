@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rate Foamies</title>
+  <link rel="icon" href="../assets/favicon.png">
+  <!-- Une page de passage, comme /app : rien à indexer. -->
+  <meta name="robots" content="noindex">
+
+  <!-- foamiesclub.com/note : un seul lien pour laisser un avis, à mettre dans
+       la bannière de l'app, en bio, en story ou dans un message. Le téléphone
+       est redirigé avant tout rendu ; seuls les ordinateurs voient la page. -->
+  <script>
+    (function () {
+      var REVIEW = {
+        // action=write-review ouvre directement le formulaire d'avis.
+        ios: 'https://apps.apple.com/app/id6788300215?action=write-review',
+        // Google n'a pas d'équivalent : la fiche, où « Noter » est juste en dessous.
+        android: 'https://play.google.com/store/apps/details?id=com.foamiesclub.dev&utm_source=note'
+      };
+
+      var ua = navigator.userAgent || '';
+      // iPadOS 13+ se présente comme un Mac : seul le tactile le trahit.
+      var isIOS = /iPad|iPhone|iPod/.test(ua) ||
+                  (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+      var isAndroid = /Android/.test(ua);
+
+      if (isAndroid) location.replace(REVIEW.android);
+      else if (isIOS) location.replace(REVIEW.ios);
+      // Sinon : on laisse la page s'afficher, avec les deux liens.
+    })();
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Quicksand:wght@500;600;700&display=swap');
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font:500 17px/1.6 'Quicksand',sans-serif; color:#d8eef3; background:#0D3D47;
+      min-height:100vh; display:grid; place-items:center; padding:32px 24px; text-align:center;
+    }
+    .wrap { max-width:420px; }
+    .logo { width:96px; height:auto; margin:0 auto 20px; display:block; }
+    h1 { font:400 34px/1.15 'Fjalla One',sans-serif; color:#fff; margin-bottom:10px; }
+    p { color:#a8c8d1; margin-bottom:30px; }
+    .stores { display:flex; flex-direction:column; gap:14px; align-items:center; }
+    .stores a { display:block; }
+    .stores img { height:52px; width:auto; display:block; }
+    .home { display:inline-block; margin-top:32px; font:600 14px 'Quicksand'; color:#A8E6F1; text-decoration:none; }
+    .home:hover { text-decoration:underline; }
+  </style>
+  <script src="/assets/consent.js" defer></script>
+</head>
+<body>
+  <div class="wrap">
+    <img class="logo" src="../assets/favicon.png" alt="Foamies">
+    <h1 data-fr="Tu aimes Foamies ?">Enjoying Foamies?</h1>
+    <p data-fr="Un avis sur le store nous aide énormément à faire connaître l'app. Ouvre cette page sur ton téléphone, ou choisis ton store.">A review on the store helps us a lot to get the app known. Open this page on your phone, or pick your store.</p>
+
+    <div class="stores">
+      <a href="https://apps.apple.com/app/id6788300215?action=write-review">
+        <img id="ios-badge" src="../assets/appstore-en-us.svg" alt="App Store">
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.foamiesclub.dev&utm_source=note">
+        <img id="android-badge" src="../assets/googleplay-en-us.png" alt="Google Play">
+      </a>
+    </div>
+
+    <a class="home" href="../" data-fr="Découvrir Foamies">What is Foamies?</a>
+  </div>
+
+  <script>
+    if ((navigator.language || '').toLowerCase().indexOf('fr') === 0) {
+      document.documentElement.lang = 'fr';
+      document.querySelectorAll('[data-fr]').forEach(function (el) {
+        el.textContent = el.getAttribute('data-fr');
+      });
+      document.getElementById('ios-badge').src = '../assets/appstore-fr-fr.svg';
+      document.getElementById('android-badge').src = '../assets/googleplay-fr-fr.png';
+    }
+  </script>
+</body>
+</html>
