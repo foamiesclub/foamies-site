@@ -71,20 +71,24 @@
       // (.well-known on this site + the domain declared in the app). This page
       // is what shows otherwise: no app, or an in-app browser like Instagram's
       // that keeps links to itself.
-      var m = location.pathname.match(/^\/(user|session)\/([^\/?#]+)/);
+      var m = location.pathname.match(/^\/(user|session|planned)\/([^\/?#]+)/);
       // Anything else is a real 404: go home.
       if (!m) { location.replace(fr ? '/fr/' : '/'); return; }
       var kind = m[1];
 
       var T = fr ? {
         opening: 'Ouverture dans l’app Foamies…',
-        title: kind === 'user' ? 'Ouvre ce profil dans Foamies' : 'Ouvre cette session dans Foamies',
+        title: kind === 'user' ? 'Ouvre ce profil dans Foamies'
+             : kind === 'planned' ? 'Ouvre cette sesh dans Foamies'
+             : 'Ouvre cette session dans Foamies',
         body: 'Appuie ci-dessous pour l’ouvrir dans l’app.',
         btn: 'Ouvrir dans Foamies',
         more: 'Pas encore l’app ? Elle est gratuite :'
       } : {
         opening: 'Opening in the Foamies app…',
-        title: kind === 'user' ? 'Open this profile in Foamies' : 'Open this session in Foamies',
+        title: kind === 'user' ? 'Open this profile in Foamies'
+             : kind === 'planned' ? 'Open this sesh in Foamies'
+             : 'Open this session in Foamies',
         body: 'Tap below to open it in the app.',
         btn: 'Open in Foamies',
         more: 'Don’t have the app yet? It’s free:'
