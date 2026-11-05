@@ -43,6 +43,8 @@ a "Get Foamies" box: do not add your own call to action at the end.
     pieds" / "7 to 9 feet", or "60-80 kg" with a plain hyphen.
   - Only the plain hyphen "-" is allowed, and only inside words or ranges.
   - No emoji in the article.
+- **"crew":** in French, write "partenaires de surf", never "crew". In English,
+  "crew" is fine.
 
 ## Structure (Markdown)
 
@@ -86,7 +88,11 @@ are given; never invent one. In `notes`, list the links you added.
   well established; otherwise point the reader to the local surf school or
   lifeguards.
 - Safety first for beginners: when relevant, recall to surf within your level,
-  never alone in unknown conditions, check the forecast, respect priority.
+  avoid surfing alone in unknown conditions, check the forecast, respect priority.
+- Surfing alone is not presented as scary: plenty of surfers love it. It is
+  great when you feel comfortable, know the spot and have other surfers in the
+  water. Use "could be dangerous" rather than "is dangerous", and "évite" /
+  "avoid" rather than "jamais" / "never".
 - No medical or legal advice beyond common sense.
 
 ## What you hand back
