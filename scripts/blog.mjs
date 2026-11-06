@@ -207,11 +207,11 @@ function cta(lang) {
     </aside>`;
 }
 
-// A lighter version of a cover for the small cards: some covers weigh over 2 MB.
-// Supabase resizes images stored with it; anything else is shown as it is.
-const thumb = (url) =>
+// A lighter version of a cover: some weigh over 2 MB. Supabase resizes images
+// stored with it; anything else is shown as it is.
+const thumb = (url, width = 800, quality = 70) =>
   url.includes("/storage/v1/object/public/")
-    ? `${url.replace("/storage/v1/object/public/", "/storage/v1/render/image/public/")}?width=800&resize=contain&quality=70`
+    ? `${url.replace("/storage/v1/object/public/", "/storage/v1/render/image/public/")}?width=${width}&resize=contain&quality=${quality}`
     : url;
 
 // "Read next": the 3 articles that follow this one in the list, starting again
@@ -240,7 +240,7 @@ function articlePage(p, lang, posts) {
   const url = postUrl(p, lang);
   const title = p[`title_${lang}`];
   const description = p[`meta_description_${lang}`] || p[`excerpt_${lang}`] || "";
-  const image = p.cover_url || `${SITE}/assets/share-${lang}.jpg`;
+  const image = p.cover_url ? thumb(p.cover_url, 1600, 75) : `${SITE}/assets/share-${lang}.jpg`;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -259,7 +259,7 @@ function articlePage(p, lang, posts) {
       <h1>${esc(title)}</h1>
       <div class="meta">${t.by} ${esc(p.author)} · ${date(when(p), lang)}</div>
       ${p[`excerpt_${lang}`] ? `<p class="lead">${esc(p[`excerpt_${lang}`])}</p>` : ""}
-      ${p.cover_url ? `<img class="cover" src="${esc(p.cover_url)}" alt="${esc(title)}">` : ""}
+      ${p.cover_url ? `<img class="cover" src="${esc(image)}" alt="${esc(title)}">` : ""}
       ${md(p[`body_${lang}`])}
     </article>
     ${related(p, posts, lang)}
@@ -275,7 +275,7 @@ function articlePage(p, lang, posts) {
 function listPage(posts, lang) {
   const t = T[lang];
   const items = posts.map((p) => `      <a class="item" href="${postUrl(p, lang)}">
-        ${p.cover_url ? `<img src="${esc(p.cover_url)}" alt="" loading="lazy">` : '<div class="ph"></div>'}
+        ${p.cover_url ? `<img src="${esc(thumb(p.cover_url))}" alt="" loading="lazy">` : '<div class="ph"></div>'}
         <div>
           <div class="meta">${date(when(p), lang)}</div>
           <h2>${esc(p[`title_${lang}`])}</h2>
