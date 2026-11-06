@@ -53,7 +53,7 @@ const T = {
     by: "By", other: "Lire en français", allPosts: "← All articles",
     ctaTitle: "Find surf buddies near you",
     ctaText: "Foamies is the free app to meet surfers around you, log your sessions and discover spots.",
-    ctaButton: "Get Foamies", terms: "Terms of use", homeLink: "Home", rss: "RSS",
+    ctaButton: "Get Foamies", related: "Read next", terms: "Terms of use", homeLink: "Home", rss: "RSS",
   },
   fr: {
     home: "/fr/", blog: "/fr/blog/", lang: "fr", locale: "fr_FR",
@@ -63,7 +63,7 @@ const T = {
     by: "Par", other: "Read in English", allPosts: "← Tous les articles",
     ctaTitle: "Trouve avec qui surfer près de chez toi",
     ctaText: "Foamies est l'appli gratuite pour trouver avec qui surfer, enregistrer ou planifier tes sessions et découvrir des spots.",
-    ctaButton: "Télécharger Foamies", terms: "Conditions d'utilisation", homeLink: "Accueil", rss: "RSS",
+    ctaButton: "Télécharger Foamies", related: "À lire aussi", terms: "Conditions d'utilisation", homeLink: "Accueil", rss: "RSS",
   },
 };
 
@@ -124,6 +124,12 @@ article th,article td{text-align:left;padding:10px 12px;border-bottom:1px solid 
 .btn{display:inline-block;background:#C43A08;color:#fff;font:700 16px 'Quicksand';padding:12px 24px;border-radius:999px}
 .btn:hover{text-decoration:none;opacity:.9}
 .other{font:600 14px 'Quicksand';margin-top:28px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.related{margin:44px 0 0}
+.related h2{font:700 24px 'Fjalla One','Fredoka',sans-serif;color:#0D3D47;margin:0 0 16px}
+.rel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.rel{display:block;color:inherit}.rel:hover{text-decoration:none}.rel:hover h3{text-decoration:underline}
+.rel img,.rel .ph{width:100%;aspect-ratio:1200/630;object-fit:cover;border-radius:12px;background:#D4F4FB;display:block}
+.rel h3{font:700 17px/1.3 'Fjalla One','Fredoka',sans-serif;color:#0D3D47;margin:10px 0 0}
 .list{display:grid;gap:22px}
 .item{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start;color:inherit}
 .item:hover{text-decoration:none}.item:hover h2{text-decoration:underline}
@@ -136,7 +142,7 @@ article th,article td{text-align:left;padding:10px 12px;border-bottom:1px solid 
 footer{background:#0D3D47;color:#8fb3bb}
 .foot{max-width:820px;margin:0 auto;padding:28px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font:500 13px 'Quicksand'}
 footer a{color:#bfe0e6}
-@media(max-width:620px){h1{font-size:32px}.item{grid-template-columns:1fr}.item img,.item .ph{width:100%}}
+@media(max-width:620px){h1{font-size:32px}.item{grid-template-columns:1fr}.item img,.item .ph{width:100%}.rel-grid{grid-template-columns:1fr}}
 `.trim();
 
 function page({ lang, title, description, canonical, alternates, ogImage, ogType, jsonLd, body, noindex }) {
@@ -200,8 +206,27 @@ function cta(lang) {
     </aside>`;
 }
 
+// "Read next": the 3 articles that follow this one in the list, starting again
+// from the top at the end. Every article gets links this way, not just the
+// newest, and only published articles are in the list, so none can be a 404.
+function related(p, posts, lang) {
+  const at = posts.indexOf(p);
+  const next = posts.map((_, i) => posts[(at + 1 + i) % posts.length]).filter((o) => o !== p).slice(0, 3);
+  if (!next.length) return "";
+  const cards = next.map((o) => `        <a class="rel" href="${postUrl(o, lang)}">
+          ${o.cover_url ? `<img src="${esc(o.cover_url)}" alt="" loading="lazy">` : '<div class="ph"></div>'}
+          <h3>${esc(o[`title_${lang}`])}</h3>
+        </a>`).join("\n");
+  return `<aside class="related">
+      <h2>${esc(T[lang].related)}</h2>
+      <div class="rel-grid">
+${cards}
+      </div>
+    </aside>`;
+}
+
 // ---- pages ----------------------------------------------------------------
-function articlePage(p, lang) {
+function articlePage(p, lang, posts) {
   const t = T[lang];
   const other = lang === "fr" ? "en" : "fr";
   const url = postUrl(p, lang);
@@ -229,6 +254,7 @@ function articlePage(p, lang) {
       ${p.cover_url ? `<img class="cover" src="${esc(p.cover_url)}" alt="${esc(title)}">` : ""}
       ${md(p[`body_${lang}`])}
     </article>
+    ${related(p, posts, lang)}
     ${cta(lang)}
     <div class="other"><a href="${T[lang].blog}">${esc(t.allPosts)}</a><a href="${postUrl(p, other)}" hreflang="${other}">${esc(t.other)}</a></div>`;
   return page({
@@ -339,7 +365,7 @@ for (const lang of ["en", "fr"]) {
   rmSync(join(OUT, dir), { recursive: true, force: true });
   write(`${dir}/index.html`, listPage(posts, lang));
   write(`${dir}/rss.xml`, rss(posts, lang));
-  for (const p of posts) write(`${dir}/${p[`slug_${lang}`]}/index.html`, articlePage(p, lang));
+  for (const p of posts) write(`${dir}/${p[`slug_${lang}`]}/index.html`, articlePage(p, lang, posts));
 }
 
 // The blog's part of the sitemap, between markers, so the rest is untouched.
