@@ -207,7 +207,7 @@ function articlePage(p, lang) {
   const url = postUrl(p, lang);
   const title = p[`title_${lang}`];
   const description = p[`meta_description_${lang}`] || p[`excerpt_${lang}`] || "";
-  const image = p.cover_url || `${SITE}/assets/share-${lang}.png`;
+  const image = p.cover_url || `${SITE}/assets/share-${lang}.jpg`;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -257,7 +257,7 @@ function listPage(posts, lang) {
     lang, title: `${t.blogTitle} | Foamies`, description: t.blogIntro,
     canonical: `${SITE}${t.blog}`,
     alternates: { en: `${SITE}/blog/`, fr: `${SITE}/fr/blog/` },
-    ogImage: `${SITE}/assets/share-${lang}.png`, ogType: "website",
+    ogImage: `${SITE}/assets/share-${lang}.jpg`, ogType: "website",
     jsonLd: { "@context": "https://schema.org", "@type": "Blog", name: t.blogTitle, url: `${SITE}${t.blog}`, inLanguage: lang },
     body,
     // An empty blog is not worth indexing yet.
