@@ -109,7 +109,7 @@ main{max-width:820px;margin:0 auto;padding:56px 24px 80px}
 h1{font:700 40px/1.15 'Fjalla One','Fredoka',sans-serif;color:#0D3D47;margin-bottom:12px}
 .meta{font:400 15px 'Source Sans 3',sans-serif;color:#8a9aa0;margin-bottom:28px}
 .lead{font-size:20px;color:#0D3D47;margin-bottom:28px}
-.cover{width:100%;aspect-ratio:1200/630;object-fit:cover;border-radius:18px;margin:0 0 32px;display:block}
+.cover{width:100%;height:auto;aspect-ratio:1200/630;object-fit:cover;border-radius:18px;margin:0 0 32px;display:block}
 article h2{font:700 26px/1.25 'Fjalla One','Fredoka',sans-serif;color:#0D3D47;margin:40px 0 12px}
 article h3{font:700 20px 'Source Sans 3',sans-serif;color:#0D3D47;margin:28px 0 8px}
 article p{margin:0 0 16px}
@@ -129,12 +129,12 @@ article th,article td{text-align:left;padding:10px 12px;border-bottom:1px solid 
 .related h2{font:700 24px 'Fjalla One','Fredoka',sans-serif;color:#0D3D47;margin:0 0 16px}
 .rel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .rel{display:block;color:inherit}.rel:hover{text-decoration:none}.rel:hover h3{text-decoration:underline}
-.rel img,.rel .ph{width:100%;aspect-ratio:1200/630;object-fit:cover;border-radius:12px;background:#D4F4FB;display:block}
+.rel img,.rel .ph{width:100%;height:auto;aspect-ratio:1200/630;object-fit:cover;border-radius:12px;background:#D4F4FB;display:block}
 .rel h3{font:700 17px/1.3 'Fjalla One','Fredoka',sans-serif;color:#0D3D47;margin:10px 0 0}
 .list{display:grid;gap:22px}
 .item{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start;color:inherit}
 .item:hover{text-decoration:none}.item:hover h2{text-decoration:underline}
-.item img,.item .ph{width:220px;aspect-ratio:1200/630;object-fit:cover;border-radius:12px;background:#D4F4FB;display:block}
+.item img,.item .ph{width:220px;height:auto;aspect-ratio:1200/630;object-fit:cover;border-radius:12px;background:#D4F4FB;display:block}
 .item h2{font:700 22px/1.25 'Fjalla One','Fredoka',sans-serif;color:#0D3D47;margin:0 0 6px}
 .item p{margin:0;font-size:15px}.item .meta{margin:0 0 6px}
 /* Justified, as asked: both edges straight. Hyphenation (the page carries
@@ -222,7 +222,7 @@ function related(p, posts, lang) {
   const next = posts.map((_, i) => posts[(at + 1 + i) % posts.length]).filter((o) => o !== p).slice(0, 3);
   if (!next.length) return "";
   const cards = next.map((o) => `        <a class="rel" href="${postUrl(o, lang)}">
-          ${o.cover_url ? `<img src="${esc(thumb(o.cover_url))}" alt="" loading="lazy">` : '<div class="ph"></div>'}
+          ${o.cover_url ? `<img src="${esc(thumb(o.cover_url))}" alt="" width="1200" height="630" loading="lazy">` : '<div class="ph"></div>'}
           <h3>${esc(o[`title_${lang}`])}</h3>
         </a>`).join("\n");
   return `<aside class="related">
@@ -241,6 +241,16 @@ function articlePage(p, lang, posts) {
   const title = p[`title_${lang}`];
   const description = p[`meta_description_${lang}`] || p[`excerpt_${lang}`] || "";
   const image = p.cover_url ? thumb(p.cover_url, 1600, 75) : `${SITE}/assets/share-${lang}.jpg`;
+  const home = lang === "fr" ? "/fr/" : "/";
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: t.homeLink, item: `${SITE}${home}` },
+      { "@type": "ListItem", position: 2, name: t.eyebrow, item: `${SITE}${t.blog}` },
+      { "@type": "ListItem", position: 3, name: title, item: url },
+    ],
+  };
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -259,7 +269,7 @@ function articlePage(p, lang, posts) {
       <h1>${esc(title)}</h1>
       <div class="meta">${t.by} ${esc(p.author)} · ${date(when(p), lang)}</div>
       ${p[`excerpt_${lang}`] ? `<p class="lead">${esc(p[`excerpt_${lang}`])}</p>` : ""}
-      ${p.cover_url ? `<img class="cover" src="${esc(image)}" alt="${esc(title)}">` : ""}
+      ${p.cover_url ? `<img class="cover" src="${esc(image)}" alt="${esc(title)}" width="1200" height="630" fetchpriority="high">` : ""}
       ${md(p[`body_${lang}`])}
     </article>
     ${related(p, posts, lang)}
@@ -268,14 +278,14 @@ function articlePage(p, lang, posts) {
   return page({
     lang, title: `${title} | Foamies`, description, canonical: url,
     alternates: { en: postUrl(p, "en"), fr: postUrl(p, "fr") },
-    ogImage: image, ogType: "article", jsonLd, body,
+    ogImage: image, ogType: "article", jsonLd: [jsonLd, breadcrumb], body,
   });
 }
 
 function listPage(posts, lang) {
   const t = T[lang];
   const items = posts.map((p) => `      <a class="item" href="${postUrl(p, lang)}">
-        ${p.cover_url ? `<img src="${esc(thumb(p.cover_url))}" alt="" loading="lazy">` : '<div class="ph"></div>'}
+        ${p.cover_url ? `<img src="${esc(thumb(p.cover_url))}" alt="" width="1200" height="630" loading="lazy">` : '<div class="ph"></div>'}
         <div>
           <div class="meta">${date(when(p), lang)}</div>
           <h2>${esc(p[`title_${lang}`])}</h2>
@@ -345,7 +355,7 @@ function sitemapBlock(posts) {
 function latestBlock(posts, lang) {
   if (!posts.length) return "";
   const cards = posts.slice(0, 3).map((p) => `        <a class="fm-latest-card" href="${postUrl(p, lang)}">
-          ${p.cover_url ? `<img src="${esc(thumb(p.cover_url))}" alt="" loading="lazy">` : '<div class="ph"></div>'}
+          ${p.cover_url ? `<img src="${esc(thumb(p.cover_url))}" alt="" width="1200" height="630" loading="lazy">` : '<div class="ph"></div>'}
           <h3>${esc(p[`title_${lang}`])}</h3>
         </a>`).join("\n");
   return `  <section id="latest-articles" style="background:#fff;">
