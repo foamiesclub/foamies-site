@@ -98,13 +98,13 @@ const CSS = `
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Fredoka:wght@500;600;700&family=Quicksand:wght@400;500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
 body{font:400 18px/1.7 'Source Sans 3',system-ui,sans-serif;color:#3c5860;background:#fff}
-a{color:#E8450A;text-decoration:none}a:hover{text-decoration:underline}
+a{color:#C43A08;text-decoration:none}a:hover{text-decoration:underline}
 header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid #eef0ee}
 .bar{max-width:820px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .bar img{height:28px;width:auto;display:block}
 .nav{display:flex;gap:18px;font:600 14px 'Quicksand'}.nav a{color:#0D3D47}
 main{max-width:820px;margin:0 auto;padding:56px 24px 80px}
-.eyebrow{font:700 13px 'Quicksand';color:#E8450A;letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px}
+.eyebrow{font:700 13px 'Quicksand';color:#C43A08;letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px}
 h1{font:700 40px/1.15 'Fjalla One','Fredoka',sans-serif;color:#0D3D47;margin-bottom:12px}
 .meta{font:400 15px 'Source Sans 3',sans-serif;color:#8a9aa0;margin-bottom:28px}
 .lead{font-size:20px;color:#0D3D47;margin-bottom:28px}
@@ -121,7 +121,7 @@ article th,article td{text-align:left;padding:10px 12px;border-bottom:1px solid 
 .cta{background:#D4F4FB;border-radius:18px;padding:26px 28px;margin:48px 0 20px}
 .cta h2{font:700 24px 'Fjalla One','Fredoka',sans-serif;color:#0D3D47;margin:0 0 8px}
 .cta p{color:#0D3D47;margin:0 0 16px}
-.btn{display:inline-block;background:#E8450A;color:#fff;font:700 16px 'Quicksand';padding:12px 24px;border-radius:999px}
+.btn{display:inline-block;background:#C43A08;color:#fff;font:700 16px 'Quicksand';padding:12px 24px;border-radius:999px}
 .btn:hover{text-decoration:none;opacity:.9}
 .other{font:600 14px 'Quicksand';margin-top:28px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .list{display:grid;gap:22px}

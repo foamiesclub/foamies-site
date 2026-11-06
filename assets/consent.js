@@ -14,7 +14,7 @@
   var text = fr
     ? {
         body: "On aimerait mesurer l'audience du site avec Google Analytics, qui dépose des cookies. Rien n'est chargé sans ton accord.",
-        more: "En savoir plus",
+        more: "En savoir plus sur les cookies",
         privacy: "/fr/privacy",
         accept: "Accepter",
         refuse: "Refuser",
@@ -22,7 +22,7 @@
       }
     : {
         body: "We'd like to measure the site's audience with Google Analytics, which sets cookies. Nothing loads without your consent.",
-        more: "Learn more",
+        more: "Learn more about cookies",
         privacy: "/privacy",
         accept: "Accept",
         refuse: "Refuse",
@@ -87,7 +87,7 @@
     var a = document.createElement("a");
     a.href = text.privacy;
     a.textContent = text.more;
-    a.style.cssText = "color:#E8450A";
+    a.style.cssText = "color:#C43A08";
     p.appendChild(a);
     banner.appendChild(p);
 
@@ -99,8 +99,8 @@
       b.textContent = label;
       b.style.cssText =
         "flex:1;padding:10px 12px;border-radius:12px;font:inherit;font-weight:700;cursor:pointer;" +
-        "border:2px solid #E8450A;" +
-        (filled ? "background:#E8450A;color:#fff;" : "background:#fff;color:#E8450A;");
+        "border:2px solid #C43A08;" +
+        (filled ? "background:#C43A08;color:#fff;" : "background:#fff;color:#C43A08;");
       b.addEventListener("click", function () {
         saveChoice(choice);
         if (choice === "granted") loadAnalytics();
