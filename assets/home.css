@@ -262,3 +262,13 @@
   html[lang="fr"] .fm-burger{display:inline-flex;}
   html[lang="fr"] .fm-mmenu{display:block;}
 }
+
+/* The latest articles, filled in by scripts/blog.mjs. */
+.fm-latest{max-width:1180px;margin:0 auto;padding:0 40px 80px;}
+.fm-latest h2{margin:0 0 36px;font:700 40px 'Fjalla One','Fredoka',sans-serif;color:#0D3D47;text-align:center;}
+.fm-latest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.fm-latest-card{display:block;color:#0D3D47;}
+.fm-latest-card img,.fm-latest-card .ph{width:100%;height:auto;aspect-ratio:1200/630;object-fit:cover;border-radius:16px;background:#D4F4FB;display:block;}
+.fm-latest-card h3{margin:12px 0 0;font:400 20px/1.25 'Fjalla One','Fredoka',sans-serif;}
+.fm-latest-card:hover h3{text-decoration:underline;}
+@media(max-width:860px){.fm-latest-grid{grid-template-columns:1fr;}}

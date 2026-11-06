@@ -9,6 +9,7 @@
 //   blog/index.html             fr/blog/index.html            the lists
 //   blog/<slug>/index.html      fr/blog/<slug>/index.html     the articles
 //   blog/rss.xml                fr/blog/rss.xml               the feeds
+// the 3 latest articles on the home pages, between the blog:latest markers,
 // and the blog part of sitemap.xml, between the blog:start / blog:end markers.
 // blog/ and fr/blog/ are rebuilt from scratch each time, so an unpublished or
 // renamed article disappears from the site. Nothing else is touched.
@@ -53,7 +54,7 @@ const T = {
     by: "By", other: "Lire en français", allPosts: "← All articles",
     ctaTitle: "Find surf buddies near you",
     ctaText: "Foamies is the free app to meet surfers around you, log your sessions and discover spots.",
-    ctaButton: "Get Foamies", related: "Read next", terms: "Terms of use", homeLink: "Home", rss: "RSS",
+    ctaButton: "Get Foamies", related: "Read next", fromBlog: "From the blog", terms: "Terms of use", homeLink: "Home", rss: "RSS",
   },
   fr: {
     home: "/fr/", blog: "/fr/blog/", lang: "fr", locale: "fr_FR",
@@ -63,7 +64,7 @@ const T = {
     by: "Par", other: "Read in English", allPosts: "← Tous les articles",
     ctaTitle: "Trouve avec qui surfer près de chez toi",
     ctaText: "Foamies est l'appli gratuite pour trouver avec qui surfer, enregistrer ou planifier tes sessions et découvrir des spots.",
-    ctaButton: "Télécharger Foamies", related: "À lire aussi", terms: "Conditions d'utilisation", homeLink: "Accueil", rss: "RSS",
+    ctaButton: "Télécharger Foamies", related: "À lire aussi", fromBlog: "Sur le blog", terms: "Conditions d'utilisation", homeLink: "Accueil", rss: "RSS",
   },
 };
 
@@ -206,6 +207,13 @@ function cta(lang) {
     </aside>`;
 }
 
+// A lighter version of a cover for the small cards: some covers weigh over 2 MB.
+// Supabase resizes images stored with it; anything else is shown as it is.
+const thumb = (url) =>
+  url.includes("/storage/v1/object/public/")
+    ? `${url.replace("/storage/v1/object/public/", "/storage/v1/render/image/public/")}?width=800&resize=contain&quality=70`
+    : url;
+
 // "Read next": the 3 articles that follow this one in the list, starting again
 // from the top at the end. Every article gets links this way, not just the
 // newest, and only published articles are in the list, so none can be a 404.
@@ -214,7 +222,7 @@ function related(p, posts, lang) {
   const next = posts.map((_, i) => posts[(at + 1 + i) % posts.length]).filter((o) => o !== p).slice(0, 3);
   if (!next.length) return "";
   const cards = next.map((o) => `        <a class="rel" href="${postUrl(o, lang)}">
-          ${o.cover_url ? `<img src="${esc(o.cover_url)}" alt="" loading="lazy">` : '<div class="ph"></div>'}
+          ${o.cover_url ? `<img src="${esc(thumb(o.cover_url))}" alt="" loading="lazy">` : '<div class="ph"></div>'}
           <h3>${esc(o[`title_${lang}`])}</h3>
         </a>`).join("\n");
   return `<aside class="related">
@@ -333,6 +341,24 @@ function sitemapBlock(posts) {
   return [...lists, ...articles].join("\n");
 }
 
+// The 3 latest articles on a home page (index.html, fr/index.html).
+function latestBlock(posts, lang) {
+  if (!posts.length) return "";
+  const cards = posts.slice(0, 3).map((p) => `        <a class="fm-latest-card" href="${postUrl(p, lang)}">
+          ${p.cover_url ? `<img src="${esc(thumb(p.cover_url))}" alt="" loading="lazy">` : '<div class="ph"></div>'}
+          <h3>${esc(p[`title_${lang}`])}</h3>
+        </a>`).join("\n");
+  return `  <section id="latest-articles" style="background:#fff;">
+    <div class="fm-latest fm-padx">
+      <h2>${esc(T[lang].fromBlog)}</h2>
+      <div class="fm-latest-grid">
+${cards}
+      </div>
+    </div>
+  </section>
+`;
+}
+
 // ---- run --------------------------------------------------------------------
 async function fetchPosts() {
   if (PREVIEW) {
@@ -368,6 +394,21 @@ for (const lang of ["en", "fr"]) {
   for (const p of posts) write(`${dir}/${p[`slug_${lang}`]}/index.html`, articlePage(p, lang, posts));
 }
 
+// The latest articles on the home pages, between markers, so the rest is untouched.
+const LATEST_START = "  <!-- blog:latest:start -->\n";
+const LATEST_END = "  <!-- blog:latest:end -->";
+for (const [lang, page] of [["en", "index.html"], ["fr", "fr/index.html"]]) {
+  const path = join(OUT, page);
+  const html = readFileSync(existsSync(path) ? path : join(ROOT, page), "utf8");
+  const from = html.indexOf(LATEST_START);
+  const to = html.indexOf(LATEST_END);
+  if (from === -1 || to === -1) {
+    console.error(`${page}: the blog:latest markers are missing, home page left as it is.`);
+    continue;
+  }
+  write(page, html.slice(0, from + LATEST_START.length) + latestBlock(posts, lang) + html.slice(to));
+}
+
 // The blog's part of the sitemap, between markers, so the rest is untouched.
 if (PREVIEW) {
   console.log(`blog preview: ${posts.length} article(s) → ${OUT}`);
@@ -380,6 +421,16 @@ let sm = readFileSync(existsSync(smPath) ? smPath : join(ROOT, "sitemap.xml"), "
 if (!sm.includes(START)) sm = sm.replace("</urlset>", `${START}\n${END}\n</urlset>`);
 const block = sitemapBlock(posts);
 sm = sm.replace(new RegExp(`${START}[\\s\\S]*?${END}`), `${START}\n${block}${block ? "\n" : ""}${END}`);
+// The home pages change whenever a new article appears on them.
+if (posts.length) {
+  const newest = when(posts[0]).slice(0, 10);
+  for (const home of [`${SITE}/`, `${SITE}/fr/`]) {
+    sm = sm.replace(
+      new RegExp(`(<loc>${home}</loc>\\s*<lastmod>)([0-9-]+)(</lastmod>)`),
+      (all, a, current, b) => (newest > current ? a + newest + b : all),
+    );
+  }
+}
 write("sitemap.xml", sm);
 
 console.log(`blog: ${posts.length} article(s) → ${OUT}`);
