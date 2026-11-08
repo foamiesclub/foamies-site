@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://foamiesclub.com/</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/"/>
@@ -12,7 +12,7 @@
   </url>
   <url>
     <loc>https://foamiesclub.com/fr/</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/"/>
@@ -81,6 +81,22 @@
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/blog/"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/blog/"/>
+  </url>
+  <url>
+    <loc>https://foamiesclub.com/blog/surfing-alone-tips-find-surf-buddy/</loc>
+    <lastmod>2026-11-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/blog/surfing-alone-tips-find-surf-buddy/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/blog/surfer-seul-conseils-trouver-partenaires/"/>
+  </url>
+  <url>
+    <loc>https://foamiesclub.com/fr/blog/surfer-seul-conseils-trouver-partenaires/</loc>
+    <lastmod>2026-11-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/blog/surfing-alone-tips-find-surf-buddy/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/blog/surfer-seul-conseils-trouver-partenaires/"/>
   </url>
   <url>
     <loc>https://foamiesclub.com/blog/read-surf-forecast-swell-period-wind/</loc>
