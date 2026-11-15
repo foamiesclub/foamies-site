@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://foamiesclub.com/</loc>
-    <lastmod>2026-11-08</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/"/>
@@ -12,7 +12,7 @@
   </url>
   <url>
     <loc>https://foamiesclub.com/fr/</loc>
-    <lastmod>2026-11-08</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/"/>
@@ -81,6 +81,22 @@
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/blog/"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/blog/"/>
+  </url>
+  <url>
+    <loc>https://foamiesclub.com/blog/surfing-portugal-winter-peniche-ericeira/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/blog/surfing-portugal-winter-peniche-ericeira/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/blog/surf-portugal-hiver-peniche-ericeira/"/>
+  </url>
+  <url>
+    <loc>https://foamiesclub.com/fr/blog/surf-portugal-hiver-peniche-ericeira/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/blog/surfing-portugal-winter-peniche-ericeira/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/blog/surf-portugal-hiver-peniche-ericeira/"/>
   </url>
   <url>
     <loc>https://foamiesclub.com/blog/surfing-alone-tips-find-surf-buddy/</loc>
