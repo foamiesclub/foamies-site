@@ -54,7 +54,9 @@ const T = {
     by: "By", other: "Lire en français", allPosts: "← All articles",
     ctaTitle: "Find surf buddies near you",
     ctaText: "Foamies is the free app to meet surfers around you, log your sessions and discover spots.",
-    ctaButton: "Get Foamies", related: "Read next", fromBlog: "From the blog", terms: "Terms of use", homeLink: "Home", rss: "RSS",
+    ctaButton: "Get Foamies", related: "Read next",
+    minRead: "min read", toc: "Contents", share: "Share", copyLink: "Copy link", all: "All", featured: "Featured",
+    boxRetenir: "Key points", boxConseil: "Flo's tip", boxApp: "In the Foamies app", fromBlog: "From the blog", terms: "Terms of use", homeLink: "Home", rss: "RSS",
   },
   fr: {
     home: "/fr/", blog: "/fr/blog/", lang: "fr", locale: "fr_FR",
@@ -64,7 +66,9 @@ const T = {
     by: "Par", other: "Read in English", allPosts: "← Tous les articles",
     ctaTitle: "Trouve avec qui surfer près de chez toi",
     ctaText: "Foamies est l'appli gratuite pour trouver avec qui surfer, enregistrer ou planifier tes sessions et découvrir des spots.",
-    ctaButton: "Télécharger Foamies", related: "À lire aussi", fromBlog: "Sur le blog", terms: "Conditions d'utilisation", homeLink: "Accueil", rss: "RSS",
+    ctaButton: "Télécharger Foamies", related: "À lire aussi",
+    minRead: "min de lecture", toc: "Sommaire", share: "Partager", copyLink: "Copier le lien", all: "Tout", featured: "À la une",
+    boxRetenir: "À retenir", boxConseil: "Le conseil de Flo", boxApp: "Dans l'app Foamies", fromBlog: "Sur le blog", terms: "Conditions d'utilisation", homeLink: "Accueil", rss: "RSS",
   },
 };
 
@@ -92,58 +96,156 @@ function write(rel, content) {
   writeFileSync(f, content);
 }
 
+// ---- families -----------------------------------------------------------------
+// Each article belongs to one family, shown as a coloured tag from the list to
+// the article, with a page per family (/fr/blog/spots/…). Keyed by the French
+// slug; a new article that is not listed here lands in "guides".
+// PROPOSAL of 20/11, to be validated by Lorène.
+const FAMILY_OF = {
+  "surf-hiver-europe-novembre-mars": "spots",
+  "surf-maroc-meilleurs-spots-surf-trip": "spots",
+  "surf-taghazout-spots-niveaux-conseils": "spots",
+  "surf-portugal-hiver-peniche-ericeira": "spots",
+  "combinaison-surf-temperature-eau": "guides",
+  "comprendre-prevision-surf-houle-periode-vent": "guides",
+  "surfer-seul-conseils-trouver-partenaires": "guides",
+  "taille-planche-surf-debutant": "debuter",
+};
+const FAMILIES = {
+  spots: { path: { fr: "spots", en: "spots" }, label: { fr: "Spots & trips", en: "Spots & trips" } },
+  guides: { path: { fr: "guides-pratiques", en: "how-to" }, label: { fr: "Guides pratiques", en: "How-to guides" }, tag: { fr: "Guide pratique", en: "How-to guide" } },
+  debuter: { path: { fr: "debuter", en: "beginners" }, label: { fr: "Débuter", en: "Beginners" } },
+};
+const familyOf = (p) => FAMILY_OF[p.slug_fr] ?? "guides";
+const familyUrl = (f, lang) => `${SITE}${T[lang].blog}${FAMILIES[f].path[lang]}/`;
+const tagLabel = (f, lang) => (FAMILIES[f].tag ?? FAMILIES[f].label)[lang];
+const tag = (f, lang) => `<span class="tag tag-${f}">${esc(tagLabel(f, lang))}</span>`;
+
+// Reading time from the word count, about 200 words a minute.
+const minutes = (p, lang) => Math.max(1, Math.round(String(p[`body_${lang}`] ?? "").split(/\s+/).filter(Boolean).length / 200));
+const readLabel = (p, lang) => `${minutes(p, lang)} ${T[lang].minRead}`;
+
 // ---- page shell -----------------------------------------------------------
-// Same look as privacy.html / terms.html, with absolute paths so it works at
-// any depth (/blog/<slug>/).
+// The site's colours (beige, light blue, teal, orange), Fjalla One for titles
+// and Quicksand for text, with the sun and Flo (Claude Design mock-up, 20/11).
+// Absolute paths, so it works at any depth (/blog/<slug>/).
 const CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Fredoka:wght@500;600;700&family=Quicksand:wght@400;500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Quicksand:wght@500;600;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{font:400 18px/1.7 'Source Sans 3',system-ui,sans-serif;color:#3c5860;background:#fff}
-a{color:#C43A08;text-decoration:none}a:hover{text-decoration:underline}
-header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid #eef0ee}
-.bar{max-width:820px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.bar img{height:28px;width:auto;display:block}
-.nav{display:flex;gap:18px;font:600 14px 'Quicksand'}.nav a{color:#0D3D47}
-main{max-width:820px;margin:0 auto;padding:56px 24px 80px}
-.eyebrow{font:700 13px 'Quicksand';color:#C43A08;letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px}
-h1{font:700 40px/1.15 'Fjalla One','Fredoka',sans-serif;color:#0D3D47;margin-bottom:12px}
-.meta{font:400 15px 'Source Sans 3',sans-serif;color:#8a9aa0;margin-bottom:28px}
-.lead{font-size:20px;color:#0D3D47;margin-bottom:28px}
-.cover{width:100%;height:auto;aspect-ratio:1200/630;object-fit:cover;border-radius:18px;margin:0 0 32px;display:block}
-article h2{font:700 26px/1.25 'Fjalla One','Fredoka',sans-serif;color:#0D3D47;margin:40px 0 12px}
-article h3{font:700 20px 'Source Sans 3',sans-serif;color:#0D3D47;margin:28px 0 8px}
-article p{margin:0 0 16px}
-article ul,article ol{margin:0 0 16px 24px}article li{margin-bottom:8px}
-article img{max-width:100%;border-radius:12px;margin:12px 0}
-article blockquote{border-left:4px solid #A8E6F1;padding:4px 0 4px 18px;margin:18px 0;color:#0D3D47;font-style:italic}
-article strong{color:#0D3D47}
-article table{border-collapse:collapse;width:100%;margin:18px 0;font-size:15px}
-article th,article td{text-align:left;padding:10px 12px;border-bottom:1px solid #eef0ee}
-.cta{background:#D4F4FB;border-radius:18px;padding:26px 28px;margin:48px 0 20px}
-.cta h2{font:700 24px 'Fjalla One','Fredoka',sans-serif;color:#0D3D47;margin:0 0 8px}
-.cta p{color:#0D3D47;margin:0 0 16px}
-.btn{display:inline-block;background:#C43A08;color:#fff;font:700 16px 'Quicksand';padding:12px 24px;border-radius:999px}
-.btn:hover{text-decoration:none;opacity:.9}
-.other{font:600 14px 'Quicksand';margin-top:28px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.related{margin:44px 0 0}
-.related h2{font:700 24px 'Fjalla One','Fredoka',sans-serif;color:#0D3D47;margin:0 0 16px}
-.rel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.rel{display:block;color:inherit}.rel:hover{text-decoration:none}.rel:hover h3{text-decoration:underline}
-.rel img,.rel .ph{width:100%;height:auto;aspect-ratio:1200/630;object-fit:cover;border-radius:12px;background:#D4F4FB;display:block}
-.rel h3{font:700 17px/1.3 'Fjalla One','Fredoka',sans-serif;color:#0D3D47;margin:10px 0 0}
-.list{display:grid;gap:22px}
-.item{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start;color:inherit}
-.item:hover{text-decoration:none}.item:hover h2{text-decoration:underline}
-.item img,.item .ph{width:220px;height:auto;aspect-ratio:1200/630;object-fit:cover;border-radius:12px;background:#D4F4FB;display:block}
-.item h2{font:700 22px/1.25 'Fjalla One','Fredoka',sans-serif;color:#0D3D47;margin:0 0 6px}
-.item p{margin:0;font-size:15px}.item .meta{margin:0 0 6px}
+body{font:500 18px/1.7 'Quicksand',system-ui,sans-serif;color:#1f4a46;background:#f5f0e8}
+a{color:#c44a1a;text-decoration:none}a:hover{color:#9c3812}
+img{max-width:100%}
+header{position:sticky;top:0;z-index:10;background:rgba(245,240,232,.94);backdrop-filter:blur(10px);border-bottom:1px solid #E6DED0}
+.bar{max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.bar img{height:30px;width:auto;display:block}
+.nav{display:flex;gap:22px;font:700 15px 'Quicksand'}.nav a{color:#08403c}
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+.crumbs{font:600 13px 'Quicksand';color:#5b7470;padding:22px 0 0}.crumbs a{color:#5b7470}.crumbs span{color:#08403c}
+.eyebrow{font:400 14px 'Fjalla One';letter-spacing:.14em;color:#c44a1a;text-transform:uppercase}
+h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
+.tag{display:inline-block;border-radius:9px;padding:4px 9px;font:400 12px 'Fjalla One';letter-spacing:.08em;text-transform:uppercase;color:#08403c}
+.tag-spots{background:#d7e7e9}.tag-guides{background:#F6DCCD}.tag-debuter{background:#08403c;color:#fff}
+.tag-hot{background:#E8450A;color:#fff}.tag-white{background:#fff}
+.muted{font:600 14px 'Quicksand';color:#5b7470}
+/* list */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:40px;align-items:center;padding:28px 0 36px}
+.hero h1{margin:14px 0 16px}
+.hero .lead{max-width:640px;font:500 20px/1.55 'Quicksand';color:#2f5753}
+.art{position:relative;height:260px}
+.art .sun{position:absolute;right:0;top:0;width:240px}
+.art .flo{position:absolute;left:10px;bottom:-6px;width:170px;transform:rotate(-6deg)}
+.filters{display:flex;flex-wrap:wrap;gap:10px;padding-bottom:22px;border-bottom:1px solid #E6DED0}
+.filters a{border-radius:22px;padding:10px 18px;font:700 15px 'Quicksand';color:#08403c;background:#fff;border:1.5px solid transparent}
+.filters a.on{background:#08403c;color:#fff}
+.filters a.f-spots{background:#d7e7e9}.filters a.f-guides{background:#F6DCCD}.filters a.f-debuter{border-color:#08403c}
+.filters a.on.f-spots,.filters a.on.f-guides,.filters a.on.f-debuter{background:#08403c;color:#fff}
+.feat{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);background:#d7e7e9;border-radius:28px;overflow:hidden;color:#08403c;margin-top:36px}
+.feat:hover{color:#08403c}
+.feat .img{min-height:360px}.feat .img img,.feat .img .ph{width:100%;height:100%;object-fit:cover;display:block}
+.feat .txt{padding:40px 44px;display:flex;flex-direction:column;gap:16px;justify-content:center}
+.feat .t{font:400 44px/1.08 'Fjalla One'}
+.feat .x{font:500 18px/1.55 'Quicksand';color:#2f5753}
+.go{font:700 16px 'Quicksand';color:#c44a1a}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:36px}
+.card{display:flex;flex-direction:column;background:#fff;border-radius:22px;overflow:hidden;color:#08403c}
+.card:hover{color:#08403c}.card:hover .t{text-decoration:underline}
+.card .img{aspect-ratio:16/10;overflow:hidden;background:#d7e7e9}.card .img img{width:100%;height:100%;object-fit:cover;display:block}
+.card .txt{padding:18px 22px 24px;display:flex;flex-direction:column;gap:10px}
+.card .t{font:400 26px/1.15 'Fjalla One';text-wrap:balance}
+.band{position:relative;overflow:hidden;background:#08403c;color:#fff;border-radius:28px;padding:32px 44px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:30px;align-items:center;margin-top:36px}
+.band img{width:100px}
+.band h2{font:400 32px/1.1 'Fjalla One';color:#fff;margin:0 0 6px}
+.band p{font:500 16px/1.5 'Quicksand';opacity:.85;margin:0}
+.btn{display:inline-block;background:#E8450A;color:#fff;font:700 16px 'Quicksand';padding:13px 22px;border-radius:14px;white-space:nowrap}
+.btn:hover{color:#fff;opacity:.92}
+.empty{margin:36px 0}
+/* article */
+.ahero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:56px;align-items:center;padding:28px 0 44px}
+.ahero h1{font-size:58px;margin:16px 0}
+.ahero .lead{font:500 21px/1.55 'Quicksand';color:#2f5753;margin-bottom:18px}
+.byline{display:flex;flex-direction:column;gap:2px}.byline b{font:700 15px 'Quicksand';color:#08403c}
+.cov{position:relative}.cov .c{aspect-ratio:16/10;border-radius:28px;overflow:hidden;background:#d7e7e9}
+.cov .c img{width:100%;height:100%;object-fit:cover;display:block}
+.cov .sun{position:absolute;right:-22px;top:-26px;width:96px}
+.body{display:grid;grid-template-columns:240px minmax(0,720px) minmax(0,1fr);gap:64px;align-items:start}
+.toc{position:sticky;top:84px;display:flex;flex-direction:column;gap:14px}
+.toc .box{background:#fff;border-radius:20px;padding:18px}
+.toc .h{font:400 13px 'Fjalla One';letter-spacing:.12em;color:#5b7470;text-transform:uppercase;display:block;padding-bottom:6px}
+.toc ol{list-style:none}.toc li a{display:flex;gap:10px;padding:6px 0;font:600 15px/1.35 'Quicksand';color:#08403c}
+.toc li a span{font:400 14px 'Fjalla One';color:#c44a1a}
+.toc details summary{list-style:none;cursor:pointer}.toc details summary::-webkit-details-marker{display:none}
+.pills{display:flex;flex-wrap:wrap;gap:8px;font:700 13px 'Quicksand'}
+.pills a,.pills button{border:1.5px solid #08403c;border-radius:12px;padding:7px 12px;color:#08403c;background:none;font:inherit;cursor:pointer}
+article{font:500 19px/1.75 'Quicksand';color:#1f4a46}
+article h2{font:400 34px/1.15 'Fjalla One';color:#08403c;margin:40px 0 14px;scroll-margin-top:84px}
+article h3{font:700 21px/1.35 'Quicksand';color:#08403c;margin:28px 0 8px}
+article p{margin:0 0 18px}
+article ul,article ol{margin:0 0 18px 24px}article li{margin-bottom:8px}
+article img{border-radius:16px;margin:12px 0}
+article blockquote{border-left:4px solid #d7e7e9;padding:4px 0 4px 18px;margin:18px 0;color:#08403c;font-style:italic}
+article strong{color:#08403c}
+article table{border-collapse:separate;border-spacing:0;width:100%;margin:22px 0;font:600 16px/1.4 'Quicksand';background:#fff;border-radius:22px;overflow:hidden}
+article th{background:#08403c;color:#fff;font:400 13px 'Fjalla One';letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:14px 18px}
+article td{text-align:left;padding:13px 18px;border-top:1px solid #EFE8DC}
+article td:first-child{font-weight:700;color:#08403c}
+.box-retenir{background:#d7e7e9;border-radius:22px;padding:22px 26px;margin:22px 0}
+.box-conseil{position:relative;background:#F6DCCD;border-radius:22px;padding:22px 26px 22px 124px;margin:22px 0;min-height:110px}
+.box-conseil img{position:absolute;left:18px;top:50%;transform:translateY(-50%) rotate(-8deg);width:88px;margin:0}
+.box-app{background:#08403c;color:#fff;border-radius:22px;padding:22px 26px;margin:22px 0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center}
+.box-app p{margin:0;font:400 24px/1.2 'Fjalla One';color:#fff}
+.box-h{display:flex;align-items:center;gap:8px;font:400 14px 'Fjalla One';letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;color:#08403c}
+.box-h img{width:22px;margin:0}
+.box-conseil .box-h{color:#9c3812}.box-app .box-h{color:#FFCB47}
+.box-retenir p:last-child,.box-conseil p:last-child{margin:0}
+.spot{background:#fff;border-radius:18px;padding:16px 20px;margin:18px 0;display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:18px;align-items:center;font:600 15px 'Quicksand'}
+.spot b{font:400 22px 'Fjalla One';color:#08403c}
+.faq{display:flex;flex-direction:column;gap:10px;margin:0 0 18px}
+.faq details{background:#fff;border-radius:18px;padding:16px 22px}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;font:700 18px/1.4 'Quicksand';color:#08403c}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';flex:none;width:28px;height:28px;border-radius:50%;border:1.5px solid #08403c;display:grid;place-items:center}
+.faq details[open] summary::after{content:'−';background:#E8450A;border-color:#E8450A;color:#fff}
+.faq details>*:not(summary){margin-top:10px}
+.after{margin-top:18px;border-top:2px solid #E6DED0;padding-top:24px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.next{margin-top:64px;padding:48px 0 56px;background:#d7e7e9}
+.next .head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+.next h2{font:400 40px 'Fjalla One';color:#08403c}
 /* Justified, as asked: both edges straight. Hyphenation (the page carries
    its lang) keeps the gaps between words small on a phone. */
-.lead,article p,article li,.item p{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
-footer{background:#0D3D47;color:#8fb3bb}
-.foot{max-width:820px;margin:0 auto;padding:28px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font:500 13px 'Quicksand'}
-footer a{color:#bfe0e6}
-@media(max-width:620px){h1{font-size:32px}.item{grid-template-columns:1fr}.item img,.item .ph{width:100%}.rel-grid{grid-template-columns:1fr}}
+article p,article li{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
+footer{background:#08403c;color:#bfe0e6}
+.foot{max-width:1240px;margin:0 auto;padding:28px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font:600 13px 'Quicksand'}
+.foot img{height:40px;width:auto;display:block}
+footer a{color:#fff}
+.toc-m{display:none}
+@media(max-width:1100px){.body{grid-template-columns:minmax(0,1fr)}.toc{display:none}.toc-m{display:block;margin-bottom:22px}.ahero{grid-template-columns:1fr}.ahero .cov{order:-1}}
+@media(max-width:860px){h1,.ahero h1{font-size:40px}.hero{grid-template-columns:1fr}.art{display:none}
+.filters{flex-wrap:nowrap;overflow-x:auto;margin:0 -24px;padding:0 24px 18px}.filters a{flex:none}
+.feat{grid-template-columns:1fr}.feat .img{min-height:0;aspect-ratio:16/10}.feat .txt{padding:22px}.feat .t{font-size:30px}
+.grid{grid-template-columns:1fr;gap:12px}.card{flex-direction:row;align-items:center;border-radius:18px}.card .img{flex:none;width:120px;border-radius:14px;margin:10px}.card .txt{padding:10px 14px 10px 4px;gap:6px}.card .t{font-size:19px}.card .x{display:none}
+.band{grid-template-columns:1fr;padding:24px;text-align:left}.band img{display:none}
+article{font-size:18px}article h2{font-size:28px}article table{display:block;overflow-x:auto;font-size:14px}.box-conseil{padding-left:26px}.box-conseil img{display:none}.box-app{grid-template-columns:1fr}
+.spot{grid-template-columns:1fr 1fr}.next h2{font-size:30px}.next .grid .card .img{width:96px}}
 `.trim();
 
 function page({ lang, title, description, canonical, alternates, ogImage, ogType, jsonLd, body, noindex }) {
@@ -166,7 +268,6 @@ function page({ lang, title, description, canonical, alternates, ogImage, ogType
   <link rel="icon" href="/assets/favicon.png">
   <link rel="alternate" type="application/rss+xml" title="${esc(t.blogTitle)}" href="${SITE}${t.blog}rss.xml">
   <meta property="og:type" content="${ogType}">
-  <meta property="og:site_name" content="Foamies">
   <meta property="og:locale" content="${t.locale}">
   <meta property="og:title" content="${esc(title)}">
   <meta property="og:description" content="${esc(description)}">
@@ -189,6 +290,7 @@ ${body}
   </main>
   <footer>
     <div class="foot">
+      <img src="/assets/blog/flo-white.png" alt="" loading="lazy">
       <span>© ${new Date().getFullYear()} Foamies · foamiesclub.com</span>
       <span><a href="${t.blog}">Blog</a> · <a href="${t.blog}rss.xml">${t.rss}</a> · <a href="${lang === "fr" ? "/fr/terms" : "/terms"}">${esc(t.terms)}</a> · <a href="${t.home}">${esc(t.homeLink)}</a></span>
     </div>
@@ -198,11 +300,12 @@ ${body}
 `;
 }
 
+// The app box: the same texts as before, in the mock-up's teal band with Flo.
 function cta(lang) {
   const t = T[lang];
-  return `<aside class="cta">
-      <h2>${esc(t.ctaTitle)}</h2>
-      <p>${esc(t.ctaText)}</p>
+  return `<aside class="band">
+      <img src="/assets/blog/flo-white.png" alt="" loading="lazy">
+      <div><h2>${esc(t.ctaTitle)}</h2><p>${esc(t.ctaText)}</p></div>
       <a class="btn" href="/app/">${esc(t.ctaButton)}</a>
     </aside>`;
 }
@@ -214,6 +317,18 @@ const thumb = (url, width = 800, quality = 70) =>
     ? `${url.replace("/storage/v1/object/public/", "/storage/v1/render/image/public/")}?width=${width}&resize=contain&quality=${quality}`
     : url;
 
+// A card: cover cropped 16:10 whatever its shape, family, title, reading time.
+function card(p, lang) {
+  return `<a class="card" href="${postUrl(p, lang)}">
+          <div class="img">${p.cover_url ? `<img src="${esc(thumb(p.cover_url))}" alt="" width="800" height="500" loading="lazy">` : ""}</div>
+          <div class="txt">
+            <div>${tag(familyOf(p), lang)}</div>
+            <span class="t">${esc(p[`title_${lang}`])}</span>
+            <span class="muted">${readLabel(p, lang)} · ${date(when(p), lang)}</span>
+          </div>
+        </a>`;
+}
+
 // "Read next": the 3 articles that follow this one in the list, starting again
 // from the top at the end. Every article gets links this way, not just the
 // newest, and only published articles are in the list, so none can be a 404.
@@ -221,16 +336,87 @@ function related(p, posts, lang) {
   const at = posts.indexOf(p);
   const next = posts.map((_, i) => posts[(at + 1 + i) % posts.length]).filter((o) => o !== p).slice(0, 3);
   if (!next.length) return "";
-  const cards = next.map((o) => `        <a class="rel" href="${postUrl(o, lang)}">
-          ${o.cover_url ? `<img src="${esc(thumb(o.cover_url))}" alt="" width="1200" height="630" loading="lazy">` : '<div class="ph"></div>'}
-          <h3>${esc(o[`title_${lang}`])}</h3>
-        </a>`).join("\n");
-  return `<aside class="related">
-      <h2>${esc(T[lang].related)}</h2>
-      <div class="rel-grid">
-${cards}
+  return `<aside class="next">
+      <div class="wrap">
+        <div class="head"><h2>${esc(T[lang].related)}</h2><a class="go" href="${T[lang].blog}">${esc(T[lang].allPosts)}</a></div>
+        <div class="grid">
+        ${next.map((o) => card(o, lang)).join("\n        ")}
+        </div>
       </div>
     </aside>`;
+}
+
+// ---- article body: table of contents and the optional blocks ---------------
+const slugify = (s) =>
+  String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "partie";
+
+// The optional blocks the dashboard can write (an article without them renders
+// exactly as before):
+//   > [!retenir] … · > [!conseil] … · > [!app] text | /app
+//   ## FAQ, then ### Question + answer, until the next ## heading
+//   [spot] Name | Level | Season | Type
+// They are swapped for placeholders before Markdown, and the placeholders for
+// their HTML after, because raw HTML in the Markdown is escaped on purpose.
+function renderBody(src, lang) {
+  const t = T[lang];
+  const blocks = [];
+  const hold = (html) => `\n\nFOAMIESBLOCK${blocks.push(html) - 1}\n\n`;
+  const inline = (s) => marked.parseInline(s, { async: false });
+  let text = String(src ?? "").replace(/\r\n/g, "\n");
+
+  // > [!type] … callouts (consecutive "> " lines).
+  text = text.replace(/^> \[!(retenir|conseil|app)\][^\n]*(?:\n>[^\n]*)*/gm, (all, kind) => {
+    const lines = all.split("\n").map((l) => l.replace(/^> ?/, ""));
+    lines[0] = lines[0].replace(/^\[!\w+\]\s*/, "");
+    const inner = lines.join("\n").trim();
+    if (kind === "app") {
+      const [label, href = "/app/"] = inner.split("|").map((s) => s.trim());
+      return hold(`<aside class="box-app"><div><div class="box-h">${esc(t.boxApp)}</div><p>${inline(label)}</p></div><a class="btn" href="${esc(href)}">${esc(t.ctaButton)}</a></aside>`);
+    }
+    const body = marked.parse(inner, { async: false });
+    if (kind === "retenir") return hold(`<aside class="box-retenir"><div class="box-h"><img src="/assets/blog/sun-teal.png" alt="">${esc(t.boxRetenir)}</div>${body}</aside>`);
+    return hold(`<aside class="box-conseil"><img src="/assets/blog/flo-orange.png" alt=""><div class="box-h">${esc(t.boxConseil)}</div>${body}</aside>`);
+  });
+
+  // [spot] Name | Level | Season | Type
+  text = text.replace(/^\[spot\]\s*([^\n]+)$/gm, (all, rest) => {
+    const [name, ...more] = rest.split("|").map((s) => s.trim());
+    return hold(`<div class="spot"><b>${esc(name)}</b>${more.map((m) => `<span>${esc(m)}</span>`).join("")}</div>`);
+  });
+
+  // ## FAQ: the ### questions under it become native <details>, no script.
+  text = text.replace(/^## FAQ[ \t]*\n([\s\S]*?)(?=^## |(?![\s\S]))/m, (all, section) => {
+    const items = section.split(/^### /m).slice(1).map((q) => {
+      const [question, ...answer] = q.split("\n");
+      return `<details><summary>${inline(question.trim())}</summary>${marked.parse(answer.join("\n").trim(), { async: false })}</details>`;
+    });
+    if (!items.length) return all;
+    return `## FAQ\n${hold(`<div class="faq">${items.join("")}</div>`)}`;
+  });
+
+  // Headings get an id, and the ## ones make the table of contents.
+  const toc = [];
+  const used = new Set();
+  const renderer = new marked.Renderer();
+  const plain = marked.Renderer.prototype.heading;
+  renderer.heading = function (token) {
+    if (token.depth !== 2) return plain.call(this, token);
+    let id = slugify(token.text);
+    while (used.has(id)) id += "-2";
+    used.add(id);
+    toc.push({ id, text: token.text });
+    return `<h2 id="${id}">${this.parser.parseInline(token.tokens)}</h2>\n`;
+  };
+  renderer.html = (token) => esc(token.text);
+  let html = marked.parse(text, { async: false, renderer });
+  html = html.replace(/<p>FOAMIESBLOCK(\d+)<\/p>\n?/g, (all, i) => blocks[Number(i)]);
+  return { html, toc };
+}
+
+function tocHtml(toc, lang) {
+  if (toc.length < 2) return "";
+  const items = toc.map((h, i) => `<li><a href="#${h.id}"><span>${String(i + 1).padStart(2, "0")}</span>${marked.parseInline(h.text, { async: false }).replace(/<[^>]+>/g, "")}</a></li>`).join("");
+  return `<ol>${items}</ol>`;
 }
 
 // ---- pages ----------------------------------------------------------------
@@ -238,6 +424,7 @@ function articlePage(p, lang, posts) {
   const t = T[lang];
   const other = lang === "fr" ? "en" : "fr";
   const url = postUrl(p, lang);
+  const fam = familyOf(p);
   const title = p[`title_${lang}`];
   const description = p[`meta_description_${lang}`] || p[`excerpt_${lang}`] || "";
   const image = p.cover_url ? thumb(p.cover_url, 1600, 75) : `${SITE}/assets/share-${lang}.jpg`;
@@ -248,7 +435,8 @@ function articlePage(p, lang, posts) {
     itemListElement: [
       { "@type": "ListItem", position: 1, name: t.homeLink, item: `${SITE}${home}` },
       { "@type": "ListItem", position: 2, name: t.eyebrow, item: `${SITE}${t.blog}` },
-      { "@type": "ListItem", position: 3, name: title, item: url },
+      { "@type": "ListItem", position: 3, name: FAMILIES[fam].label[lang], item: familyUrl(fam, lang) },
+      { "@type": "ListItem", position: 4, name: title, item: url },
     ],
   };
   const jsonLd = {
@@ -264,17 +452,36 @@ function articlePage(p, lang, posts) {
     publisher: { "@type": "Organization", name: "Foamies", logo: { "@type": "ImageObject", url: `${SITE}/assets/logo.png` } },
     mainEntityOfPage: url,
   };
-  const body = `    <article>
-      <div class="eyebrow">${t.eyebrow}</div>
-      <h1>${esc(title)}</h1>
-      <div class="meta">${t.by} ${esc(p.author)} · ${date(when(p), lang)}</div>
-      ${p[`excerpt_${lang}`] ? `<p class="lead">${esc(p[`excerpt_${lang}`])}</p>` : ""}
-      ${p.cover_url ? `<img class="cover" src="${esc(image)}" alt="${esc(title)}" width="1200" height="630" fetchpriority="high">` : ""}
-      ${md(p[`body_${lang}`])}
-    </article>
-    ${related(p, posts, lang)}
-    ${cta(lang)}
-    <div class="other"><a href="${T[lang].blog}">${esc(t.allPosts)}</a><a href="${postUrl(p, other)}" hreflang="${other}">${esc(t.other)}</a></div>`;
+  const { html, toc } = renderBody(p[`body_${lang}`], lang);
+  const list = tocHtml(toc, lang);
+  const share = `<a href="https://wa.me/?text=${encodeURIComponent(`${title} ${url}`)}" rel="noopener" target="_blank">WhatsApp</a><button type="button" onclick="navigator.clipboard&&navigator.clipboard.writeText('${url}').then(()=>{this.textContent='✓'})">${esc(t.copyLink)}</button>`;
+  const body = `    <div class="wrap">
+      <nav class="crumbs"><a href="${home}">${esc(t.homeLink)}</a> › <a href="${t.blog}">${esc(t.eyebrow)}</a> › <a href="${familyUrl(fam, lang)}">${esc(FAMILIES[fam].label[lang])}</a></nav>
+      <div class="ahero">
+        <div>
+          ${tag(fam, lang)}
+          <h1>${esc(title)}</h1>
+          ${p[`excerpt_${lang}`] ? `<p class="lead">${esc(p[`excerpt_${lang}`])}</p>` : ""}
+          <div class="byline"><b>${t.by} ${esc(p.author)}</b><span class="muted">${date(when(p), lang)} · ${readLabel(p, lang)}</span></div>
+        </div>
+        ${p.cover_url ? `<div class="cov"><div class="c"><img src="${esc(image)}" alt="${esc(title)}" width="1600" height="1000" fetchpriority="high"></div><img class="sun" src="/assets/sun.png" alt=""></div>` : ""}
+      </div>
+      <div class="body">
+        <nav class="toc">
+          ${list ? `<div class="box"><span class="h">${esc(t.toc)}</span>${list}</div>` : ""}
+          <div class="pills"><a href="${postUrl(p, other)}" hreflang="${other}">${esc(t.other)}</a></div>
+        </nav>
+        <article>
+          ${list ? `<details class="toc-m toc"><summary class="box"><span class="h">${esc(t.toc)} · ${toc.length}</span></summary><div class="box">${list}</div></details>` : ""}
+          ${html}
+          <!-- TODO bios : Lorène et Théa écriront leurs deux lignes de présentation (bloc auteures de la maquette Claude Design), à mettre ici. -->
+          <div class="after pills"><span class="muted">${esc(t.share)}</span>${share}<a href="${postUrl(p, other)}" hreflang="${other}" style="margin-left:auto">${esc(t.other)}</a></div>
+          ${cta(lang)}
+        </article>
+        <div></div>
+      </div>
+    </div>
+    ${related(p, posts, lang)}`;
   return page({
     lang, title: `${title} | Foamies`, description, canonical: url,
     alternates: { en: postUrl(p, "en"), fr: postUrl(p, "fr") },
@@ -282,30 +489,58 @@ function articlePage(p, lang, posts) {
   });
 }
 
-function listPage(posts, lang) {
+// The blog list, or one family's list when `fam` is given.
+function listPage(posts, lang, fam = null) {
   const t = T[lang];
-  const items = posts.map((p) => `      <a class="item" href="${postUrl(p, lang)}">
-        ${p.cover_url ? `<img src="${esc(thumb(p.cover_url))}" alt="" width="1200" height="630" loading="lazy">` : '<div class="ph"></div>'}
-        <div>
-          <div class="meta">${date(when(p), lang)}</div>
-          <h2>${esc(p[`title_${lang}`])}</h2>
-          <p>${esc(p[`excerpt_${lang}`] || p[`meta_description_${lang}`] || "")}</p>
+  const home = lang === "fr" ? "/fr/" : "/";
+  const shown = fam ? posts.filter((p) => familyOf(p) === fam) : posts;
+  const count = (f) => posts.filter((p) => familyOf(p) === f).length;
+  const filters = `<nav class="filters">
+      <a href="${t.blog}" class="${fam ? "" : "on"}">${esc(t.all)} · ${posts.length}</a>
+      ${Object.keys(FAMILIES).filter((f) => count(f) > 0 || f === fam).map((f) => `<a href="${familyUrl(f, lang)}" class="f-${f}${fam === f ? " on" : ""}">${esc(FAMILIES[f].label[lang])} · ${count(f)}</a>`).join("\n      ")}
+    </nav>`;
+  // On the full list the newest article is featured; a family page lists all.
+  const [first, ...rest] = shown;
+  const featured = !fam && first ? `<a class="feat" href="${postUrl(first, lang)}">
+        <div class="img">${first.cover_url ? `<img src="${esc(thumb(first.cover_url, 1200))}" alt="" width="1200" height="750">` : '<div class="ph"></div>'}</div>
+        <div class="txt">
+          <div><span class="tag tag-hot">${esc(t.featured)}</span> <span class="tag tag-white">${esc(tagLabel(familyOf(first), lang))}</span></div>
+          <span class="t">${esc(first[`title_${lang}`])}</span>
+          <span class="x">${esc(first[`excerpt_${lang}`] || first[`meta_description_${lang}`] || "")}</span>
+          <span class="muted">${esc(first.author)} · ${readLabel(first, lang)} · ${date(when(first), lang)}</span>
+          <span class="go">${esc(t.read)} →</span>
         </div>
-      </a>`).join("\n");
-  const body = `    <div class="eyebrow">${t.eyebrow}</div>
-    <h1>${esc(t.blogTitle)}</h1>
-    <p class="lead">${esc(t.blogIntro)}</p>
-    ${posts.length ? `<div class="list">\n${items}\n    </div>` : `<p>${esc(t.empty)}</p>`}
-    ${cta(lang)}`;
+      </a>` : "";
+  const cards = fam ? shown : rest;
+  const row1 = cards.slice(0, 3).map((p) => card(p, lang)).join("\n      ");
+  const more = cards.slice(3).map((p) => card(p, lang)).join("\n      ");
+  const h1 = fam ? FAMILIES[fam].label[lang] : t.blogTitle;
+  const body = `    <div class="wrap">
+      <nav class="crumbs"><a href="${home}">${esc(t.homeLink)}</a> › ${fam ? `<a href="${t.blog}">${esc(t.eyebrow)}</a> › <span>${esc(h1)}</span>` : `<span>${esc(t.eyebrow)}</span>`}</nav>
+      <div class="hero">
+        <div>
+          <div class="eyebrow">${esc(t.blogTitle)} · ${shown.length}</div>
+          <h1>${esc(h1)}</h1>
+          <p class="lead">${esc(t.blogIntro)}</p>
+        </div>
+        <div class="art"><img class="sun" src="/assets/sun.png" alt=""><img class="flo" src="/assets/blog/flo-teal.png" alt=""></div>
+      </div>
+      ${filters}
+      ${shown.length ? `${featured}
+      ${row1 ? `<div class="grid">\n      ${row1}\n      </div>` : ""}
+      ${cta(lang)}
+      ${more ? `<div class="grid">\n      ${more}\n      </div>` : ""}` : `<p class="empty">${esc(t.empty)}</p>\n      ${cta(lang)}`}
+    </div>`;
+  const canonical = fam ? familyUrl(fam, lang) : `${SITE}${t.blog}`;
   return page({
-    lang, title: `${t.blogTitle} | Foamies`, description: t.blogIntro,
-    canonical: `${SITE}${t.blog}`,
-    alternates: { en: `${SITE}/blog/`, fr: `${SITE}/fr/blog/` },
+    lang, title: `${h1} | Foamies`, description: t.blogIntro,
+    canonical,
+    alternates: fam ? { en: familyUrl(fam, "en"), fr: familyUrl(fam, "fr") } : { en: `${SITE}/blog/`, fr: `${SITE}/fr/blog/` },
     ogImage: `${SITE}/assets/share-${lang}.jpg`, ogType: "website",
-    jsonLd: { "@context": "https://schema.org", "@type": "Blog", name: t.blogTitle, url: `${SITE}${t.blog}`, inLanguage: lang },
+    jsonLd: { "@context": "https://schema.org", "@type": "Blog", name: h1, url: canonical, inLanguage: lang },
     body,
-    // An empty blog is not worth indexing yet.
-    noindex: posts.length === 0,
+    // An empty blog (or family) is not worth indexing yet.
+    noindex: shown.length === 0,
   });
 }
 
@@ -348,17 +583,42 @@ function sitemapBlock(posts) {
     <xhtml:link rel="alternate" hreflang="en" href="${postUrl(p, "en")}"/>
     <xhtml:link rel="alternate" hreflang="fr" href="${postUrl(p, "fr")}"/>
   </url>`));
-  return [...lists, ...articles].join("\n");
+  const families = Object.keys(FAMILIES)
+    .filter((f) => posts.some((p) => familyOf(p) === f))
+    .flatMap((f) => ["en", "fr"].map((lang) => `  <url>
+    <loc>${familyUrl(f, lang)}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="${familyUrl(f, "en")}"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="${familyUrl(f, "fr")}"/>
+  </url>`));
+  return [...lists, ...families, ...articles].join("\n");
 }
 
-// The 3 latest articles on a home page (index.html, fr/index.html).
+// The 3 latest articles on a home page (index.html, fr/index.html), in the
+// blog's card style. Its styles travel with it, between the markers, so the
+// home page's own CSS is left alone.
 function latestBlock(posts, lang) {
   if (!posts.length) return "";
   const cards = posts.slice(0, 3).map((p) => `        <a class="fm-latest-card" href="${postUrl(p, lang)}">
-          ${p.cover_url ? `<img src="${esc(thumb(p.cover_url))}" alt="" width="1200" height="630" loading="lazy">` : '<div class="ph"></div>'}
-          <h3>${esc(p[`title_${lang}`])}</h3>
+          <div class="img">${p.cover_url ? `<img src="${esc(thumb(p.cover_url))}" alt="" width="800" height="500" loading="lazy">` : ""}</div>
+          <div class="txt">
+            <div><span class="fm-tag fm-tag-${familyOf(p)}">${esc(tagLabel(familyOf(p), lang))}</span></div>
+            <h3>${esc(p[`title_${lang}`])}</h3>
+            <span class="fm-min">${readLabel(p, lang)}</span>
+          </div>
         </a>`).join("\n");
-  return `  <section id="latest-articles" style="background:#fff;">
+  return `  <style>
+    #latest-articles .fm-latest-card{display:flex;flex-direction:column;background:#fff;border-radius:22px;overflow:hidden;color:#08403c;box-shadow:0 1px 0 #E6DED0}
+    #latest-articles .fm-latest-card .img{aspect-ratio:16/10;overflow:hidden;background:#d7e7e9}
+    #latest-articles .fm-latest-card .img img{width:100%;height:100%;object-fit:cover;display:block;border-radius:0;aspect-ratio:auto}
+    #latest-articles .fm-latest-card .txt{padding:18px 22px 24px;display:flex;flex-direction:column;gap:10px}
+    #latest-articles .fm-latest-card h3{margin:0;font:400 24px/1.15 'Fjalla One','Fredoka',sans-serif}
+    #latest-articles .fm-tag{display:inline-block;border-radius:9px;padding:4px 9px;font:400 12px 'Fjalla One',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#08403c}
+    #latest-articles .fm-tag-spots{background:#d7e7e9}#latest-articles .fm-tag-guides{background:#F6DCCD}#latest-articles .fm-tag-debuter{background:#08403c;color:#fff}
+    #latest-articles .fm-min{font:600 14px 'Quicksand',sans-serif;color:#5b7470}
+  </style>
+  <section id="latest-articles" style="background:#f5f0e8;">
     <div class="fm-latest fm-padx">
       <h2>${esc(T[lang].fromBlog)}</h2>
       <div class="fm-latest-grid">
@@ -400,6 +660,8 @@ for (const lang of ["en", "fr"]) {
   const dir = lang === "fr" ? "fr/blog" : "blog";
   rmSync(join(OUT, dir), { recursive: true, force: true });
   write(`${dir}/index.html`, listPage(posts, lang));
+  // One page per family, linked from the filters (/fr/blog/spots/…).
+  for (const f of Object.keys(FAMILIES)) write(`${dir}/${FAMILIES[f].path[lang]}/index.html`, listPage(posts, lang, f));
   write(`${dir}/rss.xml`, rss(posts, lang));
   for (const p of posts) write(`${dir}/${p[`slug_${lang}`]}/index.html`, articlePage(p, lang, posts));
 }
