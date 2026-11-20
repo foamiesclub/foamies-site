@@ -55,6 +55,7 @@ const T = {
     ctaTitle: "Ready to go?",
     ctaText: "Plan your session on Foamies Club and find surfers to join you.",
     ctaButton: "Plan my session", related: "Read next",
+    navFeatures: "features", navPros: "for pros", navFounders: "founders", navApp: "Download the app",
     minRead: "min read", toc: "Contents", share: "Share", copyLink: "Copy link", all: "All", featured: "Featured",
     boxRetenir: "Key points", boxConseil: "Flo's tip", boxApp: "In the Foamies app", fromBlog: "From the blog", terms: "Terms of use", homeLink: "Home", rss: "RSS",
   },
@@ -67,6 +68,7 @@ const T = {
     ctaTitle: "Prêt·e à y aller ?",
     ctaText: "Planifie ta session sur Foamies Club et trouve des surfeurs pour t'accompagner.",
     ctaButton: "Planifier ma session", related: "À lire aussi",
+    navFeatures: "fonctionnalités", navPros: "pour les pros", navFounders: "les fondatrices", navApp: "Télécharger l'app",
     minRead: "min de lecture", toc: "Sommaire", share: "Partager", copyLink: "Copier le lien", all: "Tout", featured: "À la une",
     boxRetenir: "À retenir", boxConseil: "Le conseil de Flo", boxApp: "Dans l'app Foamies", fromBlog: "Sur le blog", terms: "Conditions d'utilisation", homeLink: "Accueil", rss: "RSS",
   },
@@ -135,10 +137,30 @@ const CSS = `
 body{font:500 18px/1.7 'Quicksand',system-ui,sans-serif;color:#1f4a46;background:#f5f0e8}
 a{color:#c44a1a;text-decoration:none}a:hover{color:#9c3812}
 img{max-width:100%}
-header{position:sticky;top:0;z-index:10;background:rgba(245,240,232,.94);backdrop-filter:blur(10px);border-bottom:1px solid #E6DED0}
-.bar{max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.bar img{height:30px;width:auto;display:block}
-.nav{display:flex;gap:22px;font:700 15px 'Quicksand'}.nav a{color:#08403c}
+main{padding-bottom:96px}
+/* The home page's header (same links, burger and behaviour) in the blog colours. */
+header{position:sticky;top:0;z-index:50;background:rgba(245,240,232,.94);backdrop-filter:blur(10px);border-bottom:1px solid #E6DED0}
+.bar{max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.bar>a img{height:38px;width:auto;display:block}
+.hnav{display:flex;align-items:center;gap:30px;font:600 15px 'Fjalla One','Quicksand',sans-serif;color:#08403c}
+.htext{display:flex;align-items:center;gap:22px;white-space:nowrap}.htext a{color:#08403c}
+.htext a.cur{color:#c44a1a;border-bottom:2px solid #c44a1a;padding-bottom:3px}
+.hdiv{width:1px;height:20px;background:#d6cdbd;margin:0 -14px;flex-shrink:0}
+.hlang{display:inline-flex;align-items:center;gap:14px;font:700 14px 'Fjalla One','Quicksand',sans-serif;line-height:1;margin-right:6px}
+.hlang a{color:#7a8a86;padding-bottom:3px}.hlang a.cur{color:#08403c;border-bottom:2px solid #c44a1a}
+.hcta{background:#08403c;color:#fff!important;border-radius:999px;padding:10px 22px;white-space:nowrap;font:600 15px 'Quicksand',sans-serif}
+.hcta:hover{filter:brightness(.88)}
+.burger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:38px;padding:0;background:transparent;border:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.burger span{display:block;width:24px;height:2.5px;border-radius:2px;background:#08403c;transition:transform .22s ease,opacity .18s ease}
+.mmenu{border-top:1px solid #E6DED0;background:rgba(245,240,232,.98);max-height:calc(100vh - 70px);overflow-y:auto}
+.mmenu[hidden]{display:none!important}
+.mmenu .in{max-width:1240px;margin:0 auto;padding:6px 24px 22px}
+.mmenu a.ml{display:block;padding:14px 2px;font:600 17px 'Fjalla One','Quicksand',sans-serif;color:#08403c;border-bottom:1px solid #ebe3d6}
+.mmenu a.ml.cur{color:#c44a1a}.mmenu a.ml:last-of-type{border-bottom:none}
+.mmenu .mcta{display:none;margin-top:18px;text-align:center;background:#08403c;color:#fff;border-radius:999px;padding:14px 22px;font:600 16px 'Quicksand',sans-serif}
+@media(max-width:1024px){.htext,.hdiv{display:none!important}.burger{display:inline-flex}}
+html[lang="fr"] .htext,html[lang="fr"] .hdiv{display:none!important}html[lang="fr"] .burger{display:inline-flex}
+@media(max-width:640px){.hcta{display:none!important}.mmenu .mcta{display:block}}
 .wrap{max-width:1240px;margin:0 auto;padding:0 24px}
 .crumbs{font:600 13px 'Quicksand';color:#5b7470;padding:22px 0 0}.crumbs a{color:#5b7470}.crumbs span{color:#08403c}
 .eyebrow{font:400 14px 'Fjalla One';letter-spacing:.14em;color:#c44a1a;text-transform:uppercase}
@@ -148,12 +170,12 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .tag-hot{background:#E8450A;color:#fff}.tag-white{background:#fff}
 .muted{font:600 14px 'Quicksand';color:#5b7470}
 /* list */
-.hero{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:40px;align-items:center;padding:28px 0 36px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:40px;align-items:center;padding:28px 0 36px}
 .hero h1{margin:14px 0 16px}
 .hero .lead{max-width:640px;font:500 20px/1.55 'Quicksand';color:#2f5753}
-.art{position:relative;height:260px}
-.art .sun{position:absolute;right:0;top:0;width:240px}
-.art .flo{position:absolute;left:10px;bottom:-6px;width:170px;transform:rotate(-6deg)}
+.art{position:relative;height:300px}
+.art .sun{position:absolute;left:0;bottom:0;width:130px}
+.art .flo{position:absolute;right:-10px;top:-24px;width:290px;transform:rotate(-6deg)}
 .filters{display:flex;flex-wrap:wrap;gap:10px;padding-bottom:22px;border-bottom:1px solid #E6DED0}
 .filters a{border-radius:22px;padding:10px 18px;font:700 15px 'Quicksand';color:#08403c;background:#fff;border:1.5px solid transparent}
 .filters a.on{background:#08403c;color:#fff}
@@ -186,14 +208,12 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .byline{display:flex;flex-direction:column;gap:2px}.byline b{font:700 15px 'Quicksand';color:#08403c}
 .cov{position:relative}.cov .c{aspect-ratio:16/10;border-radius:28px;overflow:hidden;background:#d7e7e9}
 .cov .c img{width:100%;height:100%;object-fit:cover;display:block}
-.cov .sun{position:absolute;right:-22px;top:-26px;width:96px}
 .body{display:grid;grid-template-columns:240px minmax(0,720px) minmax(0,1fr);gap:64px;align-items:start}
 .toc{position:sticky;top:84px;display:flex;flex-direction:column;gap:14px}
 .toc .box{background:#fff;border-radius:20px;padding:18px}
 .toc .h{font:400 13px 'Fjalla One';letter-spacing:.12em;color:#5b7470;text-transform:uppercase;display:block;padding-bottom:6px}
 .toc ol{list-style:none}.toc li a{display:flex;gap:10px;padding:6px 0;font:600 15px/1.35 'Quicksand';color:#08403c}
 .toc li a span{font:400 14px 'Fjalla One';color:#c44a1a}
-.toc details summary{list-style:none;cursor:pointer}.toc details summary::-webkit-details-marker{display:none}
 .pills{display:flex;flex-wrap:wrap;gap:8px;font:700 13px 'Quicksand'}
 .pills a,.pills button{border:1.5px solid #08403c;border-radius:12px;padding:7px 12px;color:#08403c;background:none;font:inherit;cursor:pointer}
 article{font:500 19px/1.75 'Quicksand';color:#1f4a46}
@@ -237,8 +257,7 @@ footer{background:#08403c;color:#bfe0e6}
 .foot{max-width:1240px;margin:0 auto;padding:28px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font:600 13px 'Quicksand'}
 .foot img{height:40px;width:auto;display:block}
 footer a{color:#fff}
-.toc-m{display:none}
-@media(max-width:1100px){.body{grid-template-columns:minmax(0,1fr)}.toc{display:none}.toc-m{display:block;margin-bottom:22px}.ahero{grid-template-columns:1fr}.ahero .cov{order:-1}}
+@media(max-width:1100px){.body{grid-template-columns:minmax(0,1fr)}.toc{display:none}.ahero{grid-template-columns:1fr}.ahero .cov{order:-1}}
 @media(max-width:860px){h1,.ahero h1{font-size:40px}.hero{grid-template-columns:1fr}.art{display:none}
 .filters{flex-wrap:nowrap;overflow-x:auto;margin:0 -24px;padding:0 24px 18px}.filters a{flex:none}
 .feat{grid-template-columns:1fr}.feat .img{min-height:0;aspect-ratio:16/10}.feat .txt{padding:22px}.feat .t{font-size:30px}
@@ -247,6 +266,41 @@ footer a{color:#fff}
 article{font-size:18px}article h2{font-size:28px}article table{display:block;overflow-x:auto;font-size:14px}.box-conseil{padding-left:26px}.box-conseil img{display:none}.box-app{grid-template-columns:1fr}
 .spot{grid-template-columns:1fr 1fr}.next h2{font-size:30px}.next .grid .card .img{width:96px}}
 `.trim();
+
+// The site's header: logo, the home page's sections, blog marked as the
+// current one, the EN/FR switch to this same page in the other language, the
+// app button, and the burger menu on phones (with the home page's script).
+function header(lang, alternates) {
+  const t = T[lang];
+  const other = lang === "fr" ? "en" : "fr";
+  const links = [["features", t.navFeatures], ["pros", t.navPros], ["founders", t.navFounders], ["blog", "blog"], ["faq", "faq"]];
+  const href = (k) => (k === "blog" ? t.blog : `${t.home}#${k}`);
+  // A path, not a full address, so the switch also works on a local preview.
+  const otherUrl = (alternates ? alternates[other] : T[other].blog).replace(SITE, "");
+  const langs = lang === "fr"
+    ? `<a href="${otherUrl}" hreflang="en">EN</a><a class="cur" aria-current="page" href="#">FR</a>`
+    : `<a class="cur" aria-current="page" href="#">EN</a><a href="${otherUrl}" hreflang="fr">FR</a>`;
+  return `<header>
+    <div class="bar">
+      <a href="${t.home}"><img width="600" height="207" src="/assets/logo.png" alt="Foamies"></a>
+      <nav class="hnav">
+        <span class="htext">${links.map(([k, l]) => `<a href="${href(k)}"${k === "blog" ? ' class="cur" aria-current="page"' : ""}>${esc(l)}</a>`).join("")}</span>
+        <span class="hdiv" aria-hidden="true"></span><span class="hlang">${langs}</span><a class="hcta" href="/app/">${esc(t.navApp)}</a>
+        <button type="button" class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </nav>
+    </div>
+    <div id="fm-menu" hidden class="mmenu"><div class="in">
+      ${links.map(([k, l]) => `<a class="ml${k === "blog" ? " cur" : ""}" href="${href(k)}">${esc(l)}</a>`).join("\n      ")}
+      <a class="mcta" href="/app/">${esc(t.navApp)}</a>
+    </div></div>
+  </header>
+  <script>
+  // The home page's phone menu (assets/home.js), on its own here.
+  (function(){var b=document.querySelector(".burger"),m=document.getElementById("fm-menu");if(!b||!m)return;
+  function set(o){m.hidden=!o;b.setAttribute("aria-expanded",o?"true":"false");var s=b.querySelectorAll("span");s[0].style.transform=o?"translateY(7.5px) rotate(45deg)":"";s[1].style.opacity=o?"0":"";s[2].style.transform=o?"translateY(-7.5px) rotate(-45deg)":"";}
+  b.addEventListener("click",function(){set(m.hidden);});m.addEventListener("click",function(e){if(e.target.closest("a"))set(false);});})();
+  </script>`;
+}
 
 function page({ lang, title, description, canonical, alternates, ogImage, ogType, jsonLd, body, noindex }) {
   const t = T[lang];
@@ -279,12 +333,7 @@ function page({ lang, title, description, canonical, alternates, ogImage, ogType
   <script src="/assets/consent.js" defer></script>
 </head>
 <body>
-  <header>
-    <div class="bar">
-      <a href="${t.home}"><img src="/assets/logo.png" alt="Foamies"></a>
-      <nav class="nav"><a href="${t.blog}">Blog</a><a href="${t.home}">${esc(t.back)}</a></nav>
-    </div>
-  </header>
+  ${header(lang, alternates)}
   <main>
 ${body}
   </main>
@@ -464,7 +513,7 @@ function articlePage(p, lang, posts) {
           ${p[`excerpt_${lang}`] ? `<p class="lead">${esc(p[`excerpt_${lang}`])}</p>` : ""}
           <div class="byline"><b>${t.by} ${esc(p.author)}</b><span class="muted">${date(when(p), lang)} · ${readLabel(p, lang)}</span></div>
         </div>
-        ${p.cover_url ? `<div class="cov"><div class="c"><img src="${esc(image)}" alt="${esc(title)}" width="1600" height="1000" fetchpriority="high"></div><img class="sun" src="/assets/sun.png" alt=""></div>` : ""}
+        ${p.cover_url ? `<div class="cov"><div class="c"><img src="${esc(image)}" alt="${esc(title)}" width="1600" height="1000" fetchpriority="high"></div></div>` : ""}
       </div>
       <div class="body">
         <nav class="toc">
@@ -472,7 +521,6 @@ function articlePage(p, lang, posts) {
           <div class="pills"><a href="${postUrl(p, other)}" hreflang="${other}">${esc(t.other)}</a></div>
         </nav>
         <article>
-          ${list ? `<details class="toc-m toc"><summary class="box"><span class="h">${esc(t.toc)} · ${toc.length}</span></summary><div class="box">${list}</div></details>` : ""}
           ${html}
           <!-- TODO bios : Lorène et Théa écriront leurs deux lignes de présentation (bloc auteures de la maquette Claude Design), à mettre ici. -->
           <div class="after pills"><span class="muted">${esc(t.share)}</span>${share}<a href="${postUrl(p, other)}" hreflang="${other}" style="margin-left:auto">${esc(t.other)}</a></div>
@@ -519,7 +567,7 @@ function listPage(posts, lang, fam = null) {
       <nav class="crumbs"><a href="${home}">${esc(t.homeLink)}</a> › ${fam ? `<a href="${t.blog}">${esc(t.eyebrow)}</a> › <span>${esc(h1)}</span>` : `<span>${esc(t.eyebrow)}</span>`}</nav>
       <div class="hero">
         <div>
-          <div class="eyebrow">${esc(t.blogTitle)} · ${shown.length}</div>
+          <div class="eyebrow">${esc(t.blogTitle)}</div>
           <h1>${esc(h1)}</h1>
           <p class="lead">${esc(t.blogIntro)}</p>
         </div>
