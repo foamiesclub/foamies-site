@@ -124,16 +124,15 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .toc li a:hover{color:#08403c}
 .toc li a.cur{color:#08403c;font-weight:700;border-left-color:#c44a1a}
 .toc li a span{display:none}
-/* Contents, version C (25/11): « In this guide » at the top of the article,
-   numbered, folded on phones. Shown on phones; on a computer only with ?toc=c. */
+/* Contents on phones and tablets (25/11): « In this guide » at the top of the
+   article, numbered, folded. Computers get version A, on the left. */
 .toc-c{background:#fff;border-radius:20px;padding:16px 20px;margin:0 0 26px}
 .toc-c summary{display:flex;align-items:center;justify-content:space-between;font:400 14px 'Fjalla One';letter-spacing:.12em;text-transform:uppercase;color:#08403c}
 .toc-c summary::after{content:"▾";font-size:16px;transition:transform .2s}.toc-c[open] summary::after{transform:rotate(180deg)}
 .toc-c ol{list-style:none;margin:12px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 20px}
 .toc-c li a{display:flex;gap:10px;padding:6px 0;font:600 15px/1.35 'Quicksand';color:#08403c}
 .toc-c li a span{font:400 14px 'Fjalla One';color:#c44a1a}
-html:not(.toc-c-on) .toc-c{display:none}
-html.toc-c-on .toc{display:none}html.toc-c-on .body{grid-template-columns:minmax(0,720px);justify-content:center}
+.toc-c{display:none}
 .pills{display:flex;flex-wrap:wrap;gap:8px;font:700 13px 'Quicksand'}
 .pills a,.pills button{border:1.5px solid #08403c;border-radius:12px;padding:7px 12px;color:#08403c;background:none;font:inherit;cursor:pointer}
 article{font:500 19px/1.75 'Quicksand';color:#1f4a46}
@@ -177,7 +176,7 @@ footer{background:#08403c;color:#bfe0e6}
 .foot{max-width:1240px;margin:0 auto;padding:28px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font:600 13px 'Quicksand'}
 .foot img{height:40px;width:auto;display:block}
 footer a{color:#fff}
-@media(max-width:1100px){.body{grid-template-columns:minmax(0,1fr)}.toc{display:none}html:not(.toc-c-on) .toc-c{display:block}.toc-c ol{grid-template-columns:1fr}.ahero{grid-template-columns:1fr}.ahero .cov{order:-1}}
+@media(max-width:1100px){.body{grid-template-columns:minmax(0,1fr)}.toc{display:none}.toc-c{display:block}.toc-c ol{grid-template-columns:1fr}.ahero{grid-template-columns:1fr}.ahero .cov{order:-1}}
 @media(max-width:860px){h1,.ahero h1{font-size:40px}.hero{grid-template-columns:1fr;position:relative}.art{display:none}
 .filters{flex-wrap:nowrap;overflow-x:auto;margin:0 -24px;padding:0 24px 18px}.filters a{flex:none}
 .feat{grid-template-columns:1fr}.feat .img{min-height:0;max-height:none;aspect-ratio:16/9}.feat .txt{padding:20px}.feat .t{font-size:26px}
@@ -230,7 +229,6 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
       <div class="body">
         <nav class="toc">
           <span class="h">Sommaire</span><ol><li><a href="#quand-surfer-a-taghazout"><span>01</span>Quand surfer à Taghazout</a></li><li><a href="#spot-surf-taghazout-le-tableau-des-niveaux"><span>02</span>Spot surf Taghazout : le tableau des niveaux</a></li><li><a href="#anchor-point-et-les-points-breaks-pour-confirmes"><span>03</span>Anchor Point et les points breaks pour confirmés</a></li><li><a href="#les-spots-du-village-hash-point-la-source-panorama"><span>04</span>Les spots du village : Hash Point, La Source, Panorama</a></li><li><a href="#tamraght-et-les-plages-pour-debuter"><span>05</span>Tamraght et les plages pour débuter</a></li><li><a href="#surf-camp-a-taghazout-comment-choisir"><span>06</span>Surf camp à Taghazout : comment choisir</a></li><li><a href="#conseils-de-securite"><span>07</span>Conseils de sécurité</a></li><li><a href="#faq"><span>08</span>FAQ</a></li></ol>
-          <div class="pills"><a href="https://foamiesclub.com/blog/surfing-taghazout-morocco-spots-levels-tips/" hreflang="en">Read in English</a></div>
         </nav>
         <article>
           <details class="toc-c" open><summary>Au programme</summary><ol><li><a href="#quand-surfer-a-taghazout"><span>01</span>Quand surfer à Taghazout</a></li><li><a href="#spot-surf-taghazout-le-tableau-des-niveaux"><span>02</span>Spot surf Taghazout : le tableau des niveaux</a></li><li><a href="#anchor-point-et-les-points-breaks-pour-confirmes"><span>03</span>Anchor Point et les points breaks pour confirmés</a></li><li><a href="#les-spots-du-village-hash-point-la-source-panorama"><span>04</span>Les spots du village : Hash Point, La Source, Panorama</a></li><li><a href="#tamraght-et-les-plages-pour-debuter"><span>05</span>Tamraght et les plages pour débuter</a></li><li><a href="#surf-camp-a-taghazout-comment-choisir"><span>06</span>Surf camp à Taghazout : comment choisir</a></li><li><a href="#conseils-de-securite"><span>07</span>Conseils de sécurité</a></li><li><a href="#faq"><span>08</span>FAQ</a></li></ol></details>
@@ -345,7 +343,7 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
 </details><details><summary>Quelle est la meilleure période pour un surf camp à Taghazout ?</summary><p>Pour débuter, la période de mai à septembre offre des vagues plus petites. Pour progresser sur les points breaks, vise d&#39;octobre à mars, quand la houle est la plus régulière.</p>
 </details></div>
           <!-- TODO bios : Lorène et Théa écriront leurs deux lignes de présentation (bloc auteures de la maquette Claude Design), à mettre ici. -->
-          <div class="after pills"><span class="muted">Partager</span><a href="https://wa.me/?text=Surfer%20%C3%A0%20Taghazout%20%3A%20spots%2C%20niveaux%20et%20conseils%20https%3A%2F%2Ffoamiesclub.com%2Ffr%2Fblog%2Fsurf-taghazout-spots-niveaux-conseils%2F" rel="noopener" target="_blank">WhatsApp</a><button type="button" onclick="navigator.clipboard&&navigator.clipboard.writeText('https://foamiesclub.com/fr/blog/surf-taghazout-spots-niveaux-conseils/').then(()=>{this.textContent='✓'})">Copier le lien</button><a href="https://foamiesclub.com/blog/surfing-taghazout-morocco-spots-levels-tips/" hreflang="en" style="margin-left:auto">Read in English</a></div>
+          <div class="after pills"><span class="muted">Partager</span><a href="https://wa.me/?text=Surfer%20%C3%A0%20Taghazout%20%3A%20spots%2C%20niveaux%20et%20conseils%20https%3A%2F%2Ffoamiesclub.com%2Ffr%2Fblog%2Fsurf-taghazout-spots-niveaux-conseils%2F" rel="noopener" target="_blank">WhatsApp</a><button type="button" onclick="navigator.clipboard&&navigator.clipboard.writeText('https://foamiesclub.com/fr/blog/surf-taghazout-spots-niveaux-conseils/').then(()=>{this.textContent='✓'})">Copier le lien</button></div>
           <aside class="band">
       <img class="wm" src="/assets/blog/flo-white.png" alt="" loading="lazy">
       <div><h2>Prêt·e à y aller ?</h2><p>Planifie ta session sur Foamies Club et trouve des surfeurs pour t'accompagner.</p></div>
@@ -353,9 +351,8 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
     </aside>
         </article>
         <script>
-        // ?toc=c shows version C on a computer too, to compare (25/11).
-        (function(){var d=document.documentElement;if(/[?&]toc=c/.test(location.search))d.classList.add("toc-c-on");
-        var c=document.querySelector(".toc-c");if(c&&!d.classList.contains("toc-c-on")&&matchMedia("(max-width:1100px)").matches)c.removeAttribute("open");
+        // « Au programme » starts folded on phones and tablets (25/11).
+        (function(){var c=document.querySelector(".toc-c");if(c&&matchMedia("(max-width:1100px)").matches)c.removeAttribute("open");
         // Version A: the part being read, in bold with an orange mark.
         var links=[].slice.call(document.querySelectorAll(".toc li a"));if(!links.length||!("IntersectionObserver" in window))return;
         var byId={};links.forEach(function(a){byId[a.getAttribute("href").slice(1)]=a;});
