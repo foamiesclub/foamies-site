@@ -159,7 +159,8 @@ header{position:sticky;top:0;z-index:50;background:rgba(245,240,232,.94);backdro
 .mmenu a.ml.cur{color:#c44a1a}.mmenu a.ml:last-of-type{border-bottom:none}
 .mmenu .mcta{display:none;margin-top:18px;text-align:center;background:#08403c;color:#fff;border-radius:999px;padding:14px 22px;font:600 16px 'Quicksand',sans-serif}
 @media(max-width:1024px){.htext,.hdiv{display:none!important}.burger{display:inline-flex}}
-html[lang="fr"] .htext,html[lang="fr"] .hdiv{display:none!important}html[lang="fr"] .burger{display:inline-flex}
+/* The French menu is longer: it folds into the burger earlier, as on the home page (1140 px). */
+@media(max-width:1140px){html[lang="fr"] .htext,html[lang="fr"] .hdiv{display:none!important}html[lang="fr"] .burger{display:inline-flex}}
 @media(max-width:640px){.hcta{display:none!important}.mmenu .mcta{display:block}}
 .wrap{max-width:1240px;margin:0 auto;padding:0 24px}
 .crumbs{font:600 13px 'Quicksand';color:#5b7470;padding:22px 0 0}.crumbs a{color:#5b7470}.crumbs span{color:#08403c}
@@ -571,7 +572,7 @@ function listPage(posts, lang, fam = null) {
       <nav class="crumbs"><a href="${home}">${esc(t.homeLink)}</a> › ${fam ? `<a href="${t.blog}">${esc(t.eyebrow)}</a> › <span>${esc(h1)}</span>` : `<span>${esc(t.eyebrow)}</span>`}</nav>
       <div class="hero">
         <div>
-          <div class="eyebrow">${esc(t.blogTitle)}</div>
+          ${fam ? `<div class="eyebrow">${esc(t.blogTitle)}</div>` : ""}
           <h1>${esc(h1)}</h1>
           <p class="lead">${esc(t.blogIntro)}</p>
         </div>
