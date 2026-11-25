@@ -272,3 +272,8 @@
 .fm-latest-card h3{margin:12px 0 0;font:400 20px/1.25 'Fjalla One','Fredoka',sans-serif;}
 .fm-latest-card:hover h3{text-decoration:underline;}
 @media(max-width:860px){.fm-latest-grid{grid-template-columns:1fr;}}
+
+/* Header tabs underlined like the blog's (25/11): orange line on hover, and on
+   the section being read (set by assets/home.js). */
+.fm-navtext a{padding-bottom:3px;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;}
+.fm-navtext a:hover,.fm-navtext a.cur{color:#c44a1a;border-bottom-color:#c44a1a;}

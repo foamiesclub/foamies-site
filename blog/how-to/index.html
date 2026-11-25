@@ -28,10 +28,13 @@ img{max-width:100%}
 main{padding-bottom:96px}
 /* The home page's header (same links, burger and behaviour) in the blog colours. */
 header{position:sticky;top:0;z-index:50;background:rgba(245,240,232,.94);backdrop-filter:blur(10px);border-bottom:1px solid #E6DED0}
-.bar{max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+/* Same box as the home page's header (max 1180, 40 px sides, 24 under 980 px),
+   so it doesn't shift when going from the site to the blog (25/11). */
+.bar{max-width:1180px;margin:0 auto;padding:14px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px}
 .bar>a img{height:38px;width:auto;display:block}
 .hnav{display:flex;align-items:center;gap:30px;font:600 15px 'Fjalla One','Quicksand',sans-serif;color:#08403c}
 .htext{display:flex;align-items:center;gap:22px;white-space:nowrap}.htext a{color:#08403c}
+.htext a{padding-bottom:3px;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}.htext a:hover{color:#c44a1a;border-bottom-color:#c44a1a}
 .htext a.cur{color:#c44a1a;border-bottom:2px solid #c44a1a;padding-bottom:3px}
 .hdiv{width:1px;height:20px;background:#d6cdbd;margin:0 -14px;flex-shrink:0}
 .hlang{display:inline-flex;align-items:center;gap:14px;font:700 14px 'Fjalla One','Quicksand',sans-serif;line-height:1;margin-right:6px}
@@ -46,6 +49,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(245,240,232,.94);backdro
 .mmenu a.ml{display:block;padding:14px 2px;font:600 17px 'Fjalla One','Quicksand',sans-serif;color:#08403c;border-bottom:1px solid #ebe3d6}
 .mmenu a.ml.cur{color:#c44a1a}.mmenu a.ml:last-of-type{border-bottom:none}
 .mmenu .mcta{display:none;margin-top:18px;text-align:center;background:#08403c;color:#fff;border-radius:999px;padding:14px 22px;font:600 16px 'Quicksand',sans-serif}
+@media(max-width:980px){.bar{padding-left:24px;padding-right:24px}}
 @media(max-width:1024px){.htext,.hdiv{display:none!important}.burger{display:inline-flex}}
 /* The French menu is longer: it folds into the burger earlier, as on the home page (1140 px). */
 @media(max-width:1140px){html[lang="fr"] .htext,html[lang="fr"] .hdiv{display:none!important}html[lang="fr"] .burger{display:inline-flex}}

@@ -71,3 +71,22 @@
     document.getElementById("pro-done").hidden = false;
   });
 })();
+
+// Header: underline the section being read, as the blog does for « blog » (25/11).
+(function () {
+  var links = [].slice.call(document.querySelectorAll(".fm-navtext a[href^='#']"));
+  if (!links.length || !("IntersectionObserver" in window)) return;
+  var byId = {};
+  links.forEach(function (a) { byId[a.getAttribute("href").slice(1)] = a; });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      links.forEach(function (a) { a.classList.remove("cur"); });
+      if (byId[e.target.id]) byId[e.target.id].classList.add("cur");
+    });
+  }, { rootMargin: "-40% 0px -55% 0px" });
+  Object.keys(byId).forEach(function (id) {
+    var s = document.getElementById(id);
+    if (s) io.observe(s);
+  });
+})();
