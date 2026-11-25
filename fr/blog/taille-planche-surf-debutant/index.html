@@ -98,8 +98,10 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .card .img{aspect-ratio:16/10;overflow:hidden;background:#d7e7e9}.card .img img{width:100%;height:100%;object-fit:cover;display:block}
 .card .txt{padding:18px 22px 24px;display:flex;flex-direction:column;gap:10px}
 .card .t{font:400 26px/1.15 'Fjalla One';text-wrap:balance}
-.band{position:relative;overflow:hidden;background:#08403c;color:#fff;border-radius:28px;padding:32px 44px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:30px;align-items:center;margin-top:36px}
-.band img{width:100px}
+/* The app's hero (25/11): the sea gradient, with Flo big and faint on the right. */
+.band{position:relative;overflow:hidden;background:linear-gradient(120deg,#092530 0%,#134656 55%,#2C7A8E 100%);color:#fff;border-radius:28px;padding:36px 44px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:30px;align-items:center;margin-top:36px}
+.band .wm{position:absolute;right:-40px;top:-30px;width:280px;opacity:.1;transform:rotate(-12deg);pointer-events:none}
+.band>div,.band .btn{position:relative}
 .band h2{font:400 32px/1.1 'Fjalla One';color:#fff;margin:0 0 6px}
 .band p{font:500 16px/1.5 'Quicksand';opacity:.85;margin:0}
 .btn{display:inline-block;background:#E8450A;color:#fff;font:700 16px 'Quicksand';padding:13px 22px;border-radius:14px;white-space:nowrap}
@@ -166,7 +168,7 @@ footer a{color:#fff}
 .filters{flex-wrap:nowrap;overflow-x:auto;margin:0 -24px;padding:0 24px 18px}.filters a{flex:none}
 .feat{grid-template-columns:1fr}.feat .img{min-height:0;max-height:none;aspect-ratio:16/9}.feat .txt{padding:20px}.feat .t{font-size:26px}
 .grid{grid-template-columns:1fr;gap:12px}.card{flex-direction:row;align-items:center;border-radius:18px}.card .img{flex:none;width:120px;border-radius:14px;margin:10px}.card .txt{padding:10px 14px 10px 4px;gap:6px}.card .t{font-size:19px}.card .x{display:none}
-.band{grid-template-columns:1fr;padding:24px;text-align:left}.band img{display:none}
+.band{grid-template-columns:1fr;padding:24px;text-align:left}.band .wm{width:200px;right:-50px;top:-20px}
 article{font-size:18px}article h2{font-size:28px}article table{display:block;overflow-x:auto;font-size:14px}.box-conseil{padding-left:26px}.box-conseil img{display:none}.box-app{grid-template-columns:1fr}
 .spot{grid-template-columns:1fr 1fr}.next h2{font-size:30px}.next .grid .card .img{width:96px}}</style>
   <script src="/assets/consent.js" defer></script>
@@ -283,7 +285,7 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
           <!-- TODO bios : Lorène et Théa écriront leurs deux lignes de présentation (bloc auteures de la maquette Claude Design), à mettre ici. -->
           <div class="after pills"><span class="muted">Partager</span><a href="https://wa.me/?text=Quelle%20taille%20de%20planche%20de%20surf%20quand%20on%20d%C3%A9bute%20%3F%20https%3A%2F%2Ffoamiesclub.com%2Ffr%2Fblog%2Ftaille-planche-surf-debutant%2F" rel="noopener" target="_blank">WhatsApp</a><button type="button" onclick="navigator.clipboard&&navigator.clipboard.writeText('https://foamiesclub.com/fr/blog/taille-planche-surf-debutant/').then(()=>{this.textContent='✓'})">Copier le lien</button><a href="https://foamiesclub.com/blog/what-size-surfboard-beginner/" hreflang="en" style="margin-left:auto">Read in English</a></div>
           <aside class="band">
-      <img src="/assets/blog/flo-white.png" alt="" loading="lazy">
+      <img class="wm" src="/assets/blog/flo-white.png" alt="" loading="lazy">
       <div><h2>Prêt·e à y aller ?</h2><p>Planifie ta session sur Foamies Club et trouve des surfeurs pour t'accompagner.</p></div>
       <a class="btn" href="/app/">Planifier ma session</a>
     </aside>
