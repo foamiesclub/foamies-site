@@ -176,6 +176,7 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .muted{font:600 14px 'Quicksand';color:#5b7470}
 /* list */
 .hero{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:40px;align-items:center;padding:28px 0 36px}
+.wrap>.hero:first-child{padding-top:44px} /* no breadcrumb above it on the blog's own page (25/11) */
 .hero h1{margin:14px 0 16px}
 .hero .lead{max-width:640px;font:500 20px/1.55 'Quicksand';color:#2f5753}
 .art{position:relative;height:340px}
@@ -259,6 +260,8 @@ article ul,article ol{margin:0 0 18px 24px}article li{margin-bottom:8px}
 article img{border-radius:16px;margin:12px 0}
 article blockquote{border-left:4px solid #d7e7e9;padding:4px 0 4px 18px;margin:18px 0;color:#08403c;font-style:italic}
 article strong{color:#08403c}
+.tablewrap{overflow-x:auto;margin:22px 0;border-radius:22px}
+.tablewrap table{margin:0}
 article table{border-collapse:separate;border-spacing:0;width:100%;margin:22px 0;font:600 16px/1.4 'Quicksand';background:#fff;border-radius:22px;overflow:hidden}
 article th{background:#08403c;color:#fff;font:400 13px 'Fjalla One';letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:14px 18px}
 article td{text-align:left;padding:13px 18px;border-top:1px solid #EFE8DC}
@@ -303,7 +306,7 @@ footer a{color:#fff}
    tablet, one per row on a phone — the small side-by-side rows were cramped. */
 .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{border-radius:20px}.card .txt{padding:16px 18px 20px;gap:8px}.card .t{font-size:22px}
 .band{grid-template-columns:1fr;padding:24px;text-align:left}.band .wm{width:260px;right:-60px;top:-40px}
-article{font-size:18px}article h2{font-size:28px}article table{display:block;overflow-x:auto;font-size:14px}.box-conseil img{width:170px;right:-40px}.box-app{grid-template-columns:1fr}
+article{font-size:18px}article h2{font-size:28px}article table{font-size:14px;min-width:480px}.box-conseil img{width:170px;right:-40px}.box-app{grid-template-columns:1fr}
 .spot{grid-template-columns:1fr 1fr}.next h2{font-size:30px}}
 @media(max-width:560px){.grid{grid-template-columns:1fr;gap:16px}.card .t{font-size:24px}}
 `.trim();
@@ -541,7 +544,11 @@ function articlePage(p, lang, posts) {
     publisher: { "@type": "Organization", name: "Foamies", logo: { "@type": "ImageObject", url: `${SITE}/assets/logo.png` } },
     mainEntityOfPage: url,
   };
-  const { html, toc } = renderBody(p[`body_${lang}`], lang);
+  const rendered = renderBody(p[`body_${lang}`], lang);
+  const toc = rendered.toc;
+  // Tables scroll inside a wrapper on small screens, so the table itself keeps
+  // its full width and its teal header row never stops halfway (25/11).
+  const html = rendered.html.replace(/<table>/g, '<div class="tablewrap"><table>').replace(/<\/table>/g, "</table></div>");
   const list = tocHtml(toc, lang);
   const share = `<a href="https://wa.me/?text=${encodeURIComponent(`${title} ${url}`)}" rel="noopener" target="_blank">WhatsApp</a><button type="button" onclick="navigator.clipboard&&navigator.clipboard.writeText('${url}').then(()=>{this.textContent='✓'})">${esc(t.copyLink)}</button>`;
   const body = `    <div class="wrap">
@@ -613,7 +620,7 @@ function listPage(posts, lang, fam = null) {
   const more = cards.slice(3).map((p) => card(p, lang)).join("\n      ");
   const h1 = fam ? FAMILIES[fam].label[lang] : t.blogTitle;
   const body = `    <div class="wrap">
-      <nav class="crumbs"><a href="${home}">${esc(t.homeLink)}</a> › ${fam ? `<a href="${t.blog}">${esc(t.eyebrow)}</a> › <span>${esc(h1)}</span>` : `<span>${esc(t.eyebrow)}</span>`}</nav>
+      ${fam ? `<nav class="crumbs"><a href="${home}">${esc(t.homeLink)}</a> › <a href="${t.blog}">${esc(t.eyebrow)}</a> › <span>${esc(h1)}</span></nav>` : ""}
       <div class="hero">
         <div class="htxt">
           ${fam ? `<div class="eyebrow">${esc(t.blogTitle)}</div>` : ""}

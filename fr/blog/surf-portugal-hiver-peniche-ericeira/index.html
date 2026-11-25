@@ -64,6 +64,7 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .muted{font:600 14px 'Quicksand';color:#5b7470}
 /* list */
 .hero{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:40px;align-items:center;padding:28px 0 36px}
+.wrap>.hero:first-child{padding-top:44px} /* no breadcrumb above it on the blog's own page (25/11) */
 .hero h1{margin:14px 0 16px}
 .hero .lead{max-width:640px;font:500 20px/1.55 'Quicksand';color:#2f5753}
 .art{position:relative;height:340px}
@@ -147,6 +148,8 @@ article ul,article ol{margin:0 0 18px 24px}article li{margin-bottom:8px}
 article img{border-radius:16px;margin:12px 0}
 article blockquote{border-left:4px solid #d7e7e9;padding:4px 0 4px 18px;margin:18px 0;color:#08403c;font-style:italic}
 article strong{color:#08403c}
+.tablewrap{overflow-x:auto;margin:22px 0;border-radius:22px}
+.tablewrap table{margin:0}
 article table{border-collapse:separate;border-spacing:0;width:100%;margin:22px 0;font:600 16px/1.4 'Quicksand';background:#fff;border-radius:22px;overflow:hidden}
 article th{background:#08403c;color:#fff;font:400 13px 'Fjalla One';letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:14px 18px}
 article td{text-align:left;padding:13px 18px;border-top:1px solid #EFE8DC}
@@ -191,7 +194,7 @@ footer a{color:#fff}
    tablet, one per row on a phone — the small side-by-side rows were cramped. */
 .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{border-radius:20px}.card .txt{padding:16px 18px 20px;gap:8px}.card .t{font-size:22px}
 .band{grid-template-columns:1fr;padding:24px;text-align:left}.band .wm{width:260px;right:-60px;top:-40px}
-article{font-size:18px}article h2{font-size:28px}article table{display:block;overflow-x:auto;font-size:14px}.box-conseil img{width:170px;right:-40px}.box-app{grid-template-columns:1fr}
+article{font-size:18px}article h2{font-size:28px}article table{font-size:14px;min-width:480px}.box-conseil img{width:170px;right:-40px}.box-app{grid-template-columns:1fr}
 .spot{grid-template-columns:1fr 1fr}.next h2{font-size:30px}}
 @media(max-width:560px){.grid{grid-template-columns:1fr;gap:16px}.card .t{font-size:24px}}</style>
   <script src="/assets/consent.js" defer></script>
@@ -251,7 +254,7 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
 <li><strong>Vent de nord</strong> (fréquent) : vise le côté sud, c&#39;est-à-dire la grande plage de Baleal Sul et, pour les confirmés, Supertubos.</li>
 <li><strong>Vent de sud</strong> (plus rare) : passe côté nord, à Prainha ou Gigi, les petites baies juste à côté de Baleal.</li>
 </ul>
-<table>
+<div class="tablewrap"><table>
 <thead>
 <tr>
 <th>Spot</th>
@@ -289,7 +292,7 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
 <td>Beach break nerveux, environ 20 min au sud</td>
 <td>Tous niveaux, sauf par grosse houle</td>
 </tr>
-</tbody></table>
+</tbody></table></div>
 <p>Une « gauche » ou une « droite », c&#39;est le sens dans lequel la vague déroule, vu par le surfeur qui la prend. Un beach break, c&#39;est une vague qui casse sur un fond de sable.</p>
 <p>Deux spots à laisser aux autres : le récif de Consolação, au sud, pour surfeurs avancés avec une entrée par les rochers, et Papoa, devant la ville, qui ne marche que par très grosse houle et se surfe tracté en jet-ski. Même sur les plages faciles, attention aux rochers cachés sous le sable à Gigi : demande à une école locale où te mettre à l&#39;eau.</p>
 <aside class="box-conseil"><img src="/assets/blog/flo-orange.png" alt=""><div class="box-h">Le conseil de Flo</div><p>Peniche a l&#39;avantage d&#39;avoir des plages orientées dans plusieurs directions : si le vent ne va pas d&#39;un côté, il y a souvent un spot qui marche de l&#39;autre.</p>
@@ -305,7 +308,7 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
 <p>La marée change beaucoup les choses ici : certaines plages marchent mieux à marée basse ou mi-marée, d&#39;autres à marée haute.</p>
 <p>Autre point : Ericeira est devenue très fréquentée, et beaucoup de nouveaux venus ne connaissent pas les règles. Avant de ramer sur Ribeira d&#39;Ilhas, revois les règles de priorité en surf.</p>
 <h2 id="ou-te-baser-selon-ton-niveau">Où te baser selon ton niveau</h2>
-<table>
+<div class="tablewrap"><table>
 <thead>
 <tr>
 <th>Ton niveau</th>
@@ -328,7 +331,7 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
 <td>Peniche ou Ericeira</td>
 <td>Supertubos et Molhe Leste d&#39;un côté, les récifs d&#39;Ericeira de l&#39;autre</td>
 </tr>
-</tbody></table>
+</tbody></table></div>
 <p>Si tu débutes vraiment, encadré c&#39;est mieux en hiver : les moniteurs savent quel bout de plage reste à ta taille.</p>
 <p><strong>Et Lisbonne ?</strong> Tu peux surfer depuis la ville. Carcavelos est à environ 25 minutes en train depuis Cais do Sodré, mais en hiver ses grosses houles la rendent souvent puissante, et l&#39;eau y est très chargée. De l&#39;autre côté du Tage, la Costa da Caparica est une longue plage découpée par des épis (des digues de rochers qui partent de la plage), avec des pics pour tous les niveaux.</p>
 <p><strong>Plus au sud, Sagres</strong> a l&#39;avantage d&#39;avoir des plages face au sud qui restent plus petites quand la houle d&#39;ouest est grosse. On en parle dans le <a href="https://foamiesclub.com/fr/blog/surf-hiver-europe-novembre-mars/">guide du surf en hiver en Europe</a>.</p>

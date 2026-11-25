@@ -64,6 +64,7 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .muted{font:600 14px 'Quicksand';color:#5b7470}
 /* list */
 .hero{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:40px;align-items:center;padding:28px 0 36px}
+.wrap>.hero:first-child{padding-top:44px} /* no breadcrumb above it on the blog's own page (25/11) */
 .hero h1{margin:14px 0 16px}
 .hero .lead{max-width:640px;font:500 20px/1.55 'Quicksand';color:#2f5753}
 .art{position:relative;height:340px}
@@ -147,6 +148,8 @@ article ul,article ol{margin:0 0 18px 24px}article li{margin-bottom:8px}
 article img{border-radius:16px;margin:12px 0}
 article blockquote{border-left:4px solid #d7e7e9;padding:4px 0 4px 18px;margin:18px 0;color:#08403c;font-style:italic}
 article strong{color:#08403c}
+.tablewrap{overflow-x:auto;margin:22px 0;border-radius:22px}
+.tablewrap table{margin:0}
 article table{border-collapse:separate;border-spacing:0;width:100%;margin:22px 0;font:600 16px/1.4 'Quicksand';background:#fff;border-radius:22px;overflow:hidden}
 article th{background:#08403c;color:#fff;font:400 13px 'Fjalla One';letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:14px 18px}
 article td{text-align:left;padding:13px 18px;border-top:1px solid #EFE8DC}
@@ -191,7 +194,7 @@ footer a{color:#fff}
    tablet, one per row on a phone — the small side-by-side rows were cramped. */
 .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{border-radius:20px}.card .txt{padding:16px 18px 20px;gap:8px}.card .t{font-size:22px}
 .band{grid-template-columns:1fr;padding:24px;text-align:left}.band .wm{width:260px;right:-60px;top:-40px}
-article{font-size:18px}article h2{font-size:28px}article table{display:block;overflow-x:auto;font-size:14px}.box-conseil img{width:170px;right:-40px}.box-app{grid-template-columns:1fr}
+article{font-size:18px}article h2{font-size:28px}article table{font-size:14px;min-width:480px}.box-conseil img{width:170px;right:-40px}.box-app{grid-template-columns:1fr}
 .spot{grid-template-columns:1fr 1fr}.next h2{font-size:30px}}
 @media(max-width:560px){.grid{grid-template-columns:1fr;gap:16px}.card .t{font-size:24px}}</style>
   <script src="/assets/consent.js" defer></script>
@@ -300,7 +303,7 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
 <h3>Où surfer en mars ?</h3>
 <p>Les journées rallongent, mais l&#39;eau est encore à son plus froid et les houles restent fortes. Les Canaries et le Portugal restent les options les plus simples. En fin de mois, le Pays basque redevient possible les petits jours, avec une école.</p>
 <h2 id="quel-spot-pour-quel-niveau-le-tableau-recap">Quel spot pour quel niveau ? Le tableau récap</h2>
-<table>
+<div class="tablewrap"><table>
 <thead>
 <tr>
 <th>Destination</th>
@@ -327,7 +330,7 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
 <td>5/3, chaussons, gants</td>
 <td>Surtout intermédiaires solides et experts</td>
 </tr>
-</tbody></table>
+</tbody></table></div>
 <p>Si tu acceptes de sortir d&#39;Europe, le Maroc est aussi une <a href="https://foamiesclub.com/fr/blog/surf-maroc-meilleurs-spots-surf-trip/">destination d&#39;hiver très populaire</a>, avec une eau plus douce que le Portugal.</p>
 <h2 id="surfer-en-hiver-en-securite">Surfer en hiver en sécurité</h2>
 <p>L&#39;hiver ne pardonne pas les erreurs de jugement. Quelques réflexes simples :</p>

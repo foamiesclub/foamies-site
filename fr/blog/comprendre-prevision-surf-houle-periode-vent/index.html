@@ -64,6 +64,7 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .muted{font:600 14px 'Quicksand';color:#5b7470}
 /* list */
 .hero{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:40px;align-items:center;padding:28px 0 36px}
+.wrap>.hero:first-child{padding-top:44px} /* no breadcrumb above it on the blog's own page (25/11) */
 .hero h1{margin:14px 0 16px}
 .hero .lead{max-width:640px;font:500 20px/1.55 'Quicksand';color:#2f5753}
 .art{position:relative;height:340px}
@@ -147,6 +148,8 @@ article ul,article ol{margin:0 0 18px 24px}article li{margin-bottom:8px}
 article img{border-radius:16px;margin:12px 0}
 article blockquote{border-left:4px solid #d7e7e9;padding:4px 0 4px 18px;margin:18px 0;color:#08403c;font-style:italic}
 article strong{color:#08403c}
+.tablewrap{overflow-x:auto;margin:22px 0;border-radius:22px}
+.tablewrap table{margin:0}
 article table{border-collapse:separate;border-spacing:0;width:100%;margin:22px 0;font:600 16px/1.4 'Quicksand';background:#fff;border-radius:22px;overflow:hidden}
 article th{background:#08403c;color:#fff;font:400 13px 'Fjalla One';letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:14px 18px}
 article td{text-align:left;padding:13px 18px;border-top:1px solid #EFE8DC}
@@ -191,7 +194,7 @@ footer a{color:#fff}
    tablet, one per row on a phone — the small side-by-side rows were cramped. */
 .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{border-radius:20px}.card .txt{padding:16px 18px 20px;gap:8px}.card .t{font-size:22px}
 .band{grid-template-columns:1fr;padding:24px;text-align:left}.band .wm{width:260px;right:-60px;top:-40px}
-article{font-size:18px}article h2{font-size:28px}article table{display:block;overflow-x:auto;font-size:14px}.box-conseil img{width:170px;right:-40px}.box-app{grid-template-columns:1fr}
+article{font-size:18px}article h2{font-size:28px}article table{font-size:14px;min-width:480px}.box-conseil img{width:170px;right:-40px}.box-app{grid-template-columns:1fr}
 .spot{grid-template-columns:1fr 1fr}.next h2{font-size:30px}}
 @media(max-width:560px){.grid{grid-template-columns:1fr;gap:16px}.card .t{font-size:24px}}</style>
   <script src="/assets/consent.js" defer></script>
@@ -263,7 +266,7 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
 <h2 id="la-periode-de-houle-le-chiffre-le-plus-sous-estime">La période de houle : le chiffre le plus sous-estimé</h2>
 <p>La période, c&#39;est le temps en secondes entre deux crêtes de vagues qui passent au même point. Plus elle est longue, plus la houle vient de loin et plus elle transporte d&#39;énergie. Une houle de 1 m à 14 secondes est nettement plus puissante qu&#39;une houle de 1 m à 7 secondes. C&#39;est souvent le cas des houles d&#39;hiver sur l&#39;Atlantique (on en parle dans notre guide du <a href="https://foamiesclub.com/fr/blog/surf-hiver-europe-novembre-mars/">surf en hiver en Europe</a>).</p>
 <p>Voici comment lire la période de houle en pratique :</p>
-<table>
+<div class="tablewrap"><table>
 <thead>
 <tr>
 <th>Période</th>
@@ -286,7 +289,7 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
 <td>Houle longue (groundswell)</td>
 <td>Vagues puissantes, séries bien rangées, plus de courant</td>
 </tr>
-</tbody></table>
+</tbody></table></div>
 <p>Une période longue annonce souvent de belles vagues, mais aussi des séries plus grosses que la moyenne (les séries, ce sont les groupes de vagues qui arrivent ensemble) et des courants plus forts. Pour un débutant, une houle de 1 m à 9 ou 10 secondes est souvent plus agréable qu&#39;une houle de 1 m à 15 secondes, qui peut surprendre par sa puissance.</p>
 <p>Petit réflexe : si la hauteur baisse mais que la période monte, ne conclus pas trop vite que ce sera petit. Et à l&#39;inverse, une grosse hauteur avec une période très courte donne souvent une mer agitée et peu surfable.</p>
 <aside class="box-conseil"><img src="/assets/blog/flo-orange.png" alt=""><div class="box-h">Le conseil de Flo</div><p>Une houle d&#39;1 m avec une longue période peut donner plus de vagues qu&#39;on ne le croit. Avant de partir, regarde la période autant que la hauteur, et en cas de doute, demande aux sauveteurs ou à l&#39;école du coin.</p>
