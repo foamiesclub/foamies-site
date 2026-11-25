@@ -305,7 +305,7 @@ footer a{color:#fff}
 /* Phones and tablets (25/11): full cards, photo on top, two per row on a
    tablet, one per row on a phone — the small side-by-side rows were cramped. */
 .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{border-radius:20px}.card .txt{padding:16px 18px 20px;gap:8px}.card .t{font-size:22px}
-.band{grid-template-columns:1fr;padding:24px;text-align:left}.band .wm{width:260px;right:-60px;top:-40px}
+.band{grid-template-columns:1fr;padding:24px;text-align:left}.band .btn,.box-app .btn{justify-self:start} /* the button its own width, not the whole band (25/11) */.band .wm{width:260px;right:-60px;top:-40px}
 article{font-size:18px}article h2{font-size:28px}article table{font-size:14px;min-width:480px}.box-conseil img{width:170px;right:-40px}.box-app{grid-template-columns:1fr}
 .spot{grid-template-columns:1fr 1fr}.next h2{font-size:30px}}
 @media(max-width:560px){.grid{grid-template-columns:1fr;gap:16px}.card .t{font-size:24px}}
