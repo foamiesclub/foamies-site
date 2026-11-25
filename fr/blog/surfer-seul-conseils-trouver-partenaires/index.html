@@ -114,7 +114,8 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .byline{display:flex;flex-direction:column;gap:2px}.byline b{font:700 15px 'Quicksand';color:#08403c}
 .cov{position:relative}.cov .c{aspect-ratio:16/10;border-radius:28px;overflow:hidden;background:#d7e7e9}
 .cov .c img{width:100%;height:100%;object-fit:cover;display:block}
-.body{display:grid;grid-template-columns:240px minmax(0,720px) minmax(0,1fr);gap:64px;align-items:start}
+/* No table of contents (25/11): one centred reading column. */
+.body{display:grid;grid-template-columns:minmax(0,720px);justify-content:center}
 .toc{position:sticky;top:84px;display:flex;flex-direction:column;gap:14px}
 .toc .box{background:#fff;border-radius:20px;padding:18px}
 .toc .h{font:400 13px 'Fjalla One';letter-spacing:.12em;color:#5b7470;text-transform:uppercase;display:block;padding-bottom:6px}
@@ -214,10 +215,6 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
         <div class="cov"><div class="c"><img src="https://mcqifvsdnfwaxapnlibg.supabase.co/storage/v1/render/image/public/blog/covers/859964a9-ef70-49f4-8ae6-038d1bd75fd8.jpg?width=1600&amp;resize=contain&amp;quality=75" alt="Surfer seul : quand y aller et comment en profiter" width="1600" height="1000" fetchpriority="high"></div></div>
       </div>
       <div class="body">
-        <nav class="toc">
-          <div class="box"><span class="h">Sommaire</span><ol><li><a href="#pourquoi-on-aime-surfer-seul"><span>01</span>Pourquoi on aime surfer seul</a></li><li><a href="#quand-surfer-seul-les-trois-bonnes-conditions"><span>02</span>Quand surfer seul : les trois bonnes conditions</a></li><li><a href="#surfer-seul-pourquoi-ca-pourrait-etre-dangereux"><span>03</span>Surfer seul : pourquoi ça pourrait être dangereux</a></li><li><a href="#les-bons-reflexes-avant-d-aller-a-l-eau"><span>04</span>Les bons réflexes avant d&#39;aller à l&#39;eau</a></li><li><a href="#si-un-courant-t-embarque"><span>05</span>Si un courant t&#39;embarque</a></li><li><a href="#envie-de-surfer-a-plusieurs-comment-trouver-des-partenaires-de-surf"><span>06</span>Envie de surfer à plusieurs ? Comment trouver des partenaires de surf</a></li><li><a href="#faq"><span>07</span>FAQ</a></li></ol></div>
-          <div class="pills"><a href="https://foamiesclub.com/blog/surfing-alone-tips-find-surf-buddy/" hreflang="en">Read in English</a></div>
-        </nav>
         <article>
           <p>Surfer seul, ça peut être un vrai bonheur : pas d&#39;horaire à caler, ton rythme à toi, juste toi, les vagues et tes pensées. Beaucoup de surfeurs adorent ça. Est-ce que ça peut être dangereux ? Ça pourrait le devenir si tu y vas sans préparation, alors garde ces sessions pour quand tu te sens à l&#39;aise, sur un spot que tu connais, et avec au moins d&#39;autres surfeurs à l&#39;eau.</p>
 <h2 id="pourquoi-on-aime-surfer-seul">Pourquoi on aime surfer seul</h2>
@@ -287,7 +284,6 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
       <a class="btn" href="/app/">Planifier ma session</a>
     </aside>
         </article>
-        <div></div>
       </div>
     </div>
     <aside class="next">

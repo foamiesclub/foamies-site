@@ -114,7 +114,8 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .byline{display:flex;flex-direction:column;gap:2px}.byline b{font:700 15px 'Quicksand';color:#08403c}
 .cov{position:relative}.cov .c{aspect-ratio:16/10;border-radius:28px;overflow:hidden;background:#d7e7e9}
 .cov .c img{width:100%;height:100%;object-fit:cover;display:block}
-.body{display:grid;grid-template-columns:240px minmax(0,720px) minmax(0,1fr);gap:64px;align-items:start}
+/* No table of contents (25/11): one centred reading column. */
+.body{display:grid;grid-template-columns:minmax(0,720px);justify-content:center}
 .toc{position:sticky;top:84px;display:flex;flex-direction:column;gap:14px}
 .toc .box{background:#fff;border-radius:20px;padding:18px}
 .toc .h{font:400 13px 'Fjalla One';letter-spacing:.12em;color:#5b7470;text-transform:uppercase;display:block;padding-bottom:6px}
@@ -214,10 +215,6 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
         <div class="cov"><div class="c"><img src="https://mcqifvsdnfwaxapnlibg.supabase.co/storage/v1/render/image/public/blog/covers/b0beaa50-c576-4eba-9d2b-b14aaf602c49.jpeg?width=1600&amp;resize=contain&amp;quality=75" alt="Wetsuit Temperature Chart: 3/2, 4/3 or 5/4?" width="1600" height="1000" fetchpriority="high"></div></div>
       </div>
       <div class="body">
-        <nav class="toc">
-          <div class="box"><span class="h">Contents</span><ol><li><a href="#what-3-2-4-3-and-5-4-actually-mean"><span>01</span>What 3/2, 4/3 and 5/4 actually mean</a></li><li><a href="#wetsuit-thickness-and-water-temperature-chart"><span>02</span>Wetsuit thickness and water temperature chart</a></li><li><a href="#warm-water-from-68-to-86-f-20-to-30-c-and-above"><span>03</span>Warm water: from 68 to 86°F (20 to 30°C) and above</a></li><li><a href="#other-factors-that-matter"><span>04</span>Other factors that matter</a></li><li><a href="#getting-the-right-fit"><span>05</span>Getting the right fit</a></li><li><a href="#boots-gloves-and-hoods-when-to-add-them"><span>06</span>Boots, gloves and hoods: when to add them</a></li><li><a href="#looking-after-your-wetsuit"><span>07</span>Looking after your wetsuit</a></li><li><a href="#cold-water-and-safety"><span>08</span>Cold water and safety</a></li><li><a href="#faq"><span>09</span>FAQ</a></li></ol></div>
-          <div class="pills"><a href="https://foamiesclub.com/fr/blog/combinaison-surf-temperature-eau/" hreflang="fr">Lire en français</a></div>
-        </nav>
         <article>
           <p>To match your wetsuit to the water temperature, use these benchmarks: above 77°F (25°C), boardshorts or a swimsuit and a rash guard are enough; around 68 to 77°F (20 to 25°C), a 3/2 full suit; around 59 to 68°F (15 to 20°C), a 4/3. Then adjust for how easily you get cold, the wind and how long you stay out.</p>
 <h2 id="what-3-2-4-3-and-5-4-actually-mean">What 3/2, 4/3 and 5/4 actually mean</h2>
@@ -306,7 +303,6 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
       <a class="btn" href="/app/">Plan my session</a>
     </aside>
         </article>
-        <div></div>
       </div>
     </div>
     <aside class="next">

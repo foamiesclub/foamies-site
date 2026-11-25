@@ -114,7 +114,8 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .byline{display:flex;flex-direction:column;gap:2px}.byline b{font:700 15px 'Quicksand';color:#08403c}
 .cov{position:relative}.cov .c{aspect-ratio:16/10;border-radius:28px;overflow:hidden;background:#d7e7e9}
 .cov .c img{width:100%;height:100%;object-fit:cover;display:block}
-.body{display:grid;grid-template-columns:240px minmax(0,720px) minmax(0,1fr);gap:64px;align-items:start}
+/* No table of contents (25/11): one centred reading column. */
+.body{display:grid;grid-template-columns:minmax(0,720px);justify-content:center}
 .toc{position:sticky;top:84px;display:flex;flex-direction:column;gap:14px}
 .toc .box{background:#fff;border-radius:20px;padding:18px}
 .toc .h{font:400 13px 'Fjalla One';letter-spacing:.12em;color:#5b7470;text-transform:uppercase;display:block;padding-bottom:6px}
@@ -214,10 +215,6 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
         <div class="cov"><div class="c"><img src="https://mcqifvsdnfwaxapnlibg.supabase.co/storage/v1/render/image/public/blog/covers/d889c1f2-685c-4282-a3b7-2e0735505f47.jpg?width=1600&amp;resize=contain&amp;quality=75" alt="What Size Surfboard Should a Beginner Get? (Size Chart)" width="1600" height="1000" fetchpriority="high"></div></div>
       </div>
       <div class="body">
-        <nav class="toc">
-          <div class="box"><span class="h">Contents</span><ol><li><a href="#why-beginners-need-a-big-board"><span>01</span>Why beginners need a big board</a></li><li><a href="#length-volume-width-what-really-matters"><span>02</span>Length, volume, width: what really matters</a></li><li><a href="#surfboard-size-by-weight"><span>03</span>Surfboard size by weight</a></li><li><a href="#foam-board-mini-mal-or-longboard"><span>04</span>Foam board, mini-mal or longboard?</a></li><li><a href="#the-waves-matter-too"><span>05</span>The waves matter too</a></li><li><a href="#rent-before-you-buy"><span>06</span>Rent before you buy</a></li><li><a href="#when-to-move-to-a-smaller-board"><span>07</span>When to move to a smaller board</a></li><li><a href="#faq"><span>08</span>FAQ</a></li></ol></div>
-          <div class="pills"><a href="https://foamiesclub.com/fr/blog/taille-planche-surf-debutant/" hreflang="fr">Lire en français</a></div>
-        </nav>
         <article>
           <p>For a beginner, the right surfboard is <strong>bigger and has more volume</strong> than most people expect: usually 7 to 9 feet long, with plenty of float. A board that is too small is the number one reason people struggle to stand up. Here is how to pick the right size for your weight, height and the waves you surf.</p>
 <h2 id="why-beginners-need-a-big-board">Why beginners need a big board</h2>
@@ -293,7 +290,6 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
       <a class="btn" href="/app/">Plan my session</a>
     </aside>
         </article>
-        <div></div>
       </div>
     </div>
     <aside class="next">
