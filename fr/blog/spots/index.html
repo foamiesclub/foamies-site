@@ -59,12 +59,15 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .tag-hot{background:#E8450A;color:#fff}.tag-white{background:#fff}
 .muted{font:600 14px 'Quicksand';color:#5b7470}
 /* list */
-.hero{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:40px;align-items:center;padding:28px 0 36px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:40px;align-items:center;padding:28px 0 36px}
 .hero h1{margin:14px 0 16px}
 .hero .lead{max-width:640px;font:500 20px/1.55 'Quicksand';color:#2f5753}
-.art{position:relative;height:300px}
-.art .sun{position:absolute;left:0;bottom:0;width:130px}
-.art .flo{position:absolute;right:-10px;top:-24px;width:290px;transform:rotate(-6deg)}
+.art{position:relative;height:340px}
+/* As in the mock-up (Claude Design « Blog », 1a): the big orange sun top right,
+   Flo the surfer in teal in front of it, bottom left. */
+.art .sun{position:absolute;right:0;top:0;width:340px;opacity:.95}
+.art .flo{position:absolute;left:30px;bottom:-10px;width:210px;transform:rotate(-6deg)}
+.sun-m{display:none}
 .filters{display:flex;flex-wrap:wrap;gap:10px;padding-bottom:22px;border-bottom:1px solid #E6DED0}
 /* Filters look like filters (25/11): all alike, white with a light outline, the
    chosen one filled in teal. The family colours stay on the article tags only. */
@@ -151,7 +154,7 @@ footer{background:#08403c;color:#bfe0e6}
 .foot img{height:40px;width:auto;display:block}
 footer a{color:#fff}
 @media(max-width:1100px){.body{grid-template-columns:minmax(0,1fr)}.toc{display:none}.ahero{grid-template-columns:1fr}.ahero .cov{order:-1}}
-@media(max-width:860px){h1,.ahero h1{font-size:40px}.hero{grid-template-columns:1fr}.art{display:none}
+@media(max-width:860px){h1,.ahero h1{font-size:40px}.hero{grid-template-columns:1fr;position:relative;overflow:hidden}.art{display:none}.sun-m{display:block;position:absolute;right:-30px;top:-10px;width:150px;opacity:.9}.htxt{position:relative}
 .filters{flex-wrap:nowrap;overflow-x:auto;margin:0 -24px;padding:0 24px 18px}.filters a{flex:none}
 .feat{grid-template-columns:1fr}.feat .img{min-height:0;max-height:none;aspect-ratio:16/9}.feat .txt{padding:20px}.feat .t{font-size:26px}
 .grid{grid-template-columns:1fr;gap:12px}.card{flex-direction:row;align-items:center;border-radius:18px}.card .img{flex:none;width:120px;border-radius:14px;margin:10px}.card .txt{padding:10px 14px 10px 4px;gap:6px}.card .t{font-size:19px}.card .x{display:none}
@@ -189,12 +192,13 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
     <div class="wrap">
       <nav class="crumbs"><a href="/fr/">Accueil</a> › <a href="/fr/blog/">Blog</a> › <span>Spots &amp; trips</span></nav>
       <div class="hero">
-        <div>
+        <img class="sun-m" src="/assets/blog/sun-orange.svg" alt="">
+        <div class="htxt">
           <div class="eyebrow">Le blog Foamies</div>
           <h1>Spots &amp; trips</h1>
           <p class="lead">Spots de surf, conseils pour débuter et histoires de la communauté Foamies.</p>
         </div>
-        <div class="art"><img class="sun" src="/assets/sun.png" alt=""><img class="flo" src="/assets/blog/flo-teal.png" alt=""></div>
+        <div class="art"><img class="sun" src="/assets/blog/sun-orange.svg" alt=""><img class="flo" src="/assets/blog/flo-fig-teal.png" alt=""></div>
       </div>
       <nav class="filters">
       <a href="/fr/blog/" class="">Tout <span class="n">8</span></a>
