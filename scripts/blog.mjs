@@ -121,11 +121,6 @@ const FAMILIES = {
 const familyOf = (p) => FAMILY_OF[p.slug_fr] ?? "guides";
 const familyUrl = (f, lang) => `${SITE}${T[lang].blog}${FAMILIES[f].path[lang]}/`;
 const tagLabel = (f, lang) => (FAMILIES[f].tag ?? FAMILIES[f].label)[lang];
-
-// The two of us (25/11): every article is signed « Lorène & Théa », with our
-// photos, instead of « L'équipe Foamies ».
-const AUTHORS = "Lorène & Théa";
-const faces = (bg) => `<span class="faces"><img src="/assets/blog/lorene.png" alt="Lorène" width="34" height="34" style="border-color:${bg}"><img src="/assets/blog/thea.png" alt="Théa" width="34" height="34" style="border-color:${bg}"></span>`;
 const tag = (f, lang) => `<span class="tag tag-${f}">${esc(tagLabel(f, lang))}</span>`;
 
 // Reading time from the word count, about 200 words a minute.
@@ -228,10 +223,7 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .ahero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:56px;align-items:center;padding:28px 0 44px}
 .ahero h1{font-size:58px;margin:16px 0}
 .ahero .lead{font:500 21px/1.55 'Quicksand';color:#2f5753;margin-bottom:18px}
-.byline{display:flex;align-items:center;gap:12px}.byline>div{display:flex;flex-direction:column;gap:2px}.byline b{font:700 15px 'Quicksand';color:#08403c}
-.faces{display:inline-flex;flex:none}.faces img{width:34px;height:34px;border-radius:50%;border:2px solid #f5f0e8;object-fit:cover;margin:0}.faces img+img{margin-left:-10px}
-.byline .faces img{width:40px;height:40px}
-.who{display:flex;align-items:center;gap:12px}
+.byline{display:flex;flex-direction:column;gap:2px}.byline b{font:700 15px 'Quicksand';color:#08403c}
 .cov{position:relative}.cov .c{aspect-ratio:16/10;border-radius:28px;overflow:hidden;background:#d7e7e9}
 .cov .c img{width:100%;height:100%;object-fit:cover;display:block}
 .body{display:grid;grid-template-columns:240px minmax(0,720px) minmax(0,1fr);gap:64px;align-items:start}
@@ -538,10 +530,7 @@ function articlePage(p, lang, posts) {
     datePublished: when(p),
     dateModified: p.updated_at,
     inLanguage: lang,
-    author: [
-      { "@type": "Person", name: "Lorène", worksFor: { "@type": "Organization", name: "Foamies", url: SITE } },
-      { "@type": "Person", name: "Théa", worksFor: { "@type": "Organization", name: "Foamies", url: SITE } },
-    ],
+    author: { "@type": "Organization", name: p.author, url: SITE },
     publisher: { "@type": "Organization", name: "Foamies", logo: { "@type": "ImageObject", url: `${SITE}/assets/logo.png` } },
     mainEntityOfPage: url,
   };
@@ -555,7 +544,7 @@ function articlePage(p, lang, posts) {
           ${tag(fam, lang)}
           <h1>${esc(title)}</h1>
           ${p[`excerpt_${lang}`] ? `<p class="lead">${esc(p[`excerpt_${lang}`])}</p>` : ""}
-          <div class="byline">${faces("#f5f0e8")}<div><b>${t.by} ${esc(AUTHORS)}</b><span class="muted">${date(when(p), lang)} · ${readLabel(p, lang)}</span></div></div>
+          <div class="byline"><b>${t.by} ${esc(p.author)}</b><span class="muted">${date(when(p), lang)} · ${readLabel(p, lang)}</span></div>
         </div>
         ${p.cover_url ? `<div class="cov"><div class="c"><img src="${esc(image)}" alt="${esc(title)}" width="1600" height="1000" fetchpriority="high"></div></div>` : ""}
       </div>
@@ -608,7 +597,7 @@ function listPage(posts, lang, fam = null) {
           <div><span class="tag tag-hot">${esc(t.featured)}</span> <span class="tag tag-white">${esc(tagLabel(familyOf(first), lang))}</span></div>
           <span class="t">${esc(first[`title_${lang}`])}</span>
           <span class="x">${esc(first[`excerpt_${lang}`] || first[`meta_description_${lang}`] || "")}</span>
-          <span class="who">${faces("#d7e7e9")}<span class="muted">${esc(AUTHORS)} · ${readLabel(first, lang)} · ${date(when(first), lang)}</span></span>
+          <span class="muted">${esc(first.author)} · ${readLabel(first, lang)} · ${date(when(first), lang)}</span>
           <span class="go"><span class="u">${esc(t.read)}</span> →</span>
         </div>
       </a>` : "";
