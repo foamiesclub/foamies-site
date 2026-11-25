@@ -114,8 +114,7 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .byline{display:flex;flex-direction:column;gap:2px}.byline b{font:700 15px 'Quicksand';color:#08403c}
 .cov{position:relative}.cov .c{aspect-ratio:16/10;border-radius:28px;overflow:hidden;background:#d7e7e9}
 .cov .c img{width:100%;height:100%;object-fit:cover;display:block}
-/* No table of contents (25/11): one centred reading column. */
-.body{display:grid;grid-template-columns:minmax(0,720px);justify-content:center}
+.body{display:grid;grid-template-columns:240px minmax(0,720px) minmax(0,1fr);gap:64px;align-items:start}
 .toc{position:sticky;top:84px;display:flex;flex-direction:column;gap:14px}
 .toc .box{background:#fff;border-radius:20px;padding:18px}
 .toc .h{font:400 13px 'Fjalla One';letter-spacing:.12em;color:#5b7470;text-transform:uppercase;display:block;padding-bottom:6px}
@@ -215,6 +214,10 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
         <div class="cov"><div class="c"><img src="https://mcqifvsdnfwaxapnlibg.supabase.co/storage/v1/render/image/public/blog/covers/c2a9191d-8734-4d61-91a3-5445dae07138.jpeg?width=1600&amp;resize=contain&amp;quality=75" alt="Surfer à Taghazout : spots, niveaux et conseils" width="1600" height="1000" fetchpriority="high"></div></div>
       </div>
       <div class="body">
+        <nav class="toc">
+          <div class="box"><span class="h">Sommaire</span><ol><li><a href="#quand-surfer-a-taghazout"><span>01</span>Quand surfer à Taghazout</a></li><li><a href="#spot-surf-taghazout-le-tableau-des-niveaux"><span>02</span>Spot surf Taghazout : le tableau des niveaux</a></li><li><a href="#anchor-point-et-les-points-breaks-pour-confirmes"><span>03</span>Anchor Point et les points breaks pour confirmés</a></li><li><a href="#les-spots-du-village-hash-point-la-source-panorama"><span>04</span>Les spots du village : Hash Point, La Source, Panorama</a></li><li><a href="#tamraght-et-les-plages-pour-debuter"><span>05</span>Tamraght et les plages pour débuter</a></li><li><a href="#surf-camp-a-taghazout-comment-choisir"><span>06</span>Surf camp à Taghazout : comment choisir</a></li><li><a href="#conseils-de-securite"><span>07</span>Conseils de sécurité</a></li><li><a href="#faq"><span>08</span>FAQ</a></li></ol></div>
+          <div class="pills"><a href="https://foamiesclub.com/blog/surfing-taghazout-morocco-spots-levels-tips/" hreflang="en">Read in English</a></div>
+        </nav>
         <article>
           <p>Le surf à Taghazout, c&#39;est une série de points breaks (des vagues qui cassent toujours au même endroit, le long d&#39;une pointe de roche) au nord d&#39;Agadir, avec des spots accessibles jusqu’au sud, à Tamraght. Si tu es débutant, c&#39;est sur ces plages que tu vas surfer. Les points célèbres comme Anchor Point, Killer Point ou Boilers sont pour les surfeurs confirmés.</p>
 <p>Ce qui est super, c&#39;est qu&#39;en quelques kilomètres tu trouves des vagues pour tous les niveaux. Le tout est de savoir lesquelles sont pour toi. Pour le reste du pays, vois notre guide des <a href="https://foamiesclub.com/fr/blog/surf-maroc-meilleurs-spots-surf-trip/">meilleurs spots de surf au Maroc</a>.</p>
@@ -334,6 +337,7 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
       <a class="btn" href="/app/">Planifier ma session</a>
     </aside>
         </article>
+        <div></div>
       </div>
     </div>
     <aside class="next">

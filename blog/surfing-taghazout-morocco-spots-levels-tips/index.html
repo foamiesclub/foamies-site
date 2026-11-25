@@ -114,8 +114,7 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .byline{display:flex;flex-direction:column;gap:2px}.byline b{font:700 15px 'Quicksand';color:#08403c}
 .cov{position:relative}.cov .c{aspect-ratio:16/10;border-radius:28px;overflow:hidden;background:#d7e7e9}
 .cov .c img{width:100%;height:100%;object-fit:cover;display:block}
-/* No table of contents (25/11): one centred reading column. */
-.body{display:grid;grid-template-columns:minmax(0,720px);justify-content:center}
+.body{display:grid;grid-template-columns:240px minmax(0,720px) minmax(0,1fr);gap:64px;align-items:start}
 .toc{position:sticky;top:84px;display:flex;flex-direction:column;gap:14px}
 .toc .box{background:#fff;border-radius:20px;padding:18px}
 .toc .h{font:400 13px 'Fjalla One';letter-spacing:.12em;color:#5b7470;text-transform:uppercase;display:block;padding-bottom:6px}
@@ -215,6 +214,10 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
         <div class="cov"><div class="c"><img src="https://mcqifvsdnfwaxapnlibg.supabase.co/storage/v1/render/image/public/blog/covers/c2a9191d-8734-4d61-91a3-5445dae07138.jpeg?width=1600&amp;resize=contain&amp;quality=75" alt="Surfing in Taghazout, Morocco: Spots, Levels and Tips" width="1600" height="1000" fetchpriority="high"></div></div>
       </div>
       <div class="body">
+        <nav class="toc">
+          <div class="box"><span class="h">Contents</span><ol><li><a href="#when-to-surf-in-taghazout"><span>01</span>When to Surf in Taghazout</a></li><li><a href="#taghazout-surf-spots-by-level"><span>02</span>Taghazout Surf Spots by Level</a></li><li><a href="#anchor-point-and-the-points-for-experienced-surfers"><span>03</span>Anchor Point and the Points for Experienced Surfers</a></li><li><a href="#the-village-breaks-hash-point-la-source-panorama"><span>04</span>The Village Breaks: Hash Point, La Source, Panorama</a></li><li><a href="#tamraght-and-the-best-beaches-for-beginners"><span>05</span>Tamraght and the Best Beaches for Beginners</a></li><li><a href="#choosing-a-surf-camp-in-taghazout"><span>06</span>Choosing a Surf Camp in Taghazout</a></li><li><a href="#safety-tips"><span>07</span>Safety Tips</a></li><li><a href="#faq"><span>08</span>FAQ</a></li></ol></div>
+          <div class="pills"><a href="https://foamiesclub.com/fr/blog/surf-taghazout-spots-niveaux-conseils/" hreflang="fr">Lire en français</a></div>
+        </nav>
         <article>
           <p>Surfing in Taghazout means a string of right-hand point breaks (waves that always break in the same place, along a rocky headland) just north of Agadir, plus mellow beaches a few minutes south in Tamraght. If you are a beginner, those beaches are where you will surf. The famous points like Anchor Point, Killer Point and Boilers are for experienced surfers.</p>
 <p>The good news is that within a few kilometres you will find waves for every level. The trick is knowing which ones are for you. For the rest of the country, see our guide to the <a href="https://foamiesclub.com/blog/surfing-morocco-best-spots-surf-trip/">best surf spots in Morocco</a>.</p>
@@ -333,6 +336,7 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
       <a class="btn" href="/app/">Plan my session</a>
     </aside>
         </article>
+        <div></div>
       </div>
     </div>
     <aside class="next">

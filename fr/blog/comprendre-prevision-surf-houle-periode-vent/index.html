@@ -114,8 +114,7 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .byline{display:flex;flex-direction:column;gap:2px}.byline b{font:700 15px 'Quicksand';color:#08403c}
 .cov{position:relative}.cov .c{aspect-ratio:16/10;border-radius:28px;overflow:hidden;background:#d7e7e9}
 .cov .c img{width:100%;height:100%;object-fit:cover;display:block}
-/* No table of contents (25/11): one centred reading column. */
-.body{display:grid;grid-template-columns:minmax(0,720px);justify-content:center}
+.body{display:grid;grid-template-columns:240px minmax(0,720px) minmax(0,1fr);gap:64px;align-items:start}
 .toc{position:sticky;top:84px;display:flex;flex-direction:column;gap:14px}
 .toc .box{background:#fff;border-radius:20px;padding:18px}
 .toc .h{font:400 13px 'Fjalla One';letter-spacing:.12em;color:#5b7470;text-transform:uppercase;display:block;padding-bottom:6px}
@@ -215,6 +214,10 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
         <div class="cov"><div class="c"><img src="https://mcqifvsdnfwaxapnlibg.supabase.co/storage/v1/render/image/public/blog/covers/1b3764cc-2289-4a4f-9d21-917ccfaa8bdc.jpg?width=1600&amp;resize=contain&amp;quality=75" alt="Comprendre une prévision de surf : houle, période et vent" width="1600" height="1000" fetchpriority="high"></div></div>
       </div>
       <div class="body">
+        <nav class="toc">
+          <div class="box"><span class="h">Sommaire</span><ol><li><a href="#comprendre-une-prevision-de-surf-les-chiffres-de-base"><span>01</span>Comprendre une prévision de surf : les chiffres de base</a></li><li><a href="#la-hauteur-de-houle-ce-que-le-chiffre-veut-vraiment-dire"><span>02</span>La hauteur de houle : ce que le chiffre veut vraiment dire</a></li><li><a href="#la-periode-de-houle-le-chiffre-le-plus-sous-estime"><span>03</span>La période de houle : le chiffre le plus sous-estimé</a></li><li><a href="#le-vent-offshore-onshore-et-vent-de-travers"><span>04</span>Le vent : offshore, onshore et vent de travers</a></li><li><a href="#la-direction-de-houle-et-la-maree"><span>05</span>La direction de houle et la marée</a></li><li><a href="#un-exemple-concret-etape-par-etape"><span>06</span>Un exemple concret, étape par étape</a></li><li><a href="#avant-de-partir-les-bons-reflexes-de-securite"><span>07</span>Avant de partir : les bons réflexes de sécurité</a></li><li><a href="#faq"><span>08</span>FAQ</a></li></ol></div>
+          <div class="pills"><a href="https://foamiesclub.com/blog/read-surf-forecast-swell-period-wind/" hreflang="en">Read in English</a></div>
+        </nav>
         <article>
           <p>Pour comprendre une prévision de surf, regarde trois choses dans cet ordre : la hauteur de la houle, sa période et le vent. La hauteur te donne une idée de la taille des vagues, la période te dit quelle puissance elles auront, et le vent te dit si elles seront propres ou en bazar. Avec ces trois chiffres, plus la marée, tu sais déjà si ça vaut le coup de charger la planche.</p>
 <h2 id="comprendre-une-prevision-de-surf-les-chiffres-de-base">Comprendre une prévision de surf : les chiffres de base</h2>
@@ -312,6 +315,7 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
       <a class="btn" href="/app/">Planifier ma session</a>
     </aside>
         </article>
+        <div></div>
       </div>
     </div>
     <aside class="next">

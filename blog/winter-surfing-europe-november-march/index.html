@@ -114,8 +114,7 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .byline{display:flex;flex-direction:column;gap:2px}.byline b{font:700 15px 'Quicksand';color:#08403c}
 .cov{position:relative}.cov .c{aspect-ratio:16/10;border-radius:28px;overflow:hidden;background:#d7e7e9}
 .cov .c img{width:100%;height:100%;object-fit:cover;display:block}
-/* No table of contents (25/11): one centred reading column. */
-.body{display:grid;grid-template-columns:minmax(0,720px);justify-content:center}
+.body{display:grid;grid-template-columns:240px minmax(0,720px) minmax(0,1fr);gap:64px;align-items:start}
 .toc{position:sticky;top:84px;display:flex;flex-direction:column;gap:14px}
 .toc .box{background:#fff;border-radius:20px;padding:18px}
 .toc .h{font:400 13px 'Fjalla One';letter-spacing:.12em;color:#5b7470;text-transform:uppercase;display:block;padding-bottom:6px}
@@ -215,6 +214,10 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
         <div class="cov"><div class="c"><img src="https://mcqifvsdnfwaxapnlibg.supabase.co/storage/v1/render/image/public/blog/covers/1a82ebd2-8aec-40cb-87e7-73469468b5a5.jpg?width=1600&amp;resize=contain&amp;quality=75" alt="Winter Surfing in Europe: Where to Go (Nov to March)" width="1600" height="1000" fetchpriority="high"></div></div>
       </div>
       <div class="body">
+        <nav class="toc">
+          <div class="box"><span class="h">Contents</span><ol><li><a href="#winter-surfing-in-europe-what-changes-from-november-to-march"><span>01</span>Winter Surfing in Europe: What Changes from November to March</a></li><li><a href="#canary-islands-warm-water-winter-surf"><span>02</span>Canary Islands: Warm-Water Winter Surf</a></li><li><a href="#portugal-ericeira-peniche-and-sagres"><span>03</span>Portugal: Ericeira, Peniche and Sagres</a></li><li><a href="#basque-country-and-southwest-france-for-seasoned-surfers"><span>04</span>Basque Country and Southwest France: For Seasoned Surfers</a></li><li><a href="#where-to-surf-in-europe-month-by-month"><span>05</span>Where to Surf in Europe, Month by Month</a></li><li><a href="#which-spot-for-which-level-quick-comparison"><span>06</span>Which Spot for Which Level? Quick Comparison</a></li><li><a href="#staying-safe-when-you-surf-in-winter"><span>07</span>Staying Safe When You Surf in Winter</a></li><li><a href="#faq"><span>08</span>FAQ</a></li></ol></div>
+          <div class="pills"><a href="https://foamiesclub.com/fr/blog/surf-hiver-europe-novembre-mars/" hreflang="fr">Lire en français</a></div>
+        </nav>
         <article>
           <p>If you are a beginner or an intermediate looking for winter surfing in Europe, the Canary Islands are the easiest pick: water around 18°C and plenty of sandy beaches to learn on. Portugal is a great second choice if you can handle cooler water. The Basque Country and southwest France also work, but the water is cold and the swell is often too big for newer surfers.</p>
 <p>Winter is when the big North Atlantic swells arrive. You get waves more often than in summer, but they also carry a lot more power. So the real question is not where to find waves, it is where to find waves that match your level.</p>
@@ -328,6 +331,7 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
       <a class="btn" href="/app/">Plan my session</a>
     </aside>
         </article>
+        <div></div>
       </div>
     </div>
     <aside class="next">

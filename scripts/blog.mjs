@@ -226,8 +226,7 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .byline{display:flex;flex-direction:column;gap:2px}.byline b{font:700 15px 'Quicksand';color:#08403c}
 .cov{position:relative}.cov .c{aspect-ratio:16/10;border-radius:28px;overflow:hidden;background:#d7e7e9}
 .cov .c img{width:100%;height:100%;object-fit:cover;display:block}
-/* No table of contents (25/11): one centred reading column. */
-.body{display:grid;grid-template-columns:minmax(0,720px);justify-content:center}
+.body{display:grid;grid-template-columns:240px minmax(0,720px) minmax(0,1fr);gap:64px;align-items:start}
 .toc{position:sticky;top:84px;display:flex;flex-direction:column;gap:14px}
 .toc .box{background:#fff;border-radius:20px;padding:18px}
 .toc .h{font:400 13px 'Fjalla One';letter-spacing:.12em;color:#5b7470;text-transform:uppercase;display:block;padding-bottom:6px}
@@ -524,6 +523,7 @@ function articlePage(p, lang, posts) {
     mainEntityOfPage: url,
   };
   const { html, toc } = renderBody(p[`body_${lang}`], lang);
+  const list = tocHtml(toc, lang);
   const share = `<a href="https://wa.me/?text=${encodeURIComponent(`${title} ${url}`)}" rel="noopener" target="_blank">WhatsApp</a><button type="button" onclick="navigator.clipboard&&navigator.clipboard.writeText('${url}').then(()=>{this.textContent='✓'})">${esc(t.copyLink)}</button>`;
   const body = `    <div class="wrap">
       <nav class="crumbs"><a href="${home}">${esc(t.homeLink)}</a> › <a href="${t.blog}">${esc(t.eyebrow)}</a> › <a href="${familyUrl(fam, lang)}">${esc(FAMILIES[fam].label[lang])}</a></nav>
@@ -537,12 +537,17 @@ function articlePage(p, lang, posts) {
         ${p.cover_url ? `<div class="cov"><div class="c"><img src="${esc(image)}" alt="${esc(title)}" width="1600" height="1000" fetchpriority="high"></div></div>` : ""}
       </div>
       <div class="body">
+        <nav class="toc">
+          ${list ? `<div class="box"><span class="h">${esc(t.toc)}</span>${list}</div>` : ""}
+          <div class="pills"><a href="${postUrl(p, other)}" hreflang="${other}">${esc(t.other)}</a></div>
+        </nav>
         <article>
           ${html}
           <!-- TODO bios : Lorène et Théa écriront leurs deux lignes de présentation (bloc auteures de la maquette Claude Design), à mettre ici. -->
           <div class="after pills"><span class="muted">${esc(t.share)}</span>${share}<a href="${postUrl(p, other)}" hreflang="${other}" style="margin-left:auto">${esc(t.other)}</a></div>
           ${cta(lang)}
         </article>
+        <div></div>
       </div>
     </div>
     ${related(p, posts, lang)}`;

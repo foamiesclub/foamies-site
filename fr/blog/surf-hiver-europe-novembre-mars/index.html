@@ -114,8 +114,7 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .byline{display:flex;flex-direction:column;gap:2px}.byline b{font:700 15px 'Quicksand';color:#08403c}
 .cov{position:relative}.cov .c{aspect-ratio:16/10;border-radius:28px;overflow:hidden;background:#d7e7e9}
 .cov .c img{width:100%;height:100%;object-fit:cover;display:block}
-/* No table of contents (25/11): one centred reading column. */
-.body{display:grid;grid-template-columns:minmax(0,720px);justify-content:center}
+.body{display:grid;grid-template-columns:240px minmax(0,720px) minmax(0,1fr);gap:64px;align-items:start}
 .toc{position:sticky;top:84px;display:flex;flex-direction:column;gap:14px}
 .toc .box{background:#fff;border-radius:20px;padding:18px}
 .toc .h{font:400 13px 'Fjalla One';letter-spacing:.12em;color:#5b7470;text-transform:uppercase;display:block;padding-bottom:6px}
@@ -215,6 +214,10 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
         <div class="cov"><div class="c"><img src="https://mcqifvsdnfwaxapnlibg.supabase.co/storage/v1/render/image/public/blog/covers/1a82ebd2-8aec-40cb-87e7-73469468b5a5.jpg?width=1600&amp;resize=contain&amp;quality=75" alt="Surf en hiver en Europe : où surfer de novembre à mars" width="1600" height="1000" fetchpriority="high"></div></div>
       </div>
       <div class="body">
+        <nav class="toc">
+          <div class="box"><span class="h">Sommaire</span><ol><li><a href="#surf-hiver-europe-ce-qui-change-entre-novembre-et-mars"><span>01</span>Surf hiver Europe : ce qui change entre novembre et mars</a></li><li><a href="#les-canaries-le-surf-d-hiver-au-chaud"><span>02</span>Les Canaries : le surf d&#39;hiver au chaud</a></li><li><a href="#le-portugal-ericeira-peniche-et-sagres"><span>03</span>Le Portugal : Ericeira, Peniche et Sagres</a></li><li><a href="#pays-basque-et-landes-pour-surfeurs-aguerris"><span>04</span>Pays basque et Landes : pour surfeurs aguerris</a></li><li><a href="#ou-surfer-mois-par-mois-de-novembre-a-mars"><span>05</span>Où surfer mois par mois, de novembre à mars</a></li><li><a href="#quel-spot-pour-quel-niveau-le-tableau-recap"><span>06</span>Quel spot pour quel niveau ? Le tableau récap</a></li><li><a href="#surfer-en-hiver-en-securite"><span>07</span>Surfer en hiver en sécurité</a></li><li><a href="#faq"><span>08</span>FAQ</a></li></ol></div>
+          <div class="pills"><a href="https://foamiesclub.com/blog/winter-surfing-europe-november-march/" hreflang="en">Read in English</a></div>
+        </nav>
         <article>
           <p>Pour surfer en hiver en Europe quand tu es débutant ou intermédiaire, les Canaries sont le choix le plus confortable : eau autour de 18 °C et plages adaptées pour apprendre. Le Portugal est un très bon compromis si tu acceptes une eau plus fraîche. Le Pays basque et les Landes marchent aussi, mais avec une eau froide et des houles souvent trop fortes pour un débutant.</p>
 <p>L&#39;hiver, c&#39;est la saison des grosses houles de l&#39;Atlantique Nord. Les vagues sont plus régulières qu&#39;en été, mais aussi plus puissantes. Le vrai sujet n&#39;est donc pas de trouver des vagues, c&#39;est de trouver des vagues à ta taille.</p>
@@ -328,6 +331,7 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
       <a class="btn" href="/app/">Planifier ma session</a>
     </aside>
         </article>
+        <div></div>
       </div>
     </div>
     <aside class="next">

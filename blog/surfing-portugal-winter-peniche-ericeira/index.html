@@ -114,8 +114,7 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .byline{display:flex;flex-direction:column;gap:2px}.byline b{font:700 15px 'Quicksand';color:#08403c}
 .cov{position:relative}.cov .c{aspect-ratio:16/10;border-radius:28px;overflow:hidden;background:#d7e7e9}
 .cov .c img{width:100%;height:100%;object-fit:cover;display:block}
-/* No table of contents (25/11): one centred reading column. */
-.body{display:grid;grid-template-columns:minmax(0,720px);justify-content:center}
+.body{display:grid;grid-template-columns:240px minmax(0,720px) minmax(0,1fr);gap:64px;align-items:start}
 .toc{position:sticky;top:84px;display:flex;flex-direction:column;gap:14px}
 .toc .box{background:#fff;border-radius:20px;padding:18px}
 .toc .h{font:400 13px 'Fjalla One';letter-spacing:.12em;color:#5b7470;text-transform:uppercase;display:block;padding-bottom:6px}
@@ -215,6 +214,10 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
         <div class="cov"><div class="c"><img src="https://mcqifvsdnfwaxapnlibg.supabase.co/storage/v1/render/image/public/blog/covers/87ffe635-a8e9-48dc-894b-ce31fba7b58b.jpg?width=1600&amp;resize=contain&amp;quality=75" alt="Surfing Portugal in Winter: Peniche, Baleal and Ericeira" width="1600" height="1000" fetchpriority="high"></div></div>
       </div>
       <div class="body">
+        <nav class="toc">
+          <div class="box"><span class="h">Contents</span><ol><li><a href="#surfing-portugal-in-winter-what-to-expect"><span>01</span>Surfing Portugal in Winter: What to Expect</a></li><li><a href="#peniche-and-baleal-surf-spots-pick-your-side-by-the-wind"><span>02</span>Peniche and Baleal Surf Spots: Pick Your Side by the Wind</a></li><li><a href="#ericeira-a-surf-reserve-mostly-reef"><span>03</span>Ericeira: A Surf Reserve, Mostly Reef</a></li><li><a href="#where-to-stay-for-your-level"><span>04</span>Where to Stay for Your Level</a></li><li><a href="#getting-around-the-coast-in-winter"><span>05</span>Getting Around the Coast in Winter</a></li><li><a href="#staying-safe-in-portuguese-winter-surf"><span>06</span>Staying Safe in Portuguese Winter Surf</a></li><li><a href="#faq"><span>07</span>FAQ</a></li></ol></div>
+          <div class="pills"><a href="https://foamiesclub.com/fr/blog/surf-portugal-hiver-peniche-ericeira/" hreflang="fr">Lire en français</a></div>
+        </nav>
         <article>
           <p>For surfing Portugal in winter, Peniche and Baleal make the easiest base: the peninsula has beaches facing several directions, so one side is almost always surfable. Ericeira, further south and closer to Lisbon, has world-class waves, but mostly over reef (a rock bottom), which suits intermediates and experienced surfers better. Expect water around 14 to 16°C and pack a 4/3 wetsuit with booties.</p>
 <p>We already covered the big picture in our guide to <a href="https://foamiesclub.com/blog/winter-surfing-europe-november-march/">winter surfing in Europe from November to March</a>. This one goes deeper on Portugal: which spot works in which wind, where to stay for your level and how to get around.</p>
@@ -340,6 +343,7 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
       <a class="btn" href="/app/">Plan my session</a>
     </aside>
         </article>
+        <div></div>
       </div>
     </div>
     <aside class="next">
