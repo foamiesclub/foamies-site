@@ -168,7 +168,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(245,240,232,.94);backdro
 h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .tag{display:inline-block;border-radius:9px;padding:4px 9px;font:400 12px 'Fjalla One';letter-spacing:.08em;text-transform:uppercase;color:#08403c}
 .tag-spots{background:#d7e7e9}.tag-guides{background:#F6DCCD}.tag-debuter{background:#08403c;color:#fff}
-.tag-hot{background:#E8450A;color:#fff}.tag-white{background:#fff}
+.tag-hot{background:#08403c;color:#fff} /* « À la une » in teal (25/11): orange is for actions */.tag-white{background:#fff}
 .muted{font:600 14px 'Quicksand';color:#5b7470}
 /* list */
 .hero{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:40px;align-items:center;padding:28px 0 36px}
@@ -177,7 +177,7 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .art{position:relative;height:340px}
 /* As in the mock-up (Claude Design « Blog », 1a): the big orange sun top right,
    Flo the surfer in teal in front of it, bottom left. */
-.art .sun{position:absolute;right:0;top:0;width:340px;opacity:.95}
+.art .sun{position:absolute;right:0;top:0;width:340px;opacity:.4} /* softer (25/11): a backdrop, not a second focal point */
 .art .flo{position:absolute;left:30px;bottom:-10px;width:210px;transform:rotate(-6deg)}
 .filters{display:flex;flex-wrap:wrap;gap:10px;padding-bottom:22px;border-bottom:1px solid #E6DED0}
 /* Filters look like filters (25/11): all alike, white with a light outline, the
