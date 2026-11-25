@@ -84,8 +84,8 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .feat .t{font:400 34px/1.1 'Fjalla One'}
 .feat .x{font:500 16px/1.5 'Quicksand';color:#2f5753;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .go{font:700 16px 'Quicksand';color:#c44a1a;text-underline-offset:4px}
-/* On the featured card, « Read the guide → » underlines on hover (25/11). */
-.feat:hover .go{text-decoration:underline}
+/* On the featured card, « Read » underlines on hover, not the arrow (25/11). */
+.feat:hover .go .u{text-decoration:underline}
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:36px}
 .card{display:flex;flex-direction:column;background:#fff;border-radius:22px;overflow:hidden;color:#08403c;transition:transform .25s ease,box-shadow .25s ease}
 /* Hover (25/11): the card lifts a little and its photo zooms in slowly, instead
@@ -223,7 +223,7 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
           <span class="t">Quelle taille de planche de surf quand on débute ?</span>
           <span class="x">Longueur, volume, poids : comment choisir une planche de surf adaptée quand on débute, et pourquoi plus grand rime avec plus de vagues.</span>
           <span class="muted">L'équipe Foamies · 5 min de lecture · 22 novembre 2026</span>
-          <span class="go">Lire →</span>
+          <span class="go"><span class="u">Lire</span> →</span>
         </div>
       </a>
       <div class="grid">

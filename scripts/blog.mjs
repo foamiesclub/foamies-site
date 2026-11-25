@@ -196,8 +196,8 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .feat .t{font:400 34px/1.1 'Fjalla One'}
 .feat .x{font:500 16px/1.5 'Quicksand';color:#2f5753;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .go{font:700 16px 'Quicksand';color:#c44a1a;text-underline-offset:4px}
-/* On the featured card, « Read the guide → » underlines on hover (25/11). */
-.feat:hover .go{text-decoration:underline}
+/* On the featured card, « Read » underlines on hover, not the arrow (25/11). */
+.feat:hover .go .u{text-decoration:underline}
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:36px}
 .card{display:flex;flex-direction:column;background:#fff;border-radius:22px;overflow:hidden;color:#08403c;transition:transform .25s ease,box-shadow .25s ease}
 /* Hover (25/11): the card lifts a little and its photo zooms in slowly, instead
@@ -574,7 +574,7 @@ function listPage(posts, lang, fam = null) {
           <span class="t">${esc(first[`title_${lang}`])}</span>
           <span class="x">${esc(first[`excerpt_${lang}`] || first[`meta_description_${lang}`] || "")}</span>
           <span class="muted">${esc(first.author)} · ${readLabel(first, lang)} · ${date(when(first), lang)}</span>
-          <span class="go">${esc(t.read)} →</span>
+          <span class="go"><span class="u">${esc(t.read)}</span> →</span>
         </div>
       </a>` : "";
   const cards = fam ? shown : rest;
