@@ -177,10 +177,13 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .art .sun{position:absolute;left:0;bottom:0;width:130px}
 .art .flo{position:absolute;right:-10px;top:-24px;width:290px;transform:rotate(-6deg)}
 .filters{display:flex;flex-wrap:wrap;gap:10px;padding-bottom:22px;border-bottom:1px solid #E6DED0}
-.filters a{border-radius:22px;padding:10px 18px;font:700 15px 'Quicksand';color:#08403c;background:#fff;border:1.5px solid transparent}
-.filters a.on{background:#08403c;color:#fff}
-.filters a.f-spots{background:#d7e7e9}.filters a.f-guides{background:#F6DCCD}.filters a.f-debuter{border-color:#08403c}
-.filters a.on.f-spots,.filters a.on.f-guides,.filters a.on.f-debuter{background:#08403c;color:#fff}
+/* Filters look like filters (25/11): all alike, white with a light outline, the
+   chosen one filled in teal. The family colours stay on the article tags only. */
+.filters a{display:inline-flex;align-items:center;gap:8px;border-radius:22px;padding:9px 16px;font:700 15px 'Quicksand';color:#08403c;background:#fff;border:1.5px solid #D9D0C1;transition:border-color .15s,background .15s}
+.filters a:hover{border-color:#08403c}
+.filters a .n{font-weight:600;font-size:13px;color:#7a8f8b}
+.filters a.on{background:#08403c;border-color:#08403c;color:#fff}
+.filters a.on .n{color:rgba(255,255,255,.75)}
 .feat{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);background:#d7e7e9;border-radius:28px;overflow:hidden;color:#08403c;margin-top:36px}
 .feat:hover{color:#08403c}
 .feat .img{min-height:360px}.feat .img img,.feat .img .ph{width:100%;height:100%;object-fit:cover;display:block}
@@ -544,8 +547,8 @@ function listPage(posts, lang, fam = null) {
   const shown = fam ? posts.filter((p) => familyOf(p) === fam) : posts;
   const count = (f) => posts.filter((p) => familyOf(p) === f).length;
   const filters = `<nav class="filters">
-      <a href="${t.blog}" class="${fam ? "" : "on"}">${esc(t.all)} · ${posts.length}</a>
-      ${Object.keys(FAMILIES).filter((f) => count(f) > 0 || f === fam).map((f) => `<a href="${familyUrl(f, lang)}" class="f-${f}${fam === f ? " on" : ""}">${esc(FAMILIES[f].label[lang])} · ${count(f)}</a>`).join("\n      ")}
+      <a href="${t.blog}" class="${fam ? "" : "on"}"${fam ? "" : ' aria-current="page"'}>${esc(t.all)} <span class="n">${posts.length}</span></a>
+      ${Object.keys(FAMILIES).filter((f) => count(f) > 0 || f === fam).map((f) => `<a href="${familyUrl(f, lang)}" class="f-${f}${fam === f ? " on" : ""}"${fam === f ? ' aria-current="page"' : ""}>${esc(FAMILIES[f].label[lang])} <span class="n">${count(f)}</span></a>`).join("\n      ")}
     </nav>`;
   // On the full list the newest article is featured; a family page lists all.
   const [first, ...rest] = shown;
