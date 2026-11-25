@@ -49,7 +49,7 @@ const T = {
   en: {
     home: "/", blog: "/blog/", lang: "en", locale: "en_GB",
     back: "← Back to Foamies", blogTitle: "The Foamies blog",
-    blogIntro: "Surf spots, tips for beginners and stories from the Foamies community.",
+    blogIntro: "Surf spots, tips for beginners and stories from the Foamies Club community.",
     eyebrow: "Blog", read: "Read", empty: "First articles coming soon.",
     by: "By", other: "Lire en français", allPosts: "← All articles",
     ctaTitle: "Ready to go?",
@@ -62,7 +62,7 @@ const T = {
   fr: {
     home: "/fr/", blog: "/fr/blog/", lang: "fr", locale: "fr_FR",
     back: "← Retour sur Foamies", blogTitle: "Le blog Foamies",
-    blogIntro: "Spots de surf, conseils pour débuter et histoires de la communauté Foamies.",
+    blogIntro: "Spots de surf, conseils pour débuter et histoires de la communauté Foamies Club.",
     eyebrow: "Blog", read: "Lire", empty: "Les premiers articles arrivent bientôt.",
     by: "Par", other: "Read in English", allPosts: "← Tous les articles",
     ctaTitle: "Prêt·e à y aller ?",
