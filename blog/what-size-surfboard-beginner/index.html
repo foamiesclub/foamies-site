@@ -148,8 +148,11 @@ article th{background:#08403c;color:#fff;font:400 13px 'Fjalla One';letter-spaci
 article td{text-align:left;padding:13px 18px;border-top:1px solid #EFE8DC}
 article td:first-child{font-weight:700;color:#08403c}
 .box-retenir{background:#d7e7e9;border-radius:22px;padding:22px 26px;margin:22px 0}
-.box-conseil{position:relative;background:#F6DCCD;border-radius:22px;padding:22px 26px 22px 124px;margin:22px 0;min-height:110px}
-.box-conseil img{position:absolute;left:18px;top:50%;transform:translateY(-50%) rotate(-8deg);width:88px;margin:0}
+/* Flo's tip (25/11): tighter lines, and Flo big behind the text, fading out
+   to the left like the app's watermarks. */
+.box-conseil{position:relative;overflow:hidden;background:#F6DCCD;border-radius:22px;padding:22px 26px;margin:22px 0;line-height:1.55}
+.box-conseil img{position:absolute;right:-36px;top:50%;transform:translateY(-50%) rotate(-10deg);width:220px;margin:0;opacity:.22;pointer-events:none;-webkit-mask-image:linear-gradient(to left,#000 35%,transparent 95%);mask-image:linear-gradient(to left,#000 35%,transparent 95%)}
+.box-conseil>*:not(img){position:relative}
 .box-app{background:#08403c;color:#fff;border-radius:22px;padding:22px 26px;margin:22px 0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center}
 .box-app p{margin:0;font:400 24px/1.2 'Fjalla One';color:#fff}
 .box-h{display:flex;align-items:center;gap:8px;font:400 14px 'Fjalla One';letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;color:#08403c}
@@ -184,7 +187,7 @@ footer a{color:#fff}
    tablet, one per row on a phone — the small side-by-side rows were cramped. */
 .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{border-radius:20px}.card .txt{padding:16px 18px 20px;gap:8px}.card .t{font-size:22px}
 .band{grid-template-columns:1fr;padding:24px;text-align:left}.band .wm{width:260px;right:-60px;top:-40px}
-article{font-size:18px}article h2{font-size:28px}article table{display:block;overflow-x:auto;font-size:14px}.box-conseil{padding-left:26px}.box-conseil img{display:none}.box-app{grid-template-columns:1fr}
+article{font-size:18px}article h2{font-size:28px}article table{display:block;overflow-x:auto;font-size:14px}.box-conseil img{width:170px;right:-40px}.box-app{grid-template-columns:1fr}
 .spot{grid-template-columns:1fr 1fr}.next h2{font-size:30px}}
 @media(max-width:560px){.grid{grid-template-columns:1fr;gap:16px}.card .t{font-size:24px}}</style>
   <script src="/assets/consent.js" defer></script>
