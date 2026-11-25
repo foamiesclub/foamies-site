@@ -115,11 +115,25 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .cov{position:relative}.cov .c{aspect-ratio:16/10;border-radius:28px;overflow:hidden;background:#d7e7e9}
 .cov .c img{width:100%;height:100%;object-fit:cover;display:block}
 .body{display:grid;grid-template-columns:240px minmax(0,720px) minmax(0,1fr);gap:64px;align-items:start}
-.toc{position:sticky;top:84px;display:flex;flex-direction:column;gap:14px}
-.toc .box{background:#fff;border-radius:20px;padding:18px}
-.toc .h{font:400 13px 'Fjalla One';letter-spacing:.12em;color:#5b7470;text-transform:uppercase;display:block;padding-bottom:6px}
-.toc ol{list-style:none}.toc li a{display:flex;gap:10px;padding:6px 0;font:600 15px/1.35 'Quicksand';color:#08403c}
-.toc li a span{font:400 14px 'Fjalla One';color:#c44a1a}
+/* Contents, version A (25/11): no box, a thin line, and the part being read
+   in bold with an orange mark (script at the bottom of the article). */
+.toc{position:sticky;top:96px;display:flex;flex-direction:column;gap:18px}
+.toc .h{font:400 13px 'Fjalla One';letter-spacing:.12em;color:#5b7470;text-transform:uppercase;display:block;padding-bottom:10px}
+.toc ol{list-style:none;border-left:2px solid #E6DED0}
+.toc li a{display:block;margin-left:-2px;padding:7px 0 7px 16px;border-left:2px solid transparent;font:600 15px/1.35 'Quicksand';color:#5b7470;transition:color .15s,border-color .15s}
+.toc li a:hover{color:#08403c}
+.toc li a.cur{color:#08403c;font-weight:700;border-left-color:#c44a1a}
+.toc li a span{display:none}
+/* Contents, version C (25/11): « In this guide » at the top of the article,
+   numbered, folded on phones. Shown on phones; on a computer only with ?toc=c. */
+.toc-c{background:#fff;border-radius:20px;padding:16px 20px;margin:0 0 26px}
+.toc-c summary{display:flex;align-items:center;justify-content:space-between;font:400 14px 'Fjalla One';letter-spacing:.12em;text-transform:uppercase;color:#08403c}
+.toc-c summary::after{content:"▾";font-size:16px;transition:transform .2s}.toc-c[open] summary::after{transform:rotate(180deg)}
+.toc-c ol{list-style:none;margin:12px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 20px}
+.toc-c li a{display:flex;gap:10px;padding:6px 0;font:600 15px/1.35 'Quicksand';color:#08403c}
+.toc-c li a span{font:400 14px 'Fjalla One';color:#c44a1a}
+html:not(.toc-c-on) .toc-c{display:none}
+html.toc-c-on .toc{display:none}html.toc-c-on .body{grid-template-columns:minmax(0,720px);justify-content:center}
 .pills{display:flex;flex-wrap:wrap;gap:8px;font:700 13px 'Quicksand'}
 .pills a,.pills button{border:1.5px solid #08403c;border-radius:12px;padding:7px 12px;color:#08403c;background:none;font:inherit;cursor:pointer}
 article{font:500 19px/1.75 'Quicksand';color:#1f4a46}
@@ -163,7 +177,7 @@ footer{background:#08403c;color:#bfe0e6}
 .foot{max-width:1240px;margin:0 auto;padding:28px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font:600 13px 'Quicksand'}
 .foot img{height:40px;width:auto;display:block}
 footer a{color:#fff}
-@media(max-width:1100px){.body{grid-template-columns:minmax(0,1fr)}.toc{display:none}.ahero{grid-template-columns:1fr}.ahero .cov{order:-1}}
+@media(max-width:1100px){.body{grid-template-columns:minmax(0,1fr)}.toc{display:none}html:not(.toc-c-on) .toc-c{display:block}.toc-c ol{grid-template-columns:1fr}.ahero{grid-template-columns:1fr}.ahero .cov{order:-1}}
 @media(max-width:860px){h1,.ahero h1{font-size:40px}.hero{grid-template-columns:1fr;position:relative}.art{display:none}
 .filters{flex-wrap:nowrap;overflow-x:auto;margin:0 -24px;padding:0 24px 18px}.filters a{flex:none}
 .feat{grid-template-columns:1fr}.feat .img{min-height:0;max-height:none;aspect-ratio:16/9}.feat .txt{padding:20px}.feat .t{font-size:26px}
@@ -215,10 +229,11 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
       </div>
       <div class="body">
         <nav class="toc">
-          <div class="box"><span class="h">Contents</span><ol><li><a href="#winter-surfing-in-europe-what-changes-from-november-to-march"><span>01</span>Winter Surfing in Europe: What Changes from November to March</a></li><li><a href="#canary-islands-warm-water-winter-surf"><span>02</span>Canary Islands: Warm-Water Winter Surf</a></li><li><a href="#portugal-ericeira-peniche-and-sagres"><span>03</span>Portugal: Ericeira, Peniche and Sagres</a></li><li><a href="#basque-country-and-southwest-france-for-seasoned-surfers"><span>04</span>Basque Country and Southwest France: For Seasoned Surfers</a></li><li><a href="#where-to-surf-in-europe-month-by-month"><span>05</span>Where to Surf in Europe, Month by Month</a></li><li><a href="#which-spot-for-which-level-quick-comparison"><span>06</span>Which Spot for Which Level? Quick Comparison</a></li><li><a href="#staying-safe-when-you-surf-in-winter"><span>07</span>Staying Safe When You Surf in Winter</a></li><li><a href="#faq"><span>08</span>FAQ</a></li></ol></div>
+          <span class="h">Contents</span><ol><li><a href="#winter-surfing-in-europe-what-changes-from-november-to-march"><span>01</span>Winter Surfing in Europe: What Changes from November to March</a></li><li><a href="#canary-islands-warm-water-winter-surf"><span>02</span>Canary Islands: Warm-Water Winter Surf</a></li><li><a href="#portugal-ericeira-peniche-and-sagres"><span>03</span>Portugal: Ericeira, Peniche and Sagres</a></li><li><a href="#basque-country-and-southwest-france-for-seasoned-surfers"><span>04</span>Basque Country and Southwest France: For Seasoned Surfers</a></li><li><a href="#where-to-surf-in-europe-month-by-month"><span>05</span>Where to Surf in Europe, Month by Month</a></li><li><a href="#which-spot-for-which-level-quick-comparison"><span>06</span>Which Spot for Which Level? Quick Comparison</a></li><li><a href="#staying-safe-when-you-surf-in-winter"><span>07</span>Staying Safe When You Surf in Winter</a></li><li><a href="#faq"><span>08</span>FAQ</a></li></ol>
           <div class="pills"><a href="https://foamiesclub.com/fr/blog/surf-hiver-europe-novembre-mars/" hreflang="fr">Lire en français</a></div>
         </nav>
         <article>
+          <details class="toc-c" open><summary>In this guide</summary><ol><li><a href="#winter-surfing-in-europe-what-changes-from-november-to-march"><span>01</span>Winter Surfing in Europe: What Changes from November to March</a></li><li><a href="#canary-islands-warm-water-winter-surf"><span>02</span>Canary Islands: Warm-Water Winter Surf</a></li><li><a href="#portugal-ericeira-peniche-and-sagres"><span>03</span>Portugal: Ericeira, Peniche and Sagres</a></li><li><a href="#basque-country-and-southwest-france-for-seasoned-surfers"><span>04</span>Basque Country and Southwest France: For Seasoned Surfers</a></li><li><a href="#where-to-surf-in-europe-month-by-month"><span>05</span>Where to Surf in Europe, Month by Month</a></li><li><a href="#which-spot-for-which-level-quick-comparison"><span>06</span>Which Spot for Which Level? Quick Comparison</a></li><li><a href="#staying-safe-when-you-surf-in-winter"><span>07</span>Staying Safe When You Surf in Winter</a></li><li><a href="#faq"><span>08</span>FAQ</a></li></ol></details>
           <p>If you are a beginner or an intermediate looking for winter surfing in Europe, the Canary Islands are the easiest pick: water around 18°C and plenty of sandy beaches to learn on. Portugal is a great second choice if you can handle cooler water. The Basque Country and southwest France also work, but the water is cold and the swell is often too big for newer surfers.</p>
 <p>Winter is when the big North Atlantic swells arrive. You get waves more often than in summer, but they also carry a lot more power. So the real question is not where to find waves, it is where to find waves that match your level.</p>
 <h2 id="winter-surfing-in-europe-what-changes-from-november-to-march">Winter Surfing in Europe: What Changes from November to March</h2>
@@ -331,6 +346,16 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
       <a class="btn" href="/app/">Plan my session</a>
     </aside>
         </article>
+        <script>
+        // ?toc=c shows version C on a computer too, to compare (25/11).
+        (function(){var d=document.documentElement;if(/[?&]toc=c/.test(location.search))d.classList.add("toc-c-on");
+        var c=document.querySelector(".toc-c");if(c&&!d.classList.contains("toc-c-on")&&matchMedia("(max-width:1100px)").matches)c.removeAttribute("open");
+        // Version A: the part being read, in bold with an orange mark.
+        var links=[].slice.call(document.querySelectorAll(".toc li a"));if(!links.length||!("IntersectionObserver" in window))return;
+        var byId={};links.forEach(function(a){byId[a.getAttribute("href").slice(1)]=a;});
+        var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove("cur");});var a=byId[e.target.id];if(a)a.classList.add("cur");}});},{rootMargin:"-90px 0px -70% 0px"});
+        Object.keys(byId).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h);});})();
+        </script>
         <div></div>
       </div>
     </div>

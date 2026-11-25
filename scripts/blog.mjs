@@ -56,7 +56,7 @@ const T = {
     ctaText: "Plan your session on Foamies Club and find surfers to join you.",
     ctaButton: "Plan my session", related: "Read next",
     navFeatures: "features", navPros: "for pros", navFounders: "founders", navApp: "Download the app",
-    minRead: "min read", toc: "Contents", share: "Share", copyLink: "Copy link", all: "All", featured: "Featured",
+    minRead: "min read", toc: "Contents", tocInline: "In this guide", share: "Share", copyLink: "Copy link", all: "All", featured: "Featured",
     boxRetenir: "Key points", boxConseil: "Flo's tip", boxApp: "In the Foamies app", fromBlog: "From the blog", terms: "Terms of use", homeLink: "Home", rss: "RSS",
   },
   fr: {
@@ -69,7 +69,7 @@ const T = {
     ctaText: "Planifie ta session sur Foamies Club et trouve des surfeurs pour t'accompagner.",
     ctaButton: "Planifier ma session", related: "À lire aussi",
     navFeatures: "fonctionnalités", navPros: "pour les pros", navFounders: "les fondatrices", navApp: "Télécharger l'app",
-    minRead: "min de lecture", toc: "Sommaire", share: "Partager", copyLink: "Copier le lien", all: "Tout", featured: "À la une",
+    minRead: "min de lecture", toc: "Sommaire", tocInline: "Au programme", share: "Partager", copyLink: "Copier le lien", all: "Tout", featured: "À la une",
     boxRetenir: "À retenir", boxConseil: "Le conseil de Flo", boxApp: "Dans l'app Foamies", fromBlog: "Sur le blog", terms: "Conditions d'utilisation", homeLink: "Accueil", rss: "RSS",
   },
 };
@@ -227,11 +227,25 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .cov{position:relative}.cov .c{aspect-ratio:16/10;border-radius:28px;overflow:hidden;background:#d7e7e9}
 .cov .c img{width:100%;height:100%;object-fit:cover;display:block}
 .body{display:grid;grid-template-columns:240px minmax(0,720px) minmax(0,1fr);gap:64px;align-items:start}
-.toc{position:sticky;top:84px;display:flex;flex-direction:column;gap:14px}
-.toc .box{background:#fff;border-radius:20px;padding:18px}
-.toc .h{font:400 13px 'Fjalla One';letter-spacing:.12em;color:#5b7470;text-transform:uppercase;display:block;padding-bottom:6px}
-.toc ol{list-style:none}.toc li a{display:flex;gap:10px;padding:6px 0;font:600 15px/1.35 'Quicksand';color:#08403c}
-.toc li a span{font:400 14px 'Fjalla One';color:#c44a1a}
+/* Contents, version A (25/11): no box, a thin line, and the part being read
+   in bold with an orange mark (script at the bottom of the article). */
+.toc{position:sticky;top:96px;display:flex;flex-direction:column;gap:18px}
+.toc .h{font:400 13px 'Fjalla One';letter-spacing:.12em;color:#5b7470;text-transform:uppercase;display:block;padding-bottom:10px}
+.toc ol{list-style:none;border-left:2px solid #E6DED0}
+.toc li a{display:block;margin-left:-2px;padding:7px 0 7px 16px;border-left:2px solid transparent;font:600 15px/1.35 'Quicksand';color:#5b7470;transition:color .15s,border-color .15s}
+.toc li a:hover{color:#08403c}
+.toc li a.cur{color:#08403c;font-weight:700;border-left-color:#c44a1a}
+.toc li a span{display:none}
+/* Contents, version C (25/11): « In this guide » at the top of the article,
+   numbered, folded on phones. Shown on phones; on a computer only with ?toc=c. */
+.toc-c{background:#fff;border-radius:20px;padding:16px 20px;margin:0 0 26px}
+.toc-c summary{display:flex;align-items:center;justify-content:space-between;font:400 14px 'Fjalla One';letter-spacing:.12em;text-transform:uppercase;color:#08403c}
+.toc-c summary::after{content:"▾";font-size:16px;transition:transform .2s}.toc-c[open] summary::after{transform:rotate(180deg)}
+.toc-c ol{list-style:none;margin:12px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 20px}
+.toc-c li a{display:flex;gap:10px;padding:6px 0;font:600 15px/1.35 'Quicksand';color:#08403c}
+.toc-c li a span{font:400 14px 'Fjalla One';color:#c44a1a}
+html:not(.toc-c-on) .toc-c{display:none}
+html.toc-c-on .toc{display:none}html.toc-c-on .body{grid-template-columns:minmax(0,720px);justify-content:center}
 .pills{display:flex;flex-wrap:wrap;gap:8px;font:700 13px 'Quicksand'}
 .pills a,.pills button{border:1.5px solid #08403c;border-radius:12px;padding:7px 12px;color:#08403c;background:none;font:inherit;cursor:pointer}
 article{font:500 19px/1.75 'Quicksand';color:#1f4a46}
@@ -275,7 +289,7 @@ footer{background:#08403c;color:#bfe0e6}
 .foot{max-width:1240px;margin:0 auto;padding:28px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font:600 13px 'Quicksand'}
 .foot img{height:40px;width:auto;display:block}
 footer a{color:#fff}
-@media(max-width:1100px){.body{grid-template-columns:minmax(0,1fr)}.toc{display:none}.ahero{grid-template-columns:1fr}.ahero .cov{order:-1}}
+@media(max-width:1100px){.body{grid-template-columns:minmax(0,1fr)}.toc{display:none}html:not(.toc-c-on) .toc-c{display:block}.toc-c ol{grid-template-columns:1fr}.ahero{grid-template-columns:1fr}.ahero .cov{order:-1}}
 @media(max-width:860px){h1,.ahero h1{font-size:40px}.hero{grid-template-columns:1fr;position:relative}.art{display:none}
 .filters{flex-wrap:nowrap;overflow-x:auto;margin:0 -24px;padding:0 24px 18px}.filters a{flex:none}
 .feat{grid-template-columns:1fr}.feat .img{min-height:0;max-height:none;aspect-ratio:16/9}.feat .txt{padding:20px}.feat .t{font-size:26px}
@@ -538,15 +552,26 @@ function articlePage(p, lang, posts) {
       </div>
       <div class="body">
         <nav class="toc">
-          ${list ? `<div class="box"><span class="h">${esc(t.toc)}</span>${list}</div>` : ""}
+          ${list ? `<span class="h">${esc(t.toc)}</span>${list}` : ""}
           <div class="pills"><a href="${postUrl(p, other)}" hreflang="${other}">${esc(t.other)}</a></div>
         </nav>
         <article>
+          ${list ? `<details class="toc-c" open><summary>${esc(t.tocInline)}</summary>${list}</details>` : ""}
           ${html}
           <!-- TODO bios : Lorène et Théa écriront leurs deux lignes de présentation (bloc auteures de la maquette Claude Design), à mettre ici. -->
           <div class="after pills"><span class="muted">${esc(t.share)}</span>${share}<a href="${postUrl(p, other)}" hreflang="${other}" style="margin-left:auto">${esc(t.other)}</a></div>
           ${cta(lang)}
         </article>
+        <script>
+        // ?toc=c shows version C on a computer too, to compare (25/11).
+        (function(){var d=document.documentElement;if(/[?&]toc=c\b/.test(location.search))d.classList.add("toc-c-on");
+        var c=document.querySelector(".toc-c");if(c&&!d.classList.contains("toc-c-on")&&matchMedia("(max-width:1100px)").matches)c.removeAttribute("open");
+        // Version A: the part being read, in bold with an orange mark.
+        var links=[].slice.call(document.querySelectorAll(".toc li a"));if(!links.length||!("IntersectionObserver" in window))return;
+        var byId={};links.forEach(function(a){byId[a.getAttribute("href").slice(1)]=a;});
+        var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove("cur");});var a=byId[e.target.id];if(a)a.classList.add("cur");}});},{rootMargin:"-90px 0px -70% 0px"});
+        Object.keys(byId).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h);});})();
+        </script>
         <div></div>
       </div>
     </div>

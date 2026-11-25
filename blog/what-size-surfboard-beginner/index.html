@@ -115,11 +115,25 @@ h1{font:400 64px/1.04 'Fjalla One',sans-serif;color:#08403c;text-wrap:balance}
 .cov{position:relative}.cov .c{aspect-ratio:16/10;border-radius:28px;overflow:hidden;background:#d7e7e9}
 .cov .c img{width:100%;height:100%;object-fit:cover;display:block}
 .body{display:grid;grid-template-columns:240px minmax(0,720px) minmax(0,1fr);gap:64px;align-items:start}
-.toc{position:sticky;top:84px;display:flex;flex-direction:column;gap:14px}
-.toc .box{background:#fff;border-radius:20px;padding:18px}
-.toc .h{font:400 13px 'Fjalla One';letter-spacing:.12em;color:#5b7470;text-transform:uppercase;display:block;padding-bottom:6px}
-.toc ol{list-style:none}.toc li a{display:flex;gap:10px;padding:6px 0;font:600 15px/1.35 'Quicksand';color:#08403c}
-.toc li a span{font:400 14px 'Fjalla One';color:#c44a1a}
+/* Contents, version A (25/11): no box, a thin line, and the part being read
+   in bold with an orange mark (script at the bottom of the article). */
+.toc{position:sticky;top:96px;display:flex;flex-direction:column;gap:18px}
+.toc .h{font:400 13px 'Fjalla One';letter-spacing:.12em;color:#5b7470;text-transform:uppercase;display:block;padding-bottom:10px}
+.toc ol{list-style:none;border-left:2px solid #E6DED0}
+.toc li a{display:block;margin-left:-2px;padding:7px 0 7px 16px;border-left:2px solid transparent;font:600 15px/1.35 'Quicksand';color:#5b7470;transition:color .15s,border-color .15s}
+.toc li a:hover{color:#08403c}
+.toc li a.cur{color:#08403c;font-weight:700;border-left-color:#c44a1a}
+.toc li a span{display:none}
+/* Contents, version C (25/11): « In this guide » at the top of the article,
+   numbered, folded on phones. Shown on phones; on a computer only with ?toc=c. */
+.toc-c{background:#fff;border-radius:20px;padding:16px 20px;margin:0 0 26px}
+.toc-c summary{display:flex;align-items:center;justify-content:space-between;font:400 14px 'Fjalla One';letter-spacing:.12em;text-transform:uppercase;color:#08403c}
+.toc-c summary::after{content:"▾";font-size:16px;transition:transform .2s}.toc-c[open] summary::after{transform:rotate(180deg)}
+.toc-c ol{list-style:none;margin:12px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 20px}
+.toc-c li a{display:flex;gap:10px;padding:6px 0;font:600 15px/1.35 'Quicksand';color:#08403c}
+.toc-c li a span{font:400 14px 'Fjalla One';color:#c44a1a}
+html:not(.toc-c-on) .toc-c{display:none}
+html.toc-c-on .toc{display:none}html.toc-c-on .body{grid-template-columns:minmax(0,720px);justify-content:center}
 .pills{display:flex;flex-wrap:wrap;gap:8px;font:700 13px 'Quicksand'}
 .pills a,.pills button{border:1.5px solid #08403c;border-radius:12px;padding:7px 12px;color:#08403c;background:none;font:inherit;cursor:pointer}
 article{font:500 19px/1.75 'Quicksand';color:#1f4a46}
@@ -163,7 +177,7 @@ footer{background:#08403c;color:#bfe0e6}
 .foot{max-width:1240px;margin:0 auto;padding:28px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font:600 13px 'Quicksand'}
 .foot img{height:40px;width:auto;display:block}
 footer a{color:#fff}
-@media(max-width:1100px){.body{grid-template-columns:minmax(0,1fr)}.toc{display:none}.ahero{grid-template-columns:1fr}.ahero .cov{order:-1}}
+@media(max-width:1100px){.body{grid-template-columns:minmax(0,1fr)}.toc{display:none}html:not(.toc-c-on) .toc-c{display:block}.toc-c ol{grid-template-columns:1fr}.ahero{grid-template-columns:1fr}.ahero .cov{order:-1}}
 @media(max-width:860px){h1,.ahero h1{font-size:40px}.hero{grid-template-columns:1fr;position:relative}.art{display:none}
 .filters{flex-wrap:nowrap;overflow-x:auto;margin:0 -24px;padding:0 24px 18px}.filters a{flex:none}
 .feat{grid-template-columns:1fr}.feat .img{min-height:0;max-height:none;aspect-ratio:16/9}.feat .txt{padding:20px}.feat .t{font-size:26px}
@@ -215,10 +229,11 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
       </div>
       <div class="body">
         <nav class="toc">
-          <div class="box"><span class="h">Contents</span><ol><li><a href="#why-beginners-need-a-big-board"><span>01</span>Why beginners need a big board</a></li><li><a href="#length-volume-width-what-really-matters"><span>02</span>Length, volume, width: what really matters</a></li><li><a href="#surfboard-size-by-weight"><span>03</span>Surfboard size by weight</a></li><li><a href="#foam-board-mini-mal-or-longboard"><span>04</span>Foam board, mini-mal or longboard?</a></li><li><a href="#the-waves-matter-too"><span>05</span>The waves matter too</a></li><li><a href="#rent-before-you-buy"><span>06</span>Rent before you buy</a></li><li><a href="#when-to-move-to-a-smaller-board"><span>07</span>When to move to a smaller board</a></li><li><a href="#faq"><span>08</span>FAQ</a></li></ol></div>
+          <span class="h">Contents</span><ol><li><a href="#why-beginners-need-a-big-board"><span>01</span>Why beginners need a big board</a></li><li><a href="#length-volume-width-what-really-matters"><span>02</span>Length, volume, width: what really matters</a></li><li><a href="#surfboard-size-by-weight"><span>03</span>Surfboard size by weight</a></li><li><a href="#foam-board-mini-mal-or-longboard"><span>04</span>Foam board, mini-mal or longboard?</a></li><li><a href="#the-waves-matter-too"><span>05</span>The waves matter too</a></li><li><a href="#rent-before-you-buy"><span>06</span>Rent before you buy</a></li><li><a href="#when-to-move-to-a-smaller-board"><span>07</span>When to move to a smaller board</a></li><li><a href="#faq"><span>08</span>FAQ</a></li></ol>
           <div class="pills"><a href="https://foamiesclub.com/fr/blog/taille-planche-surf-debutant/" hreflang="fr">Lire en français</a></div>
         </nav>
         <article>
+          <details class="toc-c" open><summary>In this guide</summary><ol><li><a href="#why-beginners-need-a-big-board"><span>01</span>Why beginners need a big board</a></li><li><a href="#length-volume-width-what-really-matters"><span>02</span>Length, volume, width: what really matters</a></li><li><a href="#surfboard-size-by-weight"><span>03</span>Surfboard size by weight</a></li><li><a href="#foam-board-mini-mal-or-longboard"><span>04</span>Foam board, mini-mal or longboard?</a></li><li><a href="#the-waves-matter-too"><span>05</span>The waves matter too</a></li><li><a href="#rent-before-you-buy"><span>06</span>Rent before you buy</a></li><li><a href="#when-to-move-to-a-smaller-board"><span>07</span>When to move to a smaller board</a></li><li><a href="#faq"><span>08</span>FAQ</a></li></ol></details>
           <p>For a beginner, the right surfboard is <strong>bigger and has more volume</strong> than most people expect: usually 7 to 9 feet long, with plenty of float. A board that is too small is the number one reason people struggle to stand up. Here is how to pick the right size for your weight, height and the waves you surf.</p>
 <h2 id="why-beginners-need-a-big-board">Why beginners need a big board</h2>
 <p>When you start, everything happens before you even stand up: paddling, catching the wave, staying balanced. A long, thick board <strong>floats more</strong>, paddles faster and forgives small balance mistakes.</p>
@@ -293,6 +308,16 @@ article{font-size:18px}article h2{font-size:28px}article table{display:block;ove
       <a class="btn" href="/app/">Plan my session</a>
     </aside>
         </article>
+        <script>
+        // ?toc=c shows version C on a computer too, to compare (25/11).
+        (function(){var d=document.documentElement;if(/[?&]toc=c/.test(location.search))d.classList.add("toc-c-on");
+        var c=document.querySelector(".toc-c");if(c&&!d.classList.contains("toc-c-on")&&matchMedia("(max-width:1100px)").matches)c.removeAttribute("open");
+        // Version A: the part being read, in bold with an orange mark.
+        var links=[].slice.call(document.querySelectorAll(".toc li a"));if(!links.length||!("IntersectionObserver" in window))return;
+        var byId={};links.forEach(function(a){byId[a.getAttribute("href").slice(1)]=a;});
+        var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove("cur");});var a=byId[e.target.id];if(a)a.classList.add("cur");}});},{rootMargin:"-90px 0px -70% 0px"});
+        Object.keys(byId).forEach(function(id){var h=document.getElementById(id);if(h)io.observe(h);});})();
+        </script>
         <div></div>
       </div>
     </div>
