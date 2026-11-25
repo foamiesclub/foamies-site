@@ -552,7 +552,7 @@ function articlePage(p, lang, posts) {
   const list = tocHtml(toc, lang);
   const share = `<a href="https://wa.me/?text=${encodeURIComponent(`${title} ${url}`)}" rel="noopener" target="_blank">WhatsApp</a><button type="button" onclick="navigator.clipboard&&navigator.clipboard.writeText('${url}').then(()=>{this.textContent='✓'})">${esc(t.copyLink)}</button>`;
   const body = `    <div class="wrap">
-      <nav class="crumbs"><a href="${home}">${esc(t.homeLink)}</a> › <a href="${t.blog}">${esc(t.eyebrow)}</a> › <a href="${familyUrl(fam, lang)}">${esc(FAMILIES[fam].label[lang])}</a></nav>
+      <nav class="crumbs"><a href="${t.blog}">${esc(t.eyebrow)}</a> › <a href="${familyUrl(fam, lang)}">${esc(FAMILIES[fam].label[lang])}</a></nav>
       <div class="ahero">
         <div>
           ${tag(fam, lang)}
@@ -620,7 +620,7 @@ function listPage(posts, lang, fam = null) {
   const more = cards.slice(3).map((p) => card(p, lang)).join("\n      ");
   const h1 = fam ? FAMILIES[fam].label[lang] : t.blogTitle;
   const body = `    <div class="wrap">
-      ${fam ? `<nav class="crumbs"><a href="${home}">${esc(t.homeLink)}</a> › <a href="${t.blog}">${esc(t.eyebrow)}</a> › <span>${esc(h1)}</span></nav>` : ""}
+      ${fam ? `<nav class="crumbs"><a href="${t.blog}">${esc(t.eyebrow)}</a> › <span>${esc(h1)}</span></nav>` : ""}
       <div class="hero">
         <div class="htxt">
           ${fam ? `<div class="eyebrow">${esc(t.blogTitle)}</div>` : ""}
