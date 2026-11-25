@@ -164,21 +164,43 @@
   
 
   <!-- blog:latest:start -->
-  <section id="latest-articles" style="background:#fff;">
+  <style>
+    #latest-articles .fm-latest-card{display:flex;flex-direction:column;background:#fff;border-radius:22px;overflow:hidden;color:#08403c;box-shadow:0 1px 0 #E6DED0}
+    #latest-articles .fm-latest-card .img{aspect-ratio:16/10;overflow:hidden;background:#d7e7e9}
+    #latest-articles .fm-latest-card .img img{width:100%;height:100%;object-fit:cover;display:block;border-radius:0;aspect-ratio:auto}
+    #latest-articles .fm-latest-card .txt{padding:18px 22px 24px;display:flex;flex-direction:column;gap:10px}
+    #latest-articles .fm-latest-card h3{margin:0;font:400 24px/1.15 'Fjalla One','Fredoka',sans-serif}
+    #latest-articles .fm-tag{display:inline-block;border-radius:9px;padding:4px 9px;font:400 12px 'Fjalla One',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#08403c}
+    #latest-articles .fm-tag-spots{background:#d7e7e9}#latest-articles .fm-tag-guides{background:#F6DCCD}#latest-articles .fm-tag-debuter{background:#08403c;color:#fff}
+    #latest-articles .fm-min{font:600 14px 'Quicksand',sans-serif;color:#5b7470}
+  </style>
+  <section id="latest-articles" style="background:#f5f0e8;">
     <div class="fm-latest fm-padx">
       <h2>From the blog</h2>
       <div class="fm-latest-grid">
         <a class="fm-latest-card" href="https://foamiesclub.com/blog/what-size-surfboard-beginner/">
-          <img src="https://mcqifvsdnfwaxapnlibg.supabase.co/storage/v1/render/image/public/blog/covers/d889c1f2-685c-4282-a3b7-2e0735505f47.jpg?width=800&amp;resize=contain&amp;quality=70" alt="" width="1200" height="630" loading="lazy">
-          <h3>What Size Surfboard Should a Beginner Get? (Size Chart)</h3>
+          <div class="img"><img src="https://mcqifvsdnfwaxapnlibg.supabase.co/storage/v1/render/image/public/blog/covers/d889c1f2-685c-4282-a3b7-2e0735505f47.jpg?width=800&amp;resize=contain&amp;quality=70" alt="" width="800" height="500" loading="lazy"></div>
+          <div class="txt">
+            <div><span class="fm-tag fm-tag-debuter">Beginners</span></div>
+            <h3>What Size Surfboard Should a Beginner Get? (Size Chart)</h3>
+            <span class="fm-min">5 min read</span>
+          </div>
         </a>
         <a class="fm-latest-card" href="https://foamiesclub.com/blog/surfing-portugal-winter-peniche-ericeira/">
-          <img src="https://mcqifvsdnfwaxapnlibg.supabase.co/storage/v1/render/image/public/blog/covers/87ffe635-a8e9-48dc-894b-ce31fba7b58b.jpg?width=800&amp;resize=contain&amp;quality=70" alt="" width="1200" height="630" loading="lazy">
-          <h3>Surfing Portugal in Winter: Peniche, Baleal and Ericeira</h3>
+          <div class="img"><img src="https://mcqifvsdnfwaxapnlibg.supabase.co/storage/v1/render/image/public/blog/covers/87ffe635-a8e9-48dc-894b-ce31fba7b58b.jpg?width=800&amp;resize=contain&amp;quality=70" alt="" width="800" height="500" loading="lazy"></div>
+          <div class="txt">
+            <div><span class="fm-tag fm-tag-spots">Spots &amp; trips</span></div>
+            <h3>Surfing Portugal in Winter: Peniche, Baleal and Ericeira</h3>
+            <span class="fm-min">8 min read</span>
+          </div>
         </a>
         <a class="fm-latest-card" href="https://foamiesclub.com/blog/surfing-alone-tips-find-surf-buddy/">
-          <img src="https://mcqifvsdnfwaxapnlibg.supabase.co/storage/v1/render/image/public/blog/covers/859964a9-ef70-49f4-8ae6-038d1bd75fd8.jpg?width=800&amp;resize=contain&amp;quality=70" alt="" width="1200" height="630" loading="lazy">
-          <h3>Surfing Alone: When to Go and How to Enjoy It Safely</h3>
+          <div class="img"><img src="https://mcqifvsdnfwaxapnlibg.supabase.co/storage/v1/render/image/public/blog/covers/859964a9-ef70-49f4-8ae6-038d1bd75fd8.jpg?width=800&amp;resize=contain&amp;quality=70" alt="" width="800" height="500" loading="lazy"></div>
+          <div class="txt">
+            <div><span class="fm-tag fm-tag-guides">How-to guide</span></div>
+            <h3>Surfing Alone: When to Go and How to Enjoy It Safely</h3>
+            <span class="fm-min">6 min read</span>
+          </div>
         </a>
       </div>
     </div>

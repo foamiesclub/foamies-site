@@ -83,6 +83,48 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/blog/"/>
   </url>
   <url>
+    <loc>https://foamiesclub.com/blog/spots/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/blog/spots/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/blog/spots/"/>
+  </url>
+  <url>
+    <loc>https://foamiesclub.com/fr/blog/spots/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/blog/spots/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/blog/spots/"/>
+  </url>
+  <url>
+    <loc>https://foamiesclub.com/blog/how-to/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/blog/how-to/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/blog/guides-pratiques/"/>
+  </url>
+  <url>
+    <loc>https://foamiesclub.com/fr/blog/guides-pratiques/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/blog/how-to/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/blog/guides-pratiques/"/>
+  </url>
+  <url>
+    <loc>https://foamiesclub.com/blog/beginners/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/blog/beginners/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/blog/debuter/"/>
+  </url>
+  <url>
+    <loc>https://foamiesclub.com/fr/blog/debuter/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://foamiesclub.com/blog/beginners/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://foamiesclub.com/fr/blog/debuter/"/>
+  </url>
+  <url>
     <loc>https://foamiesclub.com/blog/what-size-surfboard-beginner/</loc>
     <lastmod>2026-11-19</lastmod>
     <changefreq>monthly</changefreq>
